@@ -1,3 +1,20 @@
 h1 {
     color: red;
 }
+
+.btn-toolbar {
+    display: block !important;
+}
+
+.btn-sm {
+    margin: 0px 5px 0px 5px !important;
+    width: 200px !important;
+}
+
+.specializationsDiv {
+
+}
+
+.topicsDiv {
+    margin: 10px 0px 10px 0px;
+}
