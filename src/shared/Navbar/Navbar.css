@@ -1,0 +1,13 @@
+.NavbarWrapper {
+    background: #292929;
+    color: white;
+    position: fixed;
+  }
+  
+.Selected {
+background: #2963f6;
+}
+
+.NavElement {
+padding: 10px 10px;
+}
