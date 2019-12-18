@@ -1,6 +1,7 @@
 .courseBox {
     background-color: lightblue;
     padding: 20px 2px 20px 2px;
+    background-clip: content-box;
 }
 
 p {

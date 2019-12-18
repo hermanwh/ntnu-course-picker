@@ -18,3 +18,64 @@ h1 {
 .topicsDiv {
     margin: 10px 0px 10px 0px;
 }
+
+.btn-top {
+    margin: 0px 2px 0px 2px;
+}
+
+.btn-spec {
+    margin: 0px 5px 0px 5px;
+}
+
+.btn-opt {
+    margin: 0px 2px 0px 2px;
+}
+
+.headerDiv {
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.headerContent {
+    background-color: #5a5a5a;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}
+
+
+h3 {
+    color: white;
+}
+
+h4 {
+    color: white;
+}
+
+p {
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+    
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}
+
+.semesterBox {
+    
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}
+
+.summaryContent {
+    background-color: lightblue;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}

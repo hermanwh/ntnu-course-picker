@@ -4,8 +4,12 @@ import "./Stuff2.css";
 const Stuff2 = ({ match }) => {
 
     return (
-        <div>
-            <h1>Stuff2</h1>
+        <div className="container-fluid">
+            <div className="row">
+                <div className="col-12">
+                    <h1>Stuff2</h1>
+                </div>
+            </div>
         </div>
     )
 }
