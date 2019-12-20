@@ -9,14 +9,15 @@ import { terms, specializationNames, specializations, topicNames, topics, course
 
 const Stuff1 = props => {
     const [currentSpecialization, setCurrentSpecialization] = useState(null)
-    const [currentTopics, setCurrentTopics] = useState([])
-    const [currentCourses, setCurrentCourses] = useState([])
-    const [exchangeAutumn, setExchangeAutumn] = useState(false)
-    const [exchangeSpring, setExchangeSpring] = useState(false)
-    const [selectedCourses, setSelectedCourses] = useState({})
+    const [currentTopics, setCurrentTopics] = useState([]);
+    const [currentCourses, setCurrentCourses] = useState([]);
+    const [exchangeAutumn, setExchangeAutumn] = useState(false);
+    const [exchangeSpring, setExchangeSpring] = useState(false);
+    const [selectedCourses, setSelectedCourses] = useState({});
+    const [topicCount, setTopicCount] = useState({});
 
     if (currentTopics.length < 1) {
-        setCurrentTopics(topics)
+        setCurrentTopics(topics);
     }
 
     function addSpecialization(specialization) {
@@ -104,6 +105,17 @@ const Stuff1 = props => {
         return content;
     }
 
+    function addTopicsToSummaryGraph() {
+        let content = [];
+        currentCourses.map(x => x.topics)
+                                        .flat()
+                                        .reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map())
+                                        .forEach((value, key) => (
+                                            content.push([topicNames[key], value])
+                                        ));
+        return content;
+    }
+
     currentCourses.map(x => x.topics).flat().reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()).forEach((key, value) => console.log(key, value))
 
     return (
@@ -149,9 +161,9 @@ const Stuff1 = props => {
                                 )}
                                 {exchangeAutumn && (
                                     <div>
-                                    <input type="text" defaultValue="Subject 1" />
-                                    <input type="text" defaultValue="Subject 2" />
-                                    <input type="text" defaultValue="Subject 3" />
+                                    <input type="text" defaultValue="Subject 1" /><br></br>
+                                    <input type="text" defaultValue="Subject 2" /><br></br>
+                                    <input type="text" defaultValue="Subject 3" /><br></br>
                                     <input type="text" defaultValue="Subject 4" />
                                     </div>
                                 )}
@@ -163,9 +175,9 @@ const Stuff1 = props => {
                                 )}
                                 {exchangeSpring && (
                                     <div>
-                                    <input type="text" defaultValue="Subject 1" />
-                                    <input type="text" defaultValue="Subject 2" />
-                                    <input type="text" defaultValue="Subject 3" />
+                                    <input type="text" defaultValue="Subject 1" /><br></br>
+                                    <input type="text" defaultValue="Subject 2" /><br></br>
+                                    <input type="text" defaultValue="Subject 3" /><br></br>
                                     <input type="text" defaultValue="Subject 4" />
                                     </div>
                                 )}
@@ -206,14 +218,7 @@ const Stuff1 = props => {
                             <div className="col-6">
                                 <Plot
                                     data={[
-                                    {
-                                        x: [1, 2, 3],
-                                        y: [2, 6, 3],
-                                        type: 'scatter',
-                                        mode: 'lines+points',
-                                        marker: {color: 'red'},
-                                    },
-                                    {type: 'bar', x: [1, 2, 3], y: [2, 5, 3]},
+                                    {type: 'bar', x: addTopicsToSummaryGraph().map(x => x[0]), y: addTopicsToSummaryGraph().map(x => x[1])},
                                     ]}
                                     layout={ {width: 320, height: 240, title: 'A Fancy Plot'} }
                                 />
