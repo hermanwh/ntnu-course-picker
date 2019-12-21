@@ -14,17 +14,17 @@ const Navbar = props => {
 
             <div
                 className={
-                "NavElement " + (selectedPage === "/subpage1" && "Selected")
+                "NavElement " + (selectedPage === "/coursePicker" && "Selected")
                 }
             >
-                <Link to="/subpage1">
+                <Link to="/coursePicker">
                 <img src="add.svg" color="white" alt="add" />
                 </Link>
             </div>
             <div
-                className={"NavElement " + (selectedPage === "/subpage2" && "Selected")}
+                className={"NavElement " + (selectedPage === "/courseSummary" && "Selected")}
             >
-                <Link to="/subpage2">
+                <Link to="/courseSummary">
                 <img src="list.svg" color="white" alt="list" />
                 </Link>
             </div>

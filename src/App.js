@@ -4,10 +4,10 @@ import './App.css';
 import { createBrowserHistory } from "history";
 import Navbar from "./shared/Navbar/Navbar";
 import { Router, Route, Switch } from "react-router-dom";
-import Stuff1 from './Routes/Courses/Stuff1';
-import Stuff2 from './Routes/Courses/Stuff2';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Front from './Routes/Front/Front';
+import CoursePicker from './Routes/Courses/CoursePicker';
+import Summary from './Routes/Courses/Summary';
 
 function App() {
 
@@ -18,15 +18,15 @@ function App() {
   return (
     <div className="App"> 
       <Router history={history}>
-        <div className="Nav">
+        <div className="Nav" style={{'zIndex':'1000'}}>
           <Navbar />
         </div>
 
         <div className="Content">
         <Switch>
           <Route exact path="/" render={props => <Front {...props} />} />
-          <Route exact path="/subpage2" render={props => <Stuff2 {...props} />} />
-          <Route exact path="/subpage1" render={props => <Stuff1 {...props} />} />
+          <Route exact path="/courseSummary" render={props => <Summary {...props} />} />
+          <Route exact path="/coursePicker" render={props => <CoursePicker {...props} />} />
         </Switch>
         </div>
       </Router>

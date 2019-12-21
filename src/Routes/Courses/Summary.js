@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./Stuff2.css";
+import "./Summary.css";
 
-const Stuff2 = ({ match }) => {
+const Summary = ({ match }) => {
 
     return (
         <div className="container-fluid">
@@ -14,4 +14,4 @@ const Stuff2 = ({ match }) => {
     )
 }
 
-export default Stuff2;
+export default Summary;

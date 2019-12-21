@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import "./Stuff1.css";
+import "./CoursePicker.css";
 import Plot from 'react-plotly.js';
 
 import { ButtonToolbar, Button} from "react-bootstrap";
 import SubjectListing from "../../Components/Subject/SubjectListing";
 
-import { terms, specializationNames, specializations, topicNames, topics, courses } from './../../shared/Constants/Constants.js'
+import { terms, specializationNames, specializations, topicNames, topics, courses } from '../../shared/Constants/Constants.js'
 
-const Stuff1 = props => {
+const CoursePicker = props => {
     const [currentSpecialization, setCurrentSpecialization] = useState(null)
     const [currentTopics, setCurrentTopics] = useState([]);
     const [currentCourses, setCurrentCourses] = useState([]);
@@ -74,6 +74,7 @@ const Stuff1 = props => {
     }
 
     function toggleAutumn() {
+        console.log("hello")
         const bool = exchangeAutumn;
         setExchangeAutumn(!bool);
     }
@@ -117,18 +118,26 @@ const Stuff1 = props => {
     }
 
     currentCourses.map(x => x.topics).flat().reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()).forEach((key, value) => console.log(key, value))
-
+    // <p>Exchange spring: {exchangeSpring}</p><button onClick={() => toggleSpring()}>{exchangeSpring ? "On" : "Off"}</button>
     return (
         <div>
             <div className="container-fluid headerContent">
                 <div className="row">
-                    <div className="col-lg-12 headerDiv">
-                    <p>Exchange autumn: {exchangeAutumn}</p><button onClick={() => toggleAutumn()}>{exchangeAutumn ? "On" : "Off"}</button>
+                    <div className="col-12 headerDiv">
+                    <p>Exchange autumn: </p>
+                    <label className="switch">
+                        <input type="checkbox" />
+                        <span className="slider round" onClick={() => toggleAutumn()}/>
+                    </label>
                     </div>
-                    <div className="col-lg-12 headerDiv" style={{'margin-top': '20px'}}>
-                    <p>Exchange spring: {exchangeSpring}</p><button onClick={() => toggleSpring()}>{exchangeSpring ? "On" : "Off"}</button>
+                    <div className="col-12 headerDiv" style={{'margin-top': '20px'}}>
+                    <p>Exchange spring: </p>
+                    <label className="switch">
+                        <input type="checkbox" />
+                        <span className="slider round" onClick={() => toggleSpring()}/>
+                    </label>
                     </div>
-                    <div className="col-lg-12" style={{'margin-top': '20px'}}>
+                    <div className="col-12" style={{'margin-top': '20px'}}>
                     <p>Active courses</p>
                     <p>{currentCourses.map(x => x.name).join(", ")}</p>
                     </div>
@@ -267,4 +276,4 @@ const Stuff1 = props => {
         </div>
   );
 };
-export default Stuff1;
+export default CoursePicker;
