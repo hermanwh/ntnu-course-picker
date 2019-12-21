@@ -4,8 +4,17 @@ import Plot from 'react-plotly.js';
 
 import { ButtonToolbar, Button} from "react-bootstrap";
 import SubjectListing from "../../Components/Subject/SubjectListing";
+import Select from 'react-select';
 
-import { terms, specializationNames, specializations, topicNames, topics, courses } from '../../shared/Constants/Constants.js'
+import { terms,
+    specializationNames,
+    specializations,
+    topicNames,
+    topics,
+    courses,
+    specializationOptions,
+    topicsOptions,
+} from '../../shared/Constants/Constants.js'
 
 const CoursePicker = props => {
     const [currentSpecialization, setCurrentSpecialization] = useState(null)
@@ -20,12 +29,12 @@ const CoursePicker = props => {
         setCurrentTopics(topics);
     }
 
+    /*
     function addSpecialization(specialization) {
         setCurrentSpecialization(specialization);
     }
     
     function addTopic(topic) {
-        console.log(topic);
         const index = currentTopics.indexOf(topic);
         let topics = currentTopics.slice();
         if (index > -1) {
@@ -37,6 +46,7 @@ const CoursePicker = props => {
             setCurrentTopics(topics);
         }
     }
+    */
 
     function addCourse(course) {
         const index = currentCourses.indexOf(course);
@@ -59,13 +69,11 @@ const CoursePicker = props => {
     function addSelectedCourse(course, year) {
         let selCourses = selectedCourses;
         let index = year*2 + course.term;
-        console.log("Index:", index);
         if (selCourses[index] === undefined) {
             selCourses[index] = [];
         }
         selCourses[index].push(course)
         setSelectedCourses(selCourses);
-        console.log(selectedCourses);
     }
 
     function toggleSpring()  {
@@ -74,7 +82,6 @@ const CoursePicker = props => {
     }
 
     function toggleAutumn() {
-        console.log("hello")
         const bool = exchangeAutumn;
         setExchangeAutumn(!bool);
     }
@@ -92,8 +99,6 @@ const CoursePicker = props => {
         }
         return content;
     }
-
-    console.log(currentCourses.map(x => x.topics).flat().reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()))
 
     function addTopicsToSummary() {
         let content = [];
@@ -117,42 +122,54 @@ const CoursePicker = props => {
         return content;
     }
 
-    currentCourses.map(x => x.topics).flat().reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()).forEach((key, value) => console.log(key, value))
+    function topicsChanged(selectedTopics) {
+        if (selectedTopics !== null) {
+            setCurrentTopics(selectedTopics.map(x => x.value));
+        }
+    }
+
+    function specializationChanged(selectedSpecialization) {
+        setCurrentSpecialization(selectedSpecialization.value);
+    }
+
+    // currentCourses.map(x => x.topics).flat().reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()).forEach((key, value) => console.log(key, value))
     // <p>Exchange spring: {exchangeSpring}</p><button onClick={() => toggleSpring()}>{exchangeSpring ? "On" : "Off"}</button>
     return (
         <div>
             <div className="container-fluid headerContent">
                 <div className="row">
-                    <div className="col-12 headerDiv">
-                    <p>Exchange autumn: </p>
-                    <label className="switch">
-                        <input type="checkbox" />
-                        <span className="slider round" onClick={() => toggleAutumn()}/>
-                    </label>
+                    <div className="col-12">
+                        <h3>Velg spesialisering</h3>
+                        <Select onChange={(selectedOptions) => specializationChanged(selectedOptions)} options={specializationOptions} className="selectSpecialization" />
                     </div>
-                    <div className="col-12 headerDiv" style={{'margin-top': '20px'}}>
-                    <p>Exchange spring: </p>
-                    <label className="switch">
-                        <input type="checkbox" />
-                        <span className="slider round" onClick={() => toggleSpring()}/>
-                    </label>
-                    </div>
-                    <div className="col-12" style={{'margin-top': '20px'}}>
-                    <p>Active courses</p>
-                    <p>{currentCourses.map(x => x.name).join(", ")}</p>
+                    <div className="col-12" style={{'margin-top':'20px'}}>
+                        <h3>Velg semester med utveksling</h3>
+                        <div className="headerDiv">
+                            <p>Høst: </p>
+                            <label className="switch" style={{'margin-left':'1q 0px', 'margin-top':'12px'}}>
+                                <input type="checkbox" />
+                                <span className="slider round" onClick={() => toggleAutumn()}/>
+                            </label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <p>Vår: </p>
+                            <label className="switch" style={{'margin-left':'10px', 'margin-top':'12px'}}>
+                                <input type="checkbox" />
+                                <span className="slider round" onClick={() => toggleSpring()}/>
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div className="row" style={{'margin-top': '20px'}}>
                     <div className="col-lg-4">
                         <h3>3. klasse</h3>
                         <div className="row">
-                            <div className="col-lg-6 semesterBox">
+                            <div className="col-12 semesterBox">
                                 <h4>høst</h4>
                                 {
                                     selectedCoursesContent(0)
                                 }
                             </div>
-                            <div className="col-lg-6 semesterBox">
+                            <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
                                 <h4>vår</h4>
                                 {
                                     selectedCoursesContent(1)
@@ -163,7 +180,7 @@ const CoursePicker = props => {
                     <div className="col-lg-4">
                         <h3>4. klasse</h3>
                         <div className="row">
-                            <div className="col-lg-6 semesterBox">
+                            <div className="col-12 semesterBox">
                                 <h4>høst</h4>
                                 {!exchangeAutumn && (
                                     selectedCoursesContent(2)
@@ -177,7 +194,7 @@ const CoursePicker = props => {
                                     </div>
                                 )}
                             </div>
-                            <div className="col-lg-6 semesterBox">
+                            <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
                                 <h4>vår</h4>
                                 {!exchangeSpring && (
                                     selectedCoursesContent(3)
@@ -196,7 +213,7 @@ const CoursePicker = props => {
                     <div className="col-lg-4">
                         <h3>5. klasse</h3>
                         <div className="row">
-                            <div className="col-lg-6 semesterBox">
+                            <div className="col-12 semesterBox">
                                 <h4>høst</h4>
                                 <p>prosjektoppgave (15stp)</p>
                                 {
@@ -204,7 +221,7 @@ const CoursePicker = props => {
                                 }
                                 <p><br></br></p>
                             </div>
-                            <div className="col-lg-6 semesterBox">
+                            <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
                                 <h4>vår</h4>
                                 <p>masteroppgave (30stp)</p>
                                 <p><br></br></p>
@@ -236,42 +253,32 @@ const CoursePicker = props => {
                     </div>
                 </div>
             </div>
-            <br></br>
-            <div className="specializationsDiv">
-                <ButtonToolbar>
-                    {
-                        specializations.map(specialization => (
-                            <button className="btn-spec" onClick={() => addSpecialization(specialization)} value={specializationNames[specialization]}>{specializationNames[specialization]}</button>
-                            ))
-                        }
-                </ButtonToolbar>
-            </div>
-            <div className="topicsDiv">
-                <ButtonToolbar>
-                    {
-                        topics.map(topic => (
-                            <button className="btn-top" onClick={() => addTopic(topic)} value={topicNames[topic]}>{topicNames[topic]}</button>
-                        ))
-                    }
-                </ButtonToolbar>
-            </div>
-            
-            <p>Active specialization: {specializationNames[currentSpecialization]}</p>
-            <p>Active topic(s): {currentTopics.map(x => topicNames[x]).join(", ")}</p>
 
-            <div className="container">
-                <div class="row">
-                    {Object.values(courses).filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0)).sort((a,b) => (a.name > b.name) ? 1 : -1).map(course => (
-                        <div className="courseBox col-md-3" onClick={() => addCourse(course)}>
-                            <SubjectListing
-                            data={course}
-                            />
-                            <button className="btn-opt" onClick={() => addSelCourse(course, 0)} value="3">+3</button>
-                            <button className="btn-opt" onClick={() => addSelCourse(course, 1)} value="4">+4</button>
-                            <button className="btn-opt" onClick={() => addSelCourse(course, 2)} value="5">+5</button>
-                        </div>
-                    ))}
+            <div className="container-fluid coursesContent">
+                <div className="col-12">
+                    <h3>Velg kategorier</h3>
+                    <Select onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti />
+                    <p>Active specialization: {specializationNames[currentSpecialization]}</p>
+                    <p>Active topic(s): {currentTopics.map(x => topicNames[x]).join(", ")}</p>
                 </div>
+
+                <div className="row">
+                    <div className="col-lg-10 offset-lg-1">
+                        <div className="row">
+                        {Object.values(courses).filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0)).sort((a,b) => (a.name > b.name) ? 1 : -1).map(course => (
+                            <div className="courseBox col-sm-3" onClick={() => addCourse(course)}>
+                                <SubjectListing
+                                data={course}
+                                />
+                                <button className="btn-opt" onClick={() => addSelCourse(course, 0)} value="3">+3</button>
+                                <button className="btn-opt" onClick={() => addSelCourse(course, 1)} value="4">+4</button>
+                                <button className="btn-opt" onClick={() => addSelCourse(course, 2)} value="5">+5</button>
+                            </div>
+                        ))}
+                        </div>
+                    </div>
+                </div>
+                    
             </div>
         </div>
   );

@@ -11,12 +11,14 @@ h1 {
     width: 200px !important;
 }
 
-.specializationsDiv {
-
+.selectSpecialization {
+    width: 400px;
+    margin: 0 auto;
 }
 
-.topicsDiv {
-    margin: 10px 0px 10px 0px;
+.selectedTopics {
+    width: 400px;
+    margin: 0 auto;
 }
 
 .btn-top {
@@ -32,14 +34,13 @@ h1 {
 }
 
 .headerDiv {
-    float: left;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .headerContent {
-    background-color: #5a5a5a;
+    background-color: #272727;
     padding-top: 20px;
     padding-bottom: 20px;
     overflow: hidden;
@@ -49,11 +50,11 @@ h1 {
 
 
 h3 {
-    color: white;
+    color: #4f98ca;
 }
 
 h4 {
-    color: white;
+    color: #4f98ca;
 }
 
 p {
@@ -68,16 +69,31 @@ p {
 }
 
 .semesterBox {
-    
     overflow: hidden;
     white-space: nowrap;
     text-overflow:ellipsis;
 }
 
 .summaryContent {
-    background-color: lightblue;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    border-top: 1px solid #4f98ca;
+    border-bottom: 1px solid #4f98ca;
+    background-color: #272727;
+    color: #4f98ca;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.summaryContent h4 {
+    color: #4f98ca;
+}
+.summaryContent h3 {
+    color: #4f98ca;
+}
+
+.coursesContent {
+    background-color: #272727;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
 /* The switch - the box around the slider */
@@ -121,11 +137,11 @@ p {
   }
   
   input:checked + .slider {
-    background-color: #2196F3;
+    background-color: #4f98ca;
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #4f98ca;
   }
   
   input:checked + .slider:before {

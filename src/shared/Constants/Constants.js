@@ -12,6 +12,15 @@ export const specializationNames = {
     5: "Geomatikk"
 }
 
+export const specializationOptions = [
+    {value: 0, label: 'IKT og maskinteknikk'},
+    {value: 1, label: 'IKT og produksjonsledelse'},
+    {value: 2, label: 'IKT og petroleumteknikk'},
+    {value: 3, label: 'IKT og konstruksjonsteknikk'},
+    {value: 4, label: 'IKT og marin teknikk'},
+    {value: 5, label: 'Geomatikk'},       
+]
+
 export const specializations = [0, 1, 2, 3, 4, 5]
 
 export const topicNames = {
@@ -20,6 +29,13 @@ export const topicNames = {
     2: "Mechanics",
     3: "Process engineering",
 }
+
+export const topicsOptions = [
+    {value: 0, label: 'Data/IT'},
+    {value: 1, label: 'Kybernetikk'},
+    {value: 2, label: 'Maskinfag'},
+    {value: 3, label: 'Prosessteknikk'},
+]
 
 export const topics = [0, 1, 2, 3]
 

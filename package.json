@@ -14,7 +14,8 @@
     "react-history": "^0.18.2",
     "react-plotly.js": "^2.4.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.0"
+    "react-scripts": "3.3.0",
+    "react-select": "^3.0.8"
   },
   "scripts": {
     "start": "react-scripts --max_old_space_size=4096 start",
