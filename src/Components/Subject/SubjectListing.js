@@ -1,14 +1,16 @@
 import React from "react"
-import { terms, specializationNames, specializations, topicNames, topics } from "./../../shared/Constants/Constants.js"
+import { terms, specializationNames, specializations, topicNames, topics, topicColors } from "./../../shared/Constants/Constants.js"
 import "./SubjectListing.css";
 
 const SubjectListing = props => {
     return (
-        <div className="">
-            <h4>{props.data.name}</h4>
-            <p>{props.data.subname}</p>
-            <p>{props.data.topics.join(", ")}</p>
-            <p>{terms[props.data.term]}</p>
+        <div>
+            <p className="courseName">{props.data.name}</p>
+            <p className="courseSubname">{props.data.subname}</p>
+            <p className="courseTopics">{props.data.topics.map(topic => (
+                <span className="dot" style={{'background-color':topicColors[topic]}}></span>
+            ))}</p>
+            <p className="courseTerm">{terms[props.data.term]}</p>
         </div>
     )
 }

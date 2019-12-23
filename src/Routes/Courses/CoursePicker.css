@@ -33,39 +33,53 @@ h1 {
     margin: 0px 2px 0px 2px;
 }
 
+.exchangeInput {
+    outline: none;
+    border: none;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    background-color: #171717;
+    color: white;
+}
+
 .headerDiv {
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
 .headerContent {
-    background-color: #272727;
+    background-color: #171717;
     padding-top: 20px;
     padding-bottom: 20px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow:ellipsis;
+    text-align: center;
+    padding-top: 50px;
 }
 
 
 h3 {
-    color: #4f98ca;
+    color: #ac93e5;
+    font-family: Aldrich;
 }
 
 h4 {
-    color: #4f98ca;
+    color: #ac93e5;
+    font-family: Aldrich;
 }
 
 p {
     color: white;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.courseHeader {
     text-align: center;
-    
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow:ellipsis;
 }
 
 .semesterBox {
@@ -75,26 +89,51 @@ p {
 }
 
 .summaryContent {
-    border-top: 1px solid #4f98ca;
-    border-bottom: 1px solid #4f98ca;
-    background-color: #272727;
-    color: #4f98ca;
+    border-top: 1px solid #c2b3e5;
+    border-bottom: 1px solid #c2b3e5;
+    background-color: #171717;
+    color: #c2b3e5;
     padding-top: 40px;
     padding-bottom: 40px;
+}
+
+.summaryText {
+    text-align: right;
 }
 
 .summaryContent h4 {
-    color: #4f98ca;
+    color: #c2b3e5;
 }
 .summaryContent h3 {
-    color: #4f98ca;
+    color: #c2b3e5;
 }
 
 .coursesContent {
-    background-color: #272727;
+    background-color: #171717;
     padding-top: 40px;
     padding-bottom: 40px;
+    min-height: 1000px;
 }
+
+.freetextInput {
+    padding: 2px 8px;
+    outline: none;
+    border: none;
+    width: 90%;
+}
+
+.freetextField {
+    width: 400px;
+    margin: 20px auto;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 3px;
+  }
 
 /* The switch - the box around the slider */
 .switch {
@@ -137,11 +176,11 @@ p {
   }
   
   input:checked + .slider {
-    background-color: #4f98ca;
+    background-color: #ac93e5;
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px #4f98ca;
+    box-shadow: 0 0 1px #ac93e5;
   }
   
   input:checked + .slider:before {

@@ -24,6 +24,7 @@ const CoursePicker = props => {
     const [exchangeSpring, setExchangeSpring] = useState(false);
     const [selectedCourses, setSelectedCourses] = useState({});
     const [topicCount, setTopicCount] = useState({});
+    const [currentSearchText, setCurrentSearchText] = useState("");
 
     if (currentTopics.length < 1) {
         setCurrentTopics(topics);
@@ -66,12 +67,28 @@ const CoursePicker = props => {
         addSelectedCourse(course, year);
     }
 
+    function removeSelCourse(course) {
+        addCourse(course);
+        removeSelectedCourse(course);
+    }
+
+    function removeSelectedCourse(course) {
+        let selCourses = selectedCourses;
+        Object.keys(selCourses).forEach(function(key) {
+            if (selCourses[key].includes(course)) {
+                selCourses[key].splice( selCourses[key].indexOf(course), 1 );
+            }
+        })
+        setSelectedCourses(selCourses);
+    }
+
     function addSelectedCourse(course, year) {
         let selCourses = selectedCourses;
         let index = year*2 + course.term;
         if (selCourses[index] === undefined) {
             selCourses[index] = [];
         }
+        
         selCourses[index].push(course)
         setSelectedCourses(selCourses);
     }
@@ -95,7 +112,7 @@ const CoursePicker = props => {
         }
         const maxlen = index == 4 ? 2 : 4;
         while (content.length < maxlen) {
-            content.push(<p>Empty slot</p>);
+            content.push(<p>Mangler emne</p>);
         }
         return content;
     }
@@ -132,10 +149,16 @@ const CoursePicker = props => {
         setCurrentSpecialization(selectedSpecialization.value);
     }
 
+    function inputChanged() {
+        let asd = document.getElementById("freeTextInputId").value;
+        setCurrentSearchText(asd);
+    }
+
     // currentCourses.map(x => x.topics).flat().reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()).forEach((key, value) => console.log(key, value))
     // <p>Exchange spring: {exchangeSpring}</p><button onClick={() => toggleSpring()}>{exchangeSpring ? "On" : "Off"}</button>
     return (
         <div>
+            <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
             <div className="container-fluid headerContent">
                 <div className="row">
                     <div className="col-12">
@@ -146,19 +169,21 @@ const CoursePicker = props => {
                         <h3>Velg semester med utveksling</h3>
                         <div className="headerDiv">
                             <p>Høst: </p>
-                            <label className="switch" style={{'margin-left':'1q 0px', 'margin-top':'12px'}}>
+                            <label className="switch" style={{'margin-left':'5px', 'margin-top':'12px'}}>
                                 <input type="checkbox" />
                                 <span className="slider round" onClick={() => toggleAutumn()}/>
                             </label>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <p>Vår: </p>
-                            <label className="switch" style={{'margin-left':'10px', 'margin-top':'12px'}}>
+                            <p>Vår:</p>
+                            <label className="switch" style={{'margin-left':'5px', 'margin-top':'12px'}}>
                                 <input type="checkbox" />
                                 <span className="slider round" onClick={() => toggleSpring()}/>
                             </label>
                         </div>
                     </div>
                 </div>
+                <div className="row">
+                    <div className="col-lg-10 offset-lg-1">
                 <div className="row" style={{'margin-top': '20px'}}>
                     <div className="col-lg-4">
                         <h3>3. klasse</h3>
@@ -187,10 +212,10 @@ const CoursePicker = props => {
                                 )}
                                 {exchangeAutumn && (
                                     <div>
-                                    <input type="text" defaultValue="Subject 1" /><br></br>
-                                    <input type="text" defaultValue="Subject 2" /><br></br>
-                                    <input type="text" defaultValue="Subject 3" /><br></br>
-                                    <input type="text" defaultValue="Subject 4" />
+                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
                                     </div>
                                 )}
                             </div>
@@ -201,10 +226,10 @@ const CoursePicker = props => {
                                 )}
                                 {exchangeSpring && (
                                     <div>
-                                    <input type="text" defaultValue="Subject 1" /><br></br>
-                                    <input type="text" defaultValue="Subject 2" /><br></br>
-                                    <input type="text" defaultValue="Subject 3" /><br></br>
-                                    <input type="text" defaultValue="Subject 4" />
+                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
                                     </div>
                                 )}
                             </div>
@@ -230,13 +255,15 @@ const CoursePicker = props => {
                         </div>
                     </div>
                 </div>
+                </div>
+                </div>
             </div>
             <div className="container-fluid summaryContent">
                 <div className="row">
                     <div className="container">
                         <div className="row">
-                            <div className="col-6">
-                                <h4>Total of each topic:</h4>
+                            <div className="col-6 summaryText">
+                                <h4>Total of each topic</h4>
                                 {
                                     addTopicsToSummary()
                                 }
@@ -255,24 +282,34 @@ const CoursePicker = props => {
             </div>
 
             <div className="container-fluid coursesContent">
-                <div className="col-12">
+                <div className="col-12 courseHeader">
                     <h3>Velg kategorier</h3>
                     <Select onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti />
-                    <p>Active specialization: {specializationNames[currentSpecialization]}</p>
-                    <p>Active topic(s): {currentTopics.map(x => topicNames[x]).join(", ")}</p>
+                    <div className="freetextField css-yk16xz-control">
+                        <input id="freeTextInputId" name="freeTextInput" className="freetextInput" placeholder="Free text..." onChange={() => inputChanged()}></input>
+                    </div>
                 </div>
 
-                <div className="row">
+                <div className="row" style={{'padding-top':'30px'}}>
                     <div className="col-lg-10 offset-lg-1">
                         <div className="row">
-                        {Object.values(courses).filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0)).sort((a,b) => (a.name > b.name) ? 1 : -1).map(course => (
+                        {Object.values(courses).filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0)).filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase())).sort((a,b) => (a.name > b.name) ? 1 : -1).map(course => (
                             <div className="courseBox col-sm-3" onClick={() => addCourse(course)}>
                                 <SubjectListing
                                 data={course}
                                 />
-                                <button className="btn-opt" onClick={() => addSelCourse(course, 0)} value="3">+3</button>
-                                <button className="btn-opt" onClick={() => addSelCourse(course, 1)} value="4">+4</button>
-                                <button className="btn-opt" onClick={() => addSelCourse(course, 2)} value="5">+5</button>
+                                {currentCourses.some(x => x === course) && (
+                                <div className="btnBox">
+                                    <button className="btn-opt" onClick={() => removeSelCourse(course)} value="Fjern">Fjern</button>
+                                </div>
+                                )}
+                                {currentCourses.some(x => x === course) !== true && (
+                                    <div className="btnBox">
+                                        <button className="btn-opt" onClick={() => addSelCourse(course, 0)} value="3">+3</button>
+                                        <button className="btn-opt" onClick={() => addSelCourse(course, 1)} value="4">+4</button>
+                                        <button className="btn-opt" onClick={() => addSelCourse(course, 2)} value="5">+5</button>
+                                    </div>
+                                )}
                             </div>
                         ))}
                         </div>

@@ -22,4 +22,9 @@
                     <p>{currentCourses.map(x => x.name).join(", ")}</p>
                     </div>
 
+
+
+                    <p>Active specialization: {specializationNames[currentSpecialization]}</p>
+                    <p>Active topic(s): {currentTopics.map(x => topicNames[x]).join(", ")}</p>
+
 */
