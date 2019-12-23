@@ -25,7 +25,8 @@ function App() {
 
         <div className="Content">
         <Switch>
-          <Route exact path="/" render={props => <Front {...props} />} />
+          <Route exact path="/" render={props => <CoursePicker {...props} />} />
+          <Route exact path="/ntnu-course-picker/" render={props => <CoursePicker {...props} />} />
           <Route exact path="/courseSummary" render={props => <Summary {...props} />} />
           <Route exact path="/coursePicker" render={props => <CoursePicker {...props} />} />
         </Switch>

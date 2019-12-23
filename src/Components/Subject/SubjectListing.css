@@ -23,7 +23,7 @@ p {
     position: absolute;
     top: 20px;
     left: 37px;
-    color: #171717;
+    color: white;
     font-family: Aldrich;
 }
 
@@ -35,8 +35,8 @@ p.courseBox {
     position: absolute;
     top: 50px;
     left: 37px;
-    max-width: 80%;
-    color: #171717;
+    max-width: 77%;
+    color: white;
 }
 
 .courseTopics {
@@ -50,5 +50,5 @@ p.courseBox {
     position: absolute;
     bottom: 30px;
     left: 37px;
-    color: #171717;
+    color: white;
 }
