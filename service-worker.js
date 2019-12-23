@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/ntnu-course-picker/precache-manifest.2b73256b0b3485e8169511a087907127.js"
+  "/ntnu-course-picker/precache-manifest.6f042d969fea4436a9cecfc12d7e6cef.js"
 );
 
 self.addEventListener('message', (event) => {
