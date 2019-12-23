@@ -285,6 +285,8 @@ const CoursePicker = props => {
                 <div className="col-12 courseHeader">
                     <h3>Velg kategorier</h3>
                     <Select onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti />
+                    <br></br>
+                    <h3>Søk i fag</h3>
                     <div className="freetextField css-yk16xz-control">
                         <input id="freeTextInputId" name="freeTextInput" className="freetextInput" placeholder="Free text..." onChange={() => inputChanged()}></input>
                     </div>
