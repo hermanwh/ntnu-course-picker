@@ -14,6 +14,7 @@ import { terms,
     courses,
     specializationOptions,
     topicsOptions,
+    mandatoryCourses,
 } from '../../shared/Constants/Constants.js'
 
 const CoursePicker = props => {
@@ -30,34 +31,36 @@ const CoursePicker = props => {
         setCurrentTopics(topics);
     }
 
-    /*
-    function addSpecialization(specialization) {
-        setCurrentSpecialization(specialization);
-    }
-    
-    function addTopic(topic) {
-        const index = currentTopics.indexOf(topic);
-        let topics = currentTopics.slice();
-        if (index > -1) {
-            topics.splice(index, 1);
-            setCurrentTopics(topics);
+    function setMandatoryCourses(selectedSpecialization ,previousSpecialization) {
+        let mandCourses = mandatoryCourses(selectedSpecialization.value);
+        let prevMandCourses = [];
+        if (previousSpecialization !== null) {
+            prevMandCourses = mandatoryCourses(previousSpecialization);
         }
-        else {
-            topics.push(topic);
-            setCurrentTopics(topics);
-        }
+        console.log("Mand: ", mandCourses);
+        console.log("Prev mand: ", prevMandCourses);
+        prevMandCourses.forEach(function(crs) {
+            removeSelCourse(courses[crs.name]);
+            currentCourses.splice(currentCourses.indexOf(courses[crs.name]), 1);
+        })
+        mandCourses.forEach(function(crs) {
+            addSelCourse(courses[crs.name], crs.year);
+            currentCourses.push(courses[crs.name]);
+        })
     }
-    */
 
     function addCourse(course) {
         const index = currentCourses.indexOf(course);
         let courses = currentCourses.slice();
+        courses.push(course);
+        setCurrentCourses(courses);
+    }
+
+    function removeCourse(course) {
+        const index = currentCourses.indexOf(course);
         if (index > -1) {
+            let courses = currentCourses.slice();
             courses.splice(index, 1);
-            setCurrentCourses(courses);
-        }
-        else {
-            courses.push(course);
             setCurrentCourses(courses);
         }
     }
@@ -67,7 +70,7 @@ const CoursePicker = props => {
     }
 
     function removeSelCourse(course) {
-        addCourse(course);
+        removeCourse(course);
         removeSelectedCourse(course);
     }
 
@@ -90,7 +93,7 @@ const CoursePicker = props => {
             selCourses[index] = [];
         }
 
-        if (selCourses[index].length < maxlen) {
+        if (selCourses[index].length < maxlen && !Object.values(selCourses).includes(course)) {
             selCourses[index].push(course)
             setSelectedCourses(selCourses);
             addCourse(course);
@@ -154,7 +157,11 @@ const CoursePicker = props => {
     }
 
     function specializationChanged(selectedSpecialization) {
-        setCurrentSpecialization(selectedSpecialization.value);
+        let previousSpecialization = currentSpecialization;
+        if (selectedSpecialization.value !== previousSpecialization) {
+            setCurrentSpecialization(selectedSpecialization.value);
+            setMandatoryCourses(selectedSpecialization, previousSpecialization);
+        }
     }
 
     function inputChanged() {
@@ -162,8 +169,8 @@ const CoursePicker = props => {
         setCurrentSearchText(asd);
     }
 
-    console.log(currentCourses);
-    console.log(selectedCourses);
+    console.log("Current: ",currentCourses);
+    console.log("Selected: ",selectedCourses);
 
     // currentCourses.map(x => x.topics).flat().reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()).forEach((key, value) => console.log(key, value))
     // <p>Exchange spring: {exchangeSpring}</p><button onClick={() => toggleSpring()}>{exchangeSpring ? "On" : "Off"}</button>

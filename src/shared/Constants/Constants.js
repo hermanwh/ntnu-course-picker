@@ -46,33 +46,34 @@ export const topicsOptions = [
 
 export const topics = [0, 1, 2, 3]
 
-const mandatoryCoursesMaskin = {
-    tma4130: {
+const mandatoryCoursesMaskin = [
+    {
         name: "tma4130",
         year: 0,
     },
-    tiø4258: {
+    {
         name: "tiø4258",
         year: 0,
     },
-    tmr4160: {
+    {
         name: "tmr4160",
         year: 1,
     },
-}
+]
 
-const mandatoryCoursesOther = {
-    tma4130: {
+const mandatoryCoursesOther = [
+    {
         name: "tma4130",
         year: 0,
     },
-    tiø4258: {
+    {
         name: "tiø4258",
         year: 0,
     },
-}
+]
 
 export function mandatoryCourses(specialization) {
+    console.log(specialization);
     switch(specialization) {
         case 0:
             return mandatoryCoursesMaskin;
@@ -270,7 +271,7 @@ export const courses = {
         term: 0,
         topics: [1],
         prerequisites: ["ttk4145"],
-    },
+    },  
     ttk4150: {
         name: "TTK4150",
         subname: "Ulineære systemer",
