@@ -18,14 +18,14 @@ const Navbar = props => {
                 }
             >
                 <Link to="/coursePicker">
-                <img src="add.svg" color="white" alt="add" />
+                <img src="add.svg" color="#171717" alt="add" />
                 </Link>
             </div>
             <div
                 className={"NavElement " + (selectedPage === "/courseSummary" && "Selected")}
             >
                 <Link to="/courseSummary">
-                <img src="list.svg" color="white" alt="list" />
+                <img src="list.svg" color="#171717" alt="list" />
                 </Link>
             </div>
     </div>

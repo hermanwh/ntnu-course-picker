@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { createBrowserHistory } from "history";
 import Navbar from "./shared/Navbar/Navbar";
+import Footer from "./shared/Footer/Footer";
 import { Router, Route, Switch } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Front from './Routes/Front/Front';
@@ -28,6 +29,10 @@ function App() {
           <Route exact path="/courseSummary" render={props => <Summary {...props} />} />
           <Route exact path="/coursePicker" render={props => <CoursePicker {...props} />} />
         </Switch>
+        </div>
+
+        <div className="footer">
+          <Footer />
         </div>
       </Router>
     </div>

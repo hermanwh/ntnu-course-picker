@@ -63,7 +63,6 @@ const CoursePicker = props => {
     }
 
     function addSelCourse(course, year) {
-        addCourse(course);
         addSelectedCourse(course, year);
     }
 
@@ -85,12 +84,21 @@ const CoursePicker = props => {
     function addSelectedCourse(course, year) {
         let selCourses = selectedCourses;
         let index = year*2 + course.term;
+        const maxlen = index == 4 ? 2 : 4;
+
         if (selCourses[index] === undefined) {
             selCourses[index] = [];
         }
-        
-        selCourses[index].push(course)
-        setSelectedCourses(selCourses);
+
+        if (selCourses[index].length < maxlen) {
+            selCourses[index].push(course)
+            setSelectedCourses(selCourses);
+            addCourse(course);
+        } else {
+            console.log("too long");
+            console.log(currentCourses);
+            console.log(selectedCourses);
+        }
     }
 
     function toggleSpring()  {
@@ -153,6 +161,9 @@ const CoursePicker = props => {
         let asd = document.getElementById("freeTextInputId").value;
         setCurrentSearchText(asd);
     }
+
+    console.log(currentCourses);
+    console.log(selectedCourses);
 
     // currentCourses.map(x => x.topics).flat().reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()).forEach((key, value) => console.log(key, value))
     // <p>Exchange spring: {exchangeSpring}</p><button onClick={() => toggleSpring()}>{exchangeSpring ? "On" : "Off"}</button>
@@ -240,7 +251,7 @@ const CoursePicker = props => {
                         <div className="row">
                             <div className="col-12 semesterBox">
                                 <h4>høst</h4>
-                                <p>prosjektoppgave (15stp)</p>
+                                <p>Prosjektoppgave (15stp)</p>
                                 {
                                     selectedCoursesContent(4)
                                 }
@@ -248,7 +259,7 @@ const CoursePicker = props => {
                             </div>
                             <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
                                 <h4>vår</h4>
-                                <p>masteroppgave (30stp)</p>
+                                <p>Masteroppgave (30stp)</p>
                                 <p><br></br></p>
                                 <p><br></br></p>
                             </div>
@@ -273,7 +284,7 @@ const CoursePicker = props => {
                                     data={[
                                     {type: 'bar', x: addTopicsToSummaryGraph().map(x => x[0]), y: addTopicsToSummaryGraph().map(x => x[1])},
                                     ]}
-                                    layout={ {width: 320, height: 240, title: 'A Fancy Plot'} }
+                                    layout={ {width: 320, height: 240, title: ''} }
                                 />
                             </div>
                         </div>
@@ -296,7 +307,7 @@ const CoursePicker = props => {
                     <div className="col-lg-10 offset-lg-1">
                         <div className="row">
                         {Object.values(courses).filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0)).filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase())).sort((a,b) => (a.name > b.name) ? 1 : -1).map(course => (
-                            <div className="courseBox col-sm-3" onClick={() => addCourse(course)}>
+                            <div className="courseBox col-sm-3">
                                 <SubjectListing
                                 data={course}
                                 />

@@ -1,5 +1,5 @@
 .NavbarWrapper {
-    background: #4f98ca;
+    background: #c2b3e5;
     color: white;
     position: fixed;
   }
@@ -10,12 +10,15 @@ background: #2963f6;
 
 .NavElement {
   padding: 10px 10px;
+  text-align: center;
 }
 
 a {
   color: white !important;
+  text-decoration: none !important;
 }
 
 a:hover {
   color: white !important;
+  text-decoration: none !important;
 }
