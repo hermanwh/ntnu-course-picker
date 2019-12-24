@@ -1,5 +1,6 @@
 {
   "name": "ntnu-course-picker",
+  "homepage": "https://hermanwh.github.io/ntnu-course-picker/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -18,6 +19,8 @@
     "react-select": "^3.0.8"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts --max_old_space_size=4096 start",
     "build": "react-scripts --max_old_space_size=4096 build",
     "test": "react-scripts test",
