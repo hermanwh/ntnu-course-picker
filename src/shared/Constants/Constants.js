@@ -31,17 +31,45 @@ export const topicNames = {
 }
 
 export const topicColors = {
-    0: "white",
+    0: "black",
     1: "blue",
     2: "red",
     3: "green",
 }
 
+export const colourStyles = {
+    control: styles => ({ ...styles, backgroundColor: 'white' }),
+    option: (styles, { data }) => {
+        return {
+        ...styles,
+        color: data.color,
+        };
+    },
+    multiValue: (styles, { data }) => {
+        return {
+        ...styles,
+        color: data.color,
+        };
+    },
+    multiValueLabel: (styles, { data }) => ({
+        ...styles,
+        color: data.color,
+    }),
+    multiValueRemove: (styles, { data }) => ({
+        ...styles,
+        color: data.color,
+        ':hover': {
+        backgroundColor: data.color,
+        color: 'white',
+        },
+    }),
+}
+
 export const topicsOptions = [
-    {value: 0, label: 'Data/IT'},
-    {value: 1, label: 'Kybernetikk'},
-    {value: 2, label: 'Maskinfag'},
-    {value: 3, label: 'Prosessteknikk'},
+    {value: 0, label: 'Data/IT', color: topicColors[0]},
+    {value: 1, label: 'Kybernetikk', color: topicColors[1]},
+    {value: 2, label: 'Maskinfag', color: topicColors[2]},
+    {value: 3, label: 'Prosessteknikk', color: topicColors[3]},
 ]
 
 export const topics = [0, 1, 2, 3]
@@ -61,6 +89,101 @@ const mandatoryCoursesMaskin = [
     },
 ]
 
+const mandatoryCoursesGeomatikk = [
+    {
+        name: "tma4130",
+        year: 0,
+    },
+    {
+        name: "tiø4258",
+        year: 0,
+    },
+    {
+        name: "tba4231",
+        year: 0,
+    },
+    {
+        name: "tba4240",
+        year: 0,
+    },
+    {
+        name: "tba4250",
+        year: 0,
+    },
+    {
+        name: "tba4236",
+        year: 1,
+    },
+]
+
+const mandatoryCoursesKonstruksjon = [
+    {
+        name: "tma4130",
+        year: 0,
+    },
+    {
+        name: "tiø4258",
+        year: 0,
+    },
+    {
+        name: "tkt4180",
+        year: 0,
+    },
+    {
+        name: "tkt4124",
+        year: 0,
+    },
+]
+
+const mandatoryCoursesMarin = [
+    {
+        name: "tma4130",
+        year: 0,
+    },
+    {
+        name: "tiø4258",
+        year: 0,
+    },
+    {
+        name: "tmr4215",
+        year: 1,
+    },
+    {
+        name: "tmr4167",
+        year: 0,
+    },
+]
+
+const mandatoryCoursesPetroleum = [
+    {
+        name: "tma4130",
+        year: 0,
+    },
+    {
+        name: "tiø4258",
+        year: 0,
+    },
+    {
+        name: "tpg4105",
+        year: 0,
+    }
+]
+
+const mandatoryCoursesProdled = [
+    {
+        name: "tma4130",
+        year: 0,
+    },
+    {
+        name: "tiø4258",
+        year: 0,
+    },
+    {
+        name: "tpk4160",
+        year: 1,
+    }
+]
+
 const mandatoryCoursesOther = [
     {
         name: "tma4130",
@@ -77,12 +200,85 @@ export function mandatoryCourses(specialization) {
     switch(specialization) {
         case 0:
             return mandatoryCoursesMaskin;
+        case 1:
+            return mandatoryCoursesProdled;
+        case 2:
+            return mandatoryCoursesPetroleum;
+        case 3:
+            return mandatoryCoursesKonstruksjon;
+        case 4:
+            return mandatoryCoursesMarin;
+        case 5:
+            return mandatoryCoursesGeomatikk;
         default:
             return mandatoryCoursesOther;
     }
 }
 
 export const courses = {
+    tpg4105: {
+        name: "TPG4105",
+        subname: "Petroleumsteknologi, grunnkurs",
+        term: 0,
+        topics: [2],
+        prerequisites: [],
+    },
+    tmr4215: {
+        name: "TMR4215",
+        subname: "Sjøbelastninger",
+        term: 0,
+        topics: [2],
+        prerequisites: [],
+    },
+    tmr4167: {
+        name: "TMR4167",
+        subname: "Marin teknikk, konstruksjoner",
+        term: 0,
+        topics: [2],
+        prerequisites: [],
+    },
+    tkt4180: {
+        name: "TKT4180",
+        subname: "Konstruksjonsmekanikk, beregningsmetoder",
+        term: 1,
+        topics: [2],
+        prerequisites: [],
+    },
+    tkt4124: {
+        name: "TKT4124",
+        subname: "Mekanikk 3",
+        term: 0,
+        topics: [2],
+        prerequisites: [],
+    },
+    tba4236: {
+        name: "TBA4236",
+        subname: "Teoretisk geomatikk",
+        term: 0,
+        topics: [0],
+        prerequisites: [],
+    },
+    tba4250: {
+        name: "TBA4250",
+        subname: "Geografisk informasjonsbehandling 2",
+        term: 1,
+        topics: [0],
+        prerequisites: [],
+    },
+    tba4240: {
+        name: "TBA4240",
+        subname: "Geografisk informasjonsbehandling 1",
+        term: 0,
+        topics: [0],
+        prerequisites: [],
+    },
+    tba4231: {
+        name: "TBA4231",
+        subname: "Anvendt geomatikk",
+        term: 0,
+        topics: [0],
+        prerequisites: [],
+    },
     tma4130: {
         name: "TMA4130",
         subname: "Matematikk 4N",

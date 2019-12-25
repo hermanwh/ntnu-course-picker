@@ -15,6 +15,8 @@ import { terms,
     specializationOptions,
     topicsOptions,
     mandatoryCourses,
+    topicColors,
+    colourStyles,
 } from '../../shared/Constants/Constants.js'
 
 const CoursePicker = props => {
@@ -169,6 +171,21 @@ const CoursePicker = props => {
         setCurrentSearchText(asd);
     }
 
+
+    const customSelectStyles = {
+        menu: (provided, state) => ({
+            ...provided,
+            color: state.selectProps.menuColor,
+            }),
+        
+            singleValue: (provided, state) => {
+            const opacity = state.isDisabled ? 0.5 : 1;
+            const transition = 'opacity 300ms';
+        
+            return { ...provided, opacity, transition };
+            }
+    }
+    
     console.log("Current: ",currentCourses);
     console.log("Selected: ",selectedCourses);
 
@@ -302,7 +319,7 @@ const CoursePicker = props => {
             <div className="container-fluid coursesContent">
                 <div className="col-12 courseHeader">
                     <h3>Velg kategorier</h3>
-                    <Select onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti />
+                    <Select styles={colourStyles} onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti />
                     <br></br>
                     <h3>Søk i fag</h3>
                     <div className="freetextField css-yk16xz-control">
