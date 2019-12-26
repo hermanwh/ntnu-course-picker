@@ -21,7 +21,7 @@ p {
 .courseName {
     font-size: 24px;
     position: absolute;
-    top: 20px;
+    top: 27px;
     left: 37px;
     color: white;
     font-family: Aldrich;
@@ -33,7 +33,7 @@ p.courseBox {
 
 .courseSubname {
     position: absolute;
-    top: 50px;
+    top: 54px;
     left: 37px;
     max-width: 77%;
     color: white;

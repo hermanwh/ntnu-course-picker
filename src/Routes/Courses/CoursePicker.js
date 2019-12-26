@@ -6,18 +6,31 @@ import { ButtonToolbar, Button} from "react-bootstrap";
 import SubjectListing from "../../Components/Subject/SubjectListing";
 import Select from 'react-select';
 
-import { terms,
-    specializationNames,
-    specializations,
+import { 
+    terms,
+} from '../../shared/Constants/Constants.js'
+
+import {
+    mandatoryCourses,
+} from '../../shared/Constants/MandatoryCourses.js'
+
+import {
+    courses,
+} from '../../shared/Constants/Courses.js'
+
+import {
     topicNames,
     topics,
-    courses,
-    specializationOptions,
     topicsOptions,
-    mandatoryCourses,
     topicColors,
     colourStyles,
-} from '../../shared/Constants/Constants.js'
+} from '../../shared/Constants/Topics.js'
+
+import {
+    specializationNames,
+    specializations,
+    specializationOptions,
+} from '../../shared/Constants/Specializations.js'
 
 const CoursePicker = props => {
     const [currentSpecialization, setCurrentSpecialization] = useState(null)
@@ -155,6 +168,8 @@ const CoursePicker = props => {
     function topicsChanged(selectedTopics) {
         if (selectedTopics !== null) {
             setCurrentTopics(selectedTopics.map(x => x.value));
+        } else {
+            setCurrentTopics(topics);
         }
     }
 
@@ -298,7 +313,7 @@ const CoursePicker = props => {
                     <div className="container">
                         <div className="row">
                             <div className="col-6 summaryText">
-                                <h4>Total of each topic</h4>
+                                <h4>Sum av fag for hver kategori</h4>
                                 {
                                     addTopicsToSummary()
                                 }
@@ -330,7 +345,11 @@ const CoursePicker = props => {
                 <div className="row" style={{'padding-top':'30px'}}>
                     <div className="col-lg-10 offset-lg-1">
                         <div className="row">
-                        {Object.values(courses).filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0)).filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase())).sort((a,b) => (a.name > b.name) ? 1 : -1).map(course => (
+                        {Object.values(courses)
+                            .filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0))
+                            .filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase()) || val.subname.toLowerCase().includes(currentSearchText.toLowerCase()))
+                            .sort((a,b) => (a.name > b.name) ? 1 : -1)
+                            .map(course => (
                             <div className="courseBox col-sm-3">
                                 <SubjectListing
                                 data={course}
