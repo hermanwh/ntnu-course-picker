@@ -9,7 +9,7 @@ const Navbar = props => {
   return (
     <div className="NavbarWrapper">
             <div className={"NavElement " + (selectedPage === "/" && "Selected")}>
-                <Link to="/">Home</Link>
+                <Link to="/">Hjem</Link>
             </div>
 
             <div
@@ -17,16 +17,7 @@ const Navbar = props => {
                 "NavElement " + (selectedPage === "/coursePicker" && "Selected")
                 }
             >
-                <Link to="/coursePicker">
-                <img src="add.svg" color="#171717" alt="add" />
-                </Link>
-            </div>
-            <div
-                className={"NavElement " + (selectedPage === "/courseSummary" && "Selected")}
-            >
-                <Link to="/courseSummary">
-                <img src="list.svg" color="#171717" alt="list" />
-                </Link>
+                <Link to="/coursePicker">App</Link>
             </div>
     </div>
   );

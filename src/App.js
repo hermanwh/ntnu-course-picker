@@ -1,4 +1,3 @@
-import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import { createBrowserHistory } from "history";
@@ -9,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Front from './Routes/Front/Front';
 import CoursePicker from './Routes/Courses/CoursePicker';
 import Summary from './Routes/Courses/Summary';
+import React from 'react';
 
 function App() {
 
@@ -25,8 +25,8 @@ function App() {
 
         <div className="Content">
         <Switch>
-          <Route exact path="/" render={props => <CoursePicker {...props} />} />
-          <Route exact path="/ntnu-course-picker/" render={props => <CoursePicker {...props} />} />
+          <Route exact path="/" render={props => <Front {...props} />} />
+          <Route exact path="/ntnu-course-picker/" render={props => <Front {...props} />} />
           <Route exact path="/courseSummary" render={props => <Summary {...props} />} />
           <Route exact path="/coursePicker" render={props => <CoursePicker {...props} />} />
         </Switch>

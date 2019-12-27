@@ -46,6 +46,15 @@
             setCurrentTopics(topics);
         }
     }
-    */
 
-*/
+
+
+            <div
+                className={"NavElement " + (selectedPage === "/courseSummary" && "Selected")}
+            >
+                <Link to="/courseSummary">
+                <img src="list.svg" color="#171717" alt="list" />
+                </Link>
+            </div>
+
+    */
