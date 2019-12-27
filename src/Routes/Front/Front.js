@@ -34,6 +34,12 @@ const Front = ({ match }) => {
                         <br></br>
                         <h3>Appen er under utvikling, og tilbakemeldinger tas imot med takk!</h3>
                         <p>Ta kontakt med hermanwh på stud-mail, eller send melding på Facebook :)</p>
+                        <br></br>
+                        <p>På sikt er tanken å legge til blant annet:</p>
+                        <p>- Fagforslag basert på interesser, f.eks med ferdig utfylte anbefalte fag etc.</p>
+                        <p>- Bedre og mer oversiktlig design, spesielt for faglisten</p>
+                        <p>- Vurderingssystem mm.</p>
+                        <p>- Hva enn som måtte komme av forslag</p>
                     </div>
                 </div>
             </div>
