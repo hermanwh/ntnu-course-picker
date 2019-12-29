@@ -133,7 +133,7 @@ const CoursePicker = props => {
         let content = [];
         if (selectedCourses[index] !== undefined) {
             selectedCourses[index].slice(0, 4).forEach(course => (
-                content.push(<p>{course.name} {course.subname}</p>)
+                content.push(<a href={"https://www.ntnu.no/studier/emner/" + course.name} rel="noopener noreferrer" target="_tab"><p>{course.name} {course.subname}</p></a>)
             ));
         }
         const maxlen = index == 4 ? 2 : 4;
