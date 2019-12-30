@@ -6,6 +6,9 @@ import { ButtonToolbar, Button} from "react-bootstrap";
 import SubjectListing from "../../Components/Subject/SubjectListing";
 import Select from 'react-select';
 
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 import { 
     terms,
 } from '../../shared/Constants/Constants.js'
@@ -200,7 +203,41 @@ const CoursePicker = props => {
             return { ...provided, opacity, transition };
             }
     }
-    
+
+    function exportPdf() {
+        console.log("saving");
+        html2canvas(document.querySelector("#capture")).then(canvas => {
+            var d=canvas.toDataURL("image/png");
+            var w=window.open('about:blank','image from canvas');
+            w.document.write("<img src='"+d+"' alt='from canvas'/>");
+        });
+    }
+
+    /*
+    function exportPdf() {
+        console.log("saving");
+        html2canvas(document.querySelector("#capture"), {
+            scrollX: 0,
+            scrollY: 0
+          }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF();
+            const imgProps= pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            console.log("width:", pdfWidth)
+            console.log("height:", pdfHeight)
+            var width = pdf.internal.pageSize.getWidth();
+            var height = pdf.internal.pageSize.getHeight();
+            console.log("width:", width)
+            console.log("height:", height)
+            pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+            pdf.save('download.pdf'); 
+            console.log("saved?");
+        });
+    }
+    */
+
     console.log("Current: ",currentCourses);
     console.log("Selected: ",selectedCourses);
 
@@ -209,8 +246,12 @@ const CoursePicker = props => {
     return (
         <div>
             <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
+            <div id="capture">
             <div className="container-fluid headerContent">
                 <div className="row">
+                    <div className="col-12 exportDiv">
+                        <button onClick={() => exportPdf()} value="Save">Lagre oversikt</button>
+                    </div>
                     <div className="col-12">
                         <h3>Velg spesialisering</h3>
                         <Select onChange={(selectedOptions) => specializationChanged(selectedOptions)} options={specializationOptions} className="selectSpecialization" />
@@ -312,8 +353,11 @@ const CoursePicker = props => {
                 <div className="row">
                     <div className="container">
                         <div className="row">
-                            <div className="col-6 summaryText">
+                            <div className="col-12" style={{'text-align':'center'}}>
                                 <h4>Sum av fag for hver kategori</h4>
+                                <br></br>
+                            </div>
+                            <div className="col-6 summaryText">
                                 {
                                     addTopicsToSummary()
                                 }
@@ -330,7 +374,7 @@ const CoursePicker = props => {
                     </div>
                 </div>
             </div>
-
+            </div>
             <div className="container-fluid coursesContent">
                 <div className="col-12 courseHeader">
                     <h3>Velg kategorier</h3>
