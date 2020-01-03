@@ -298,7 +298,7 @@ const CoursePicker = props => {
                     </div>
                     <div className="col-12">
                         <h3>Velg spesialisering</h3>
-                        <Select onChange={(selectedOptions) => specializationChanged(selectedOptions)} options={specializationOptions} className="selectSpecialization" />
+                        <Select placeholder="Velg..." onChange={(selectedOptions) => specializationChanged(selectedOptions)} options={specializationOptions} className="selectSpecialization" />
                     </div>
                     <div className="col-12" style={{'margin-top':'20px'}}>
                         <h3>Velg semester med utveksling</h3>
@@ -398,7 +398,7 @@ const CoursePicker = props => {
                     <div className="container">
                         <div className="row">
                             <div className="col-12" style={{'text-align':'center'}}>
-                                <h4>Sum av fag for hver kategori</h4>
+                                <h3>Oppsummering</h3>
                                 <br></br>
                             </div>
                             {currentCourses.length == 0 && (
@@ -428,11 +428,11 @@ const CoursePicker = props => {
             <div className="container-fluid coursesContent">
                 <div className="col-12 courseHeader">
                     <h3>Velg kategorier</h3>
-                    <Select styles={colourStyles} onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti />
+                    <Select styles={colourStyles} onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti placeholder="Velg..."/>
                     <br></br>
                     <h3>Søk i fag</h3>
                     <div className="freetextField css-yk16xz-control">
-                        <input id="freeTextInputId" name="freeTextInput" className="freetextInput" placeholder="Free text..." onChange={() => inputChanged()}></input>
+                        <input id="freeTextInputId" name="freeTextInput" className="freetextInput" placeholder="Fritekst..." onChange={() => inputChanged()}></input>
                     </div>
                 </div>
 
