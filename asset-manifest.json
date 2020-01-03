@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/ntnu-course-picker/static/css/main.76a36046.chunk.css",
-    "main.js": "/ntnu-course-picker/static/js/main.4b3ec6dd.chunk.js",
-    "main.js.map": "/ntnu-course-picker/static/js/main.4b3ec6dd.chunk.js.map",
+    "main.js": "/ntnu-course-picker/static/js/main.12721789.chunk.js",
+    "main.js.map": "/ntnu-course-picker/static/js/main.12721789.chunk.js.map",
     "runtime-main.js": "/ntnu-course-picker/static/js/runtime-main.728df32f.js",
     "runtime-main.js.map": "/ntnu-course-picker/static/js/runtime-main.728df32f.js.map",
     "static/css/2.1629a26b.chunk.css": "/ntnu-course-picker/static/css/2.1629a26b.chunk.css",
     "static/js/2.eb2505d5.chunk.js": "/ntnu-course-picker/static/js/2.eb2505d5.chunk.js",
     "static/js/2.eb2505d5.chunk.js.map": "/ntnu-course-picker/static/js/2.eb2505d5.chunk.js.map",
     "index.html": "/ntnu-course-picker/index.html",
-    "precache-manifest.7563dea7cbe3d5b94c3fab8490727e92.js": "/ntnu-course-picker/precache-manifest.7563dea7cbe3d5b94c3fab8490727e92.js",
+    "precache-manifest.f8a3a439fc717b004d48e38da4a3b302.js": "/ntnu-course-picker/precache-manifest.f8a3a439fc717b004d48e38da4a3b302.js",
     "service-worker.js": "/ntnu-course-picker/service-worker.js",
     "static/css/2.1629a26b.chunk.css.map": "/ntnu-course-picker/static/css/2.1629a26b.chunk.css.map",
     "static/css/main.76a36046.chunk.css.map": "/ntnu-course-picker/static/css/main.76a36046.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.1629a26b.chunk.css",
     "static/js/2.eb2505d5.chunk.js",
     "static/css/main.76a36046.chunk.css",
-    "static/js/main.4b3ec6dd.chunk.js"
+    "static/js/main.12721789.chunk.js"
   ]
 }
