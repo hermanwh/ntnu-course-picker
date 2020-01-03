@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./CoursePicker.css";
-import Plot from 'react-plotly.js';
 
 import { ButtonToolbar, Button} from "react-bootstrap";
 import SubjectListing from "../../Components/Subject/SubjectListing";
@@ -11,10 +10,6 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-
-import {
-    MyResponsiveBar
-} from '../../shared/Plot/Plot.js'
 
 import {
     Chart
