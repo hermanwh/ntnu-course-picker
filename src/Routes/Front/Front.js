@@ -9,7 +9,7 @@ const Front = ({ match }) => {
             <div className="container-fluid frontContent">
                 <div class="row">
                     <div className="col-md-4 offset-md-4 col-8 offset-2">
-                        <h3>Hei!</h3>
+                        <h3>Hei! Test</h3>
                         <h4>Du trenger ikke lese all denne kjedelige teksten hvis du ikke vil. Trykk på 'App' i menyen til venstre for å komme igang</h4>
                         <p>Denne webapplikasjonen hjelper deg (forhåpentligvis) med å velge fag og spesialisering på I&IKT</p>
                         <p>Ved å trykke på "App" i menyen til venstre kommer du til selve applikasjonen</p>
