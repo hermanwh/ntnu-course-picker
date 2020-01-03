@@ -57,4 +57,38 @@
                 </Link>
             </div>
 
+
+
+
+
+
+            function addTopicsToSummaryGraph() {
+        let content = [];
+        currentCourses.map(x => x.topics)
+                                        .flat()
+                                        .reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map())
+                                        .forEach((value, key) => (
+                                            content.push([topicNames[key], value])
+                                        ));
+        return content;
+    }
+
+            <div className="col-6">
+                                <Plot
+                                    data={[
+                                    {type: 'bar', x: addTopicsToSummaryGraph().map(x => x[0]), y: addTopicsToSummaryGraph().map(x => x[1])},
+                                    ]}
+                                    layout={ {width: 320, height: 240, title: ''} }
+                                />
+                            </div>
+                            <div className="col-6 plotDiv">
+                                    {MyResponsiveBar([{
+            "country": "AD",
+            "": 115,
+          },
+          { 
+            "country": "AE",
+            "": 165,
+          },])}
+                            </div>
     */

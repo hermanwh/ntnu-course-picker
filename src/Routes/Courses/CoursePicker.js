@@ -6,8 +6,21 @@ import { ButtonToolbar, Button} from "react-bootstrap";
 import SubjectListing from "../../Components/Subject/SubjectListing";
 import Select from 'react-select';
 
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
+
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+
+import {
+    MyResponsiveBar
+} from '../../shared/Plot/Plot.js'
+
+import {
+    Chart
+} from '../../shared/Plot/Plot2.js'
+
+
 
 import { 
     terms,
@@ -39,11 +52,17 @@ const CoursePicker = props => {
     const [currentSpecialization, setCurrentSpecialization] = useState(null)
     const [currentTopics, setCurrentTopics] = useState([]);
     const [currentCourses, setCurrentCourses] = useState([]);
+    const [currentCourseNames, setCurrentCourseNames] = useState([])
     const [exchangeAutumn, setExchangeAutumn] = useState(false);
     const [exchangeSpring, setExchangeSpring] = useState(false);
     const [selectedCourses, setSelectedCourses] = useState({});
     const [topicCount, setTopicCount] = useState({});
     const [currentSearchText, setCurrentSearchText] = useState("");
+
+    function setCurrentCoursesAndNames(courses) {
+        setCurrentCourses(courses);
+        setCurrentCourseNames(courses.map(x => x.name.toUpperCase()));
+    }
 
     if (currentTopics.length < 1) {
         setCurrentTopics(topics);
@@ -71,7 +90,7 @@ const CoursePicker = props => {
         const index = currentCourses.indexOf(course);
         let courses = currentCourses.slice();
         courses.push(course);
-        setCurrentCourses(courses);
+        setCurrentCoursesAndNames(courses);
     }
 
     function removeCourse(course) {
@@ -79,13 +98,44 @@ const CoursePicker = props => {
         if (index > -1) {
             let courses = currentCourses.slice();
             courses.splice(index, 1);
-            setCurrentCourses(courses);
+            setCurrentCoursesAndNames(courses);
         }
     }
 
     function addSelCourse(course, year) {
-        addSelectedCourse(course, year);
+        let index = year*2 + course.term;
+        const maxlen = index == 4 ? 2 : 4;
+
+        if (index === 5) {
+            return;
+        }
+
+        const nonSelectedCourses = course.prerequisites.filter(prereqCourse => !currentCourseNames.includes(prereqCourse.toUpperCase()));
+        
+        if (nonSelectedCourses.length > 0) {
+            submit(course, index, maxlen, nonSelectedCourses);
+        } else {
+            addSelectedCourse(course, index, maxlen);
+        }
     }
+
+    function submit(course, index, maxlen, courses) {
+        console.log(course);
+        confirmAlert({
+        title: 'Manglende forkunnskap',
+        message: 'Du mangler følgende forkunnskap: ' + courses.map(x => x.toUpperCase()).join(', '),
+        buttons: [
+            {
+            label: 'Legg til likevel',
+            onClick: () => addSelectedCourse(course, index, maxlen)
+            },
+            {
+            label: 'Gå tilbake',
+            onClick: null
+            }
+        ]
+        });
+    };
 
     function removeSelCourse(course) {
         removeCourse(course);
@@ -102,10 +152,8 @@ const CoursePicker = props => {
         setSelectedCourses(selCourses);
     }
 
-    function addSelectedCourse(course, year) {
+    function addSelectedCourse(course, index, maxlen) {
         let selCourses = selectedCourses;
-        let index = year*2 + course.term;
-        const maxlen = index == 4 ? 2 : 4;
 
         if (selCourses[index] === undefined) {
             selCourses[index] = [];
@@ -163,7 +211,7 @@ const CoursePicker = props => {
                                         .flat()
                                         .reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map())
                                         .forEach((value, key) => (
-                                            content.push([topicNames[key], value])
+                                            content.push({'name': topicNames[key], count: value})
                                         ));
         return content;
     }
@@ -239,6 +287,7 @@ const CoursePicker = props => {
     */
 
     console.log("Current: ",currentCourses);
+    console.log("CurrentNames: ", currentCourseNames);
     console.log("Selected: ",selectedCourses);
 
     // currentCourses.map(x => x.topics).flat().reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()).forEach((key, value) => console.log(key, value))
@@ -357,19 +406,25 @@ const CoursePicker = props => {
                                 <h4>Sum av fag for hver kategori</h4>
                                 <br></br>
                             </div>
-                            <div className="col-6 summaryText">
+                            {currentCourses.length == 0 && (
+                                <div className="col-12" style={{textAlign: 'center'}}>
+                                <p>Ingen fag valgt</p>
+                                </div>
+                            )}
+                            {currentCourses.length > 0 && (
+                                <div className="col-3 summaryText">
                                 {
                                     addTopicsToSummary()
                                 }
+                                </div>
+                            )}
+                            {currentCourses.length > 0 && (
+                                <div className="col-6">
+                                {Chart(addTopicsToSummaryGraph())}
                             </div>
-                            <div className="col-6">
-                                <Plot
-                                    data={[
-                                    {type: 'bar', x: addTopicsToSummaryGraph().map(x => x[0]), y: addTopicsToSummaryGraph().map(x => x[1])},
-                                    ]}
-                                    layout={ {width: 320, height: 240, title: ''} }
-                                />
-                            </div>
+                            )
+                            }
+                            
                         </div>
                     </div>
                 </div>
@@ -397,6 +452,7 @@ const CoursePicker = props => {
                             <div className="courseBox col-sm-3">
                                 <SubjectListing
                                 data={course}
+                                courses={currentCourseNames}
                                 />
                                 {currentCourses.some(x => x === course) && (
                                 <div className="btnBox">

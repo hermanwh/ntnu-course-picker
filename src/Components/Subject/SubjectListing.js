@@ -30,13 +30,24 @@ const SubjectListing = props => {
                 ))}</div>
             </div>
             <ReactTooltip place="top" className='extraClass' delayHide={150} id={props.data.name} aria-haspopup='true' role='example' effect="solid">
-                <p>This is a global react component tooltip</p>
-                <p>You can put every thing here</p>
-                <ul>
-                <li>Word</li>
-                <li>Chart</li>
-                <li>Else</li>
-                </ul>
+                <p>Anbefalt forkunnskap:</p>
+                {props.data.prerequisites.length > 0 && (
+                    <ul>
+                        {
+                            props.data.prerequisites.map(prereq => (
+                                <li className={props.courses.includes(prereq.toUpperCase()) ? 'activeCourse' : ''}>{prereq.toUpperCase()}</li>
+                            ))
+                        }
+                    </ul>
+                )}
+                {props.data.prerequisites.length == 0 && (
+                    <ul>
+                        <li className="activeCourse">Ingen</li>
+                    </ul>
+                )
+                    
+                }
+                
             </ReactTooltip>
        </div>
     )
