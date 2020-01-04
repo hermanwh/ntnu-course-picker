@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/ntnu-course-picker/static/css/main.57ca02b9.chunk.css",
-    "main.js": "/ntnu-course-picker/static/js/main.12e317a6.chunk.js",
-    "main.js.map": "/ntnu-course-picker/static/js/main.12e317a6.chunk.js.map",
+    "main.css": "/ntnu-course-picker/static/css/main.b6dda882.chunk.css",
+    "main.js": "/ntnu-course-picker/static/js/main.0d02dbb9.chunk.js",
+    "main.js.map": "/ntnu-course-picker/static/js/main.0d02dbb9.chunk.js.map",
     "runtime-main.js": "/ntnu-course-picker/static/js/runtime-main.728df32f.js",
     "runtime-main.js.map": "/ntnu-course-picker/static/js/runtime-main.728df32f.js.map",
     "static/css/2.1629a26b.chunk.css": "/ntnu-course-picker/static/css/2.1629a26b.chunk.css",
-    "static/js/2.eb2505d5.chunk.js": "/ntnu-course-picker/static/js/2.eb2505d5.chunk.js",
-    "static/js/2.eb2505d5.chunk.js.map": "/ntnu-course-picker/static/js/2.eb2505d5.chunk.js.map",
+    "static/js/2.547081dc.chunk.js": "/ntnu-course-picker/static/js/2.547081dc.chunk.js",
+    "static/js/2.547081dc.chunk.js.map": "/ntnu-course-picker/static/js/2.547081dc.chunk.js.map",
     "index.html": "/ntnu-course-picker/index.html",
-    "precache-manifest.77d298c8b12f4e692b0042be70a6cee3.js": "/ntnu-course-picker/precache-manifest.77d298c8b12f4e692b0042be70a6cee3.js",
+    "precache-manifest.1a1d767c968771848f726d711b414c28.js": "/ntnu-course-picker/precache-manifest.1a1d767c968771848f726d711b414c28.js",
     "service-worker.js": "/ntnu-course-picker/service-worker.js",
     "static/css/2.1629a26b.chunk.css.map": "/ntnu-course-picker/static/css/2.1629a26b.chunk.css.map",
-    "static/css/main.57ca02b9.chunk.css.map": "/ntnu-course-picker/static/css/main.57ca02b9.chunk.css.map",
-    "static/js/2.eb2505d5.chunk.js.LICENSE": "/ntnu-course-picker/static/js/2.eb2505d5.chunk.js.LICENSE",
+    "static/css/main.b6dda882.chunk.css.map": "/ntnu-course-picker/static/css/main.b6dda882.chunk.css.map",
+    "static/js/2.547081dc.chunk.js.LICENSE": "/ntnu-course-picker/static/js/2.547081dc.chunk.js.LICENSE",
     "static/media/logo.svg": "/ntnu-course-picker/static/media/logo.ee7cd8ed.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.728df32f.js",
     "static/css/2.1629a26b.chunk.css",
-    "static/js/2.eb2505d5.chunk.js",
-    "static/css/main.57ca02b9.chunk.css",
-    "static/js/main.12e317a6.chunk.js"
+    "static/js/2.547081dc.chunk.js",
+    "static/css/main.b6dda882.chunk.css",
+    "static/js/main.0d02dbb9.chunk.js"
   ]
 }
