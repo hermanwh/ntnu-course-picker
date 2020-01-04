@@ -3,6 +3,7 @@ import "./CoursePicker.css";
 
 import { ButtonToolbar, Button} from "react-bootstrap";
 import SubjectListing from "../../Components/Subject/SubjectListing";
+import CourseSummary from "../../Components/Subject/CourseSummary";
 import Select from 'react-select';
 
 import { confirmAlert } from 'react-confirm-alert'; // Import
@@ -43,6 +44,10 @@ import {
     specializationOptions,
 } from '../../shared/Constants/Specializations.js'
 
+import {
+    recommendedCourses,
+} from '../../shared/Constants/CourseRecommendations.js'
+
 const CoursePicker = props => {
     const [currentSpecialization, setCurrentSpecialization] = useState(null)
     const [currentTopics, setCurrentTopics] = useState([]);
@@ -53,6 +58,7 @@ const CoursePicker = props => {
     const [selectedCourses, setSelectedCourses] = useState({});
     const [topicCount, setTopicCount] = useState({});
     const [currentSearchText, setCurrentSearchText] = useState("");
+    const [recommendationTopic, setRecommendationTopic] = useState(null);
 
     function setCurrentCoursesAndNames(courses) {
         setCurrentCourses(courses);
@@ -232,6 +238,9 @@ const CoursePicker = props => {
         setCurrentSearchText(asd);
     }
 
+    function recommendationTopicChanged(topic) {
+        setRecommendationTopic(topic.value);
+    }
 
     const customSelectStyles = {
         menu: (provided, state) => ({
@@ -319,78 +328,78 @@ const CoursePicker = props => {
                 </div>
                 <div className="row">
                     <div className="col-lg-10 offset-lg-1">
-                <div className="row" style={{'margin-top': '20px'}}>
-                    <div className="col-lg-4">
-                        <h3>3. klasse</h3>
-                        <div className="row">
-                            <div className="col-12 semesterBox">
-                                <h4>høst</h4>
-                                {
-                                    selectedCoursesContent(0)
-                                }
-                            </div>
-                            <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
-                                <h4>vår</h4>
-                                {
-                                    selectedCoursesContent(1)
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-lg-4">
-                        <h3>4. klasse</h3>
-                        <div className="row">
-                            <div className="col-12 semesterBox">
-                                <h4>høst</h4>
-                                {!exchangeAutumn && (
-                                    selectedCoursesContent(2)
-                                )}
-                                {exchangeAutumn && (
-                                    <div>
-                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
-                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
-                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
-                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                        <div className="row" style={{'margin-top': '20px'}}>
+                            <div className="col-lg-4">
+                                <h3>3. klasse</h3>
+                                <div className="row">
+                                    <div className="col-12 semesterBox">
+                                        <h4>høst</h4>
+                                        {
+                                            selectedCoursesContent(0)
+                                        }
                                     </div>
-                                )}
-                            </div>
-                            <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
-                                <h4>vår</h4>
-                                {!exchangeSpring && (
-                                    selectedCoursesContent(3)
-                                )}
-                                {exchangeSpring && (
-                                    <div>
-                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
-                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
-                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
-                                        <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                    <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
+                                        <h4>vår</h4>
+                                        {
+                                            selectedCoursesContent(1)
+                                        }
                                     </div>
-                                )}
+                                </div>
+                            </div>
+                            <div className="col-lg-4">
+                                <h3>4. klasse</h3>
+                                <div className="row">
+                                    <div className="col-12 semesterBox">
+                                        <h4>høst</h4>
+                                        {!exchangeAutumn && (
+                                            selectedCoursesContent(2)
+                                        )}
+                                        {exchangeAutumn && (
+                                            <div>
+                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
+                                        <h4>vår</h4>
+                                        {!exchangeSpring && (
+                                            selectedCoursesContent(3)
+                                        )}
+                                        {exchangeSpring && (
+                                            <div>
+                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-lg-4">
+                                <h3>5. klasse</h3>
+                                <div className="row">
+                                    <div className="col-12 semesterBox">
+                                        <h4>høst</h4>
+                                        <p>Prosjektoppgave (15stp)</p>
+                                        {
+                                            selectedCoursesContent(4)
+                                        }
+                                        <p><br></br></p>
+                                    </div>
+                                    <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
+                                        <h4>vår</h4>
+                                        <p>Masteroppgave (30stp)</p>
+                                        <p><br></br></p>
+                                        <p><br></br></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4">
-                        <h3>5. klasse</h3>
-                        <div className="row">
-                            <div className="col-12 semesterBox">
-                                <h4>høst</h4>
-                                <p>Prosjektoppgave (15stp)</p>
-                                {
-                                    selectedCoursesContent(4)
-                                }
-                                <p><br></br></p>
-                            </div>
-                            <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
-                                <h4>vår</h4>
-                                <p>Masteroppgave (30stp)</p>
-                                <p><br></br></p>
-                                <p><br></br></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                </div>
                 </div>
             </div>
             <div className="container-fluid summaryContent">
@@ -424,6 +433,22 @@ const CoursePicker = props => {
                     </div>
                 </div>
             </div>
+            </div>
+            <div className="container-fluid recommendationContent">
+                <div className="row">
+                    <div className="col-12">
+                        <h3>Anbefalte fag</h3>
+                        <h4 style={{'margin-bottom':'20px'}}>NB: veldig subjektivt/eksperimentelt</h4>
+                        <Select placeholder="Velg..." onChange={(selectedOptions) => recommendationTopicChanged(selectedOptions)} options={topicsOptions} className="selectSpecialization" />
+                        {recommendationTopic !== null && (
+                            <CourseSummary 
+                            data = {recommendedCourses(recommendationTopic)}
+                            courses = {courses}
+                        />
+                        )
+                        }
+                    </div>
+                </div>
             </div>
             <div className="container-fluid coursesContent">
                 <div className="col-12 courseHeader">
