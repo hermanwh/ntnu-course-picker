@@ -83,6 +83,32 @@ p {
     margin-right: 10px;
 }
 
+svg {
+    vertical-align: text-top !important;
+}
+
+.courseOverviewLink {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 85%;
+}
+
+.courseOverviewText {
+    display: inline;
+    max-width: 85%;
+}
+
+.courseOverviewRemove {
+    cursor: pointer;
+    color: #ac93e5;
+    padding-left: 5px;
+}
+
+.cancelButton {
+    color: #ac93e5;
+}
+
 .courseHeader {
     text-align: center;
 }

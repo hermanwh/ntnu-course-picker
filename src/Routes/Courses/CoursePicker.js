@@ -12,11 +12,13 @@ import 'react-confirm-alert/src/react-confirm-alert.css'; // Import css
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
+import ReactTooltip from 'react-tooltip';
+
 import {
     Chart
 } from '../../shared/Plot/Plot2.js'
 
-
+import { IoIosCloseCircle } from "react-icons/io";
 
 import { 
     terms,
@@ -185,7 +187,16 @@ const CoursePicker = props => {
         let content = [];
         if (selectedCourses[index] !== undefined) {
             selectedCourses[index].slice(0, 4).forEach(course => (
-                content.push(<a href={"https://www.ntnu.no/studier/emner/" + course.name} rel="noopener noreferrer" target="_tab"><p>{course.name} {course.subname}</p></a>)
+                content.push(
+                    <div className="inlineDiv">
+                        <a className="courseOverviewLink" href={"https://www.ntnu.no/studier/emner/" + course.name} rel="noopener noreferrer" target="_tab">
+                            <p className="courseOverviewText">{course.name} {course.subname}</p>
+                        </a>
+                        <span data-tip data-for="courseRemove" className="courseOverviewRemove" onClick={() => removeSelCourse(course)}><IoIosCloseCircle size={18} /></span>
+                        <ReactTooltip place="right" id="courseRemove" aria-haspopup='true' role='example' effect="solid">
+                            <p>Fjern</p>
+                        </ReactTooltip>
+                    </div>)
             ));
         }
         const maxlen = index == 4 ? 2 : 4;
