@@ -18,17 +18,20 @@ const Front = ({ match }) => {
                         <p>Valg av spesialisering legger automatisk til obligatoriske fag for den valgte spesialiseringen. Dette kan overstyres ved å manuelt fjerne det automatisk valgte faget</p>
                         <h3>2. Velg semester med utveksling</h3>
                         <p>Aktuelle fag for disse føres inn manuelt ved å skrive inn i feltene markert med "Skriv inn fag..."</p>
-                        <h3>3. Se sammendrag av valgte fag i grafen/menyen</h3>
+                        <h3>3. Se oppsummering av valgte fag i grafen/menyen</h3>
                         <p>Alle fag er delt inn i flere kategorier, som f.eks IT eller kybernetikk. Sammendraget gir en pekepinn på hvilken kompetanse din fagsammensetning gir</p>
-                        <p>Sammendraget oppdateres (naturligvis) etterhvert som flere fag legges til fagplanen</p>
-                        <h3>4. Velg fag</h3>
+                        <p>Oppsummeringen oppdateres (naturligvis) etterhvert som flere fag legges til fagplanen</p>
+                        <h3>4. Se anbefalte fag utfra kateogi</h3>
+                        <p>Her er tanken å komme med noen slags "basispakker" for hver kategori, e.g. Reguleringsteknikk++ for Kybernetikk, Intro til AI/Metoder i AI/Maskinlæring for AI osv. osv.</p>
+                        <p>Enn så lenge er det nokså begrenset hva som er lagt inn av forslag</p>
+                        <h3>5. Velg fag</h3>
                         <p>NB: Listen over fag er ikke komplett, i påvente av API-støtte fra NTNU-IT</p>
-                        <h4>Filtrer på kategori</h4>
+                        <h4>5.1 Filtrer på kategori</h4>
                         <p>Kategorier (vilkårlig antall) velges via valgfeltet. Hver kategori har sin egen farge, som er indikert i søkefeltet og på de tilhørende fagene</p>
                         <p>NB: kategori-funksjonen er på ingen måte ferdigstilt. Kom gjerne med forslag til aktuelle kategorier!</p>
-                        <h4>Filtrer på fritekst</h4>
+                        <h4>5.2 Filtrer på fritekst</h4>
                         <p>Bruk søkefeltet til å skrive inn fagkode eller navn på ønsket fag</p>
-                        <h4>Legg til fag i fagplanen</h4>
+                        <h4>5.3 Legg til fag i fagplanen</h4>
                         <p>Bruk knappene på hvert enkelt fag til å legge faget inn i fagplanen på det aktuelle årskullet</p>
                         <p>Semester (høst/vår) velges automatisk ut fra fagets semester indikert nede i venstre hjørne</p>
                         <br></br>
@@ -39,6 +42,7 @@ const Front = ({ match }) => {
                         <p>- Fagforslag basert på interesser, f.eks med ferdig utfylte anbefalte fag etc.</p>
                         <p>- Bedre og mer oversiktlig design, spesielt for faglisten</p>
                         <p>- Vurderingssystem mm.</p>
+                        <p>- Karakterstatistikk</p>
                         <p>- Hva enn som måtte komme av forslag</p>
                     </div>
                 </div>
