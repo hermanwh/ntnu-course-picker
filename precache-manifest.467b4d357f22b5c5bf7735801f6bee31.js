@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3ddde07bf4267e0c5db1e4ee71d8dbbf",
+    "revision": "6425cfff43f085220a08f61eae696d23",
     "url": "/ntnu-course-picker/index.html"
   },
   {
@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ntnu-course-picker/static/css/2.1629a26b.chunk.css"
   },
   {
-    "revision": "178b1db3931a1b13d87b",
-    "url": "/ntnu-course-picker/static/css/main.2611bf76.chunk.css"
+    "revision": "d2c1141ad656acfa4f67",
+    "url": "/ntnu-course-picker/static/css/main.d79e1489.chunk.css"
   },
   {
     "revision": "87540e58ec39366f3573",
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/ntnu-course-picker/static/js/2.9fc0a286.chunk.js.LICENSE"
   },
   {
-    "revision": "178b1db3931a1b13d87b",
-    "url": "/ntnu-course-picker/static/js/main.3797faf0.chunk.js"
+    "revision": "d2c1141ad656acfa4f67",
+    "url": "/ntnu-course-picker/static/js/main.6f888be4.chunk.js"
   },
   {
     "revision": "27fbc326b1b10c425858",
