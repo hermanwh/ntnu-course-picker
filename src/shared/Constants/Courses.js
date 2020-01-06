@@ -1,3 +1,17 @@
+export const courseTagDesc = {
+    TMM: "Institutt for maskinteknikk og produksjon",
+    TPK: "Institutt for maskinteknikk og produksjon",
+    TBA: "Institutt for bygg- og miljøteknikk",
+    TEP: "Institutt for energi- og prosessteknikk",
+    TIØ: "Institutt for industriell økonomi og teknologiledelse",
+    TKT: "Institutt for konstruksjonsteknikk",
+    TMA: "Institutt for matematiske fag",
+    TMR: "Institutt for marin teknikk",
+    TPG: "Institutt for geovitenskap og petroleum",
+    TTK: "Institutt for teknisk kybernetikk",
+    TDT: "Institutt for datateknologi og informatikk",
+}
+
 export const courses = {
     tpg4105: {
         name: "TPG4105",

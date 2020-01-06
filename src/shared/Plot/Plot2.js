@@ -15,6 +15,7 @@ export const Chart = (data) => (
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
+        <Tooltip cursor={{fill: 'none'}} />
         <Bar dataKey="count" fill="#8884d8" />
     </BarChart>
 )

@@ -33,6 +33,10 @@ h1 {
     margin: 0px 2px 0px 2px;
 }
 
+.bigbtn {
+    min-width: 107px;
+}
+
 .exchangeInput {
     outline: none;
     border: none;
@@ -77,14 +81,15 @@ h4 {
     font-family: Aldrich;
 }
 
+h5 {
+    color: #ac93e5;
+    font-family: Aldrich;
+}
+
 p {
     color: white;
     margin-left: 10px;
     margin-right: 10px;
-}
-
-svg {
-    vertical-align: text-top !important;
 }
 
 .courseOverviewLink {
@@ -94,15 +99,13 @@ svg {
     max-width: 85%;
 }
 
-.courseOverviewText {
-    display: inline;
-    max-width: 85%;
-}
-
 .courseOverviewRemove {
+    position: absolute;
+    display: inline-block;
     cursor: pointer;
     color: #ac93e5;
     padding-left: 5px;
+
 }
 
 .cancelButton {
@@ -170,6 +173,10 @@ svg {
 .exportDiv {
     text-align: right;
     padding-right: 40px;
+}
+
+.recharts-tooltip-label {
+    color: black !important;
 }
 
 .dot {

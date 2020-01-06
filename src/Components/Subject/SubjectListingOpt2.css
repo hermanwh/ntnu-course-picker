@@ -1,0 +1,73 @@
+.courseBox-opt2 {
+    background-color: #656565;
+    background-clip: content-box;
+    position: relative;
+    border-radius: 3px;
+    padding: 2px 2px 2px 2px;
+}
+
+p.subjectListingParent {
+    margin: 0 0 0 0 !important;
+    padding: 2px 0px 2px 0px !important;
+    display: inline-block;
+}
+
+.btnBox-opt2 {
+    display: inline-block; 
+}
+
+.courseName-opt2 {
+    font-size: 14px;
+    color: white;
+    font-family: Aldrich;
+    display: inline-block;
+    margin-right: 5px !important;
+    margin-left: 5px !important;
+}
+
+p.courseBox-opt2 {
+    text-align: left;
+    display: inline-block;
+}
+
+.courseSubname-opt2 {
+    font-size: 14px;
+    color: white;
+    display: inline-block;
+    margin-right: 5px !important;
+    max-width: 210px;
+    white-space: nowrap;
+    vertical-align: bottom;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.courseTopics-opt2 {
+    color: #171717;
+    display: inline-block;
+    padding-right: 10px;
+    vertical-align: middle;
+}
+
+.courseTerm-opt2 {
+    color: #171717;
+    display: inline-block;
+}
+
+.topicsDiv-opt2 {
+    float: left;
+}
+
+.extraClass {
+font-size: 20px !important;
+pointer-events: auto !important;
+}
+
+.extraClass:hover {
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+.activeCourse {
+    color: green;
+}

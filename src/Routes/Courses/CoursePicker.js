@@ -3,6 +3,8 @@ import "./CoursePicker.css";
 
 import { ButtonToolbar, Button} from "react-bootstrap";
 import SubjectListing from "../../Components/Subject/SubjectListing";
+import SubjectListingOpt2 from "../../Components/Subject/SubjectListingOpt2";
+
 import CourseSummary from "../../Components/Subject/CourseSummary";
 import Select from 'react-select';
 
@@ -30,6 +32,7 @@ import {
 
 import {
     courses,
+    courseTagDesc,
 } from '../../shared/Constants/Courses.js'
 
 import {
@@ -49,6 +52,13 @@ import {
 import {
     recommendedCourses,
 } from '../../shared/Constants/CourseRecommendations.js'
+
+var groupBy = function(xs, key) {
+    return xs.reduce(function(rv, x) {
+      (rv[x[key].substring(0, 3)] = rv[x[key].substring(0, 3)] || []).push(x);
+      return rv;
+    }, {});
+  };
 
 const CoursePicker = props => {
     const [currentSpecialization, setCurrentSpecialization] = useState(null)
@@ -190,7 +200,7 @@ const CoursePicker = props => {
                 content.push(
                     <div className="inlineDiv">
                         <a className="courseOverviewLink" href={"https://www.ntnu.no/studier/emner/" + course.name} rel="noopener noreferrer" target="_tab">
-                            <p className="courseOverviewText">{course.name} {course.subname}</p>
+                            {course.name} {course.subname}
                         </a>
                         <span data-tip data-for="courseRemove" className="courseOverviewRemove" onClick={() => removeSelCourse(course)}><IoIosCloseCircle size={18} /></span>
                         <ReactTooltip place="right" id="courseRemove" aria-haspopup='true' role='example' effect="solid">
@@ -304,6 +314,92 @@ const CoursePicker = props => {
     console.log("Current: ",currentCourses);
     console.log("CurrentNames: ", currentCourseNames);
     console.log("Selected: ",selectedCourses);
+
+    function courseContent(course) {
+        return (
+            <div className="courseBox col-sm-3">
+                <SubjectListing
+                data={course}
+                courses={currentCourseNames}
+                />
+                {currentCourses.some(x => x === course) && (
+                <div className="btnBox">
+                    <button className="btn-opt" onClick={() => removeSelCourse(course)} value="Fjern">Fjern</button>
+                </div>
+                )}
+                {currentCourses.some(x => x === course) !== true && (
+                    <div className="btnBox">
+                        <button className="btn-opt" onClick={() => addSelCourse(course, 0)} value="3">+3</button>
+                        <button className="btn-opt" onClick={() => addSelCourse(course, 1)} value="4">+4</button>
+                        <button className="btn-opt" onClick={() => addSelCourse(course, 2)} value="5">+5</button>
+                    </div>
+                )}
+            </div>
+        )
+    }
+
+    function courseContent_opt2(course) {
+        return (
+            <div className="courseBox-opt2 col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
+                <SubjectListingOpt2
+                data={course}
+                courses={currentCourseNames}
+                />
+                <div style={{'float':'right'}}>
+                    <div className="courseTopics-opt2">
+                        {course.topics.map(topic => (
+                            <div className="topicsDiv-opt2">
+                                <span data-tip data-for={course.name + "-" + topic} className="dot" style={{'background-color':topicColors[topic]}}></span>
+                                <ReactTooltip id={course.name + "-" + topic} aria-haspopup='true' role='example' effect="solid">
+                                    <p>{topicNames[topic]}</p>
+                                </ReactTooltip>
+                            </div>
+                        ))}
+                    </div>
+                    {currentCourses.some(x => x === course) && (
+                        <div className="btnBox-opt2">
+                            <button className="btn-opt-opt2 bigbtn" onClick={() => removeSelCourse(course)} value="Fjern">Fjern</button>
+                        </div>
+                    )}
+                    {currentCourses.some(x => x === course) !== true && (
+                        <div className="btnBox-opt2">
+                            <button className="btn-opt-opt2" onClick={() => addSelCourse(course, 0)} value="3">+3</button>
+                            <button className="btn-opt-opt2" onClick={() => addSelCourse(course, 1)} value="4">+4</button>
+                            <button className="btn-opt-opt2" onClick={() => addSelCourse(course, 2)} value="5">+5</button>
+                        </div>
+                    )}
+                </div>
+            </div>
+        )
+    }
+
+    function testingStuff() {
+        let asd = groupBy(Object.values(courses)
+                .filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0))
+                .filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase()) || val.subname.toLowerCase().includes(currentSearchText.toLowerCase()))
+                .sort((a,b) => (a.name > b.name) ? 1 : -1)
+            , "name");
+        
+        let contentt = [];
+        Object.keys(asd).forEach(function(key) {
+            let subcontentt = [];
+            subcontentt.push(
+                <div className="col-12">
+                    <h4 style={{'textAlign':'center'}}>{key}</h4>
+                    <h5 style={{'textAlign':'center'}}>{courseTagDesc[key.substring(0,3).toUpperCase()]}</h5>
+                </div>
+            )
+            let value = asd[key];
+            value.forEach(function(course) {
+                subcontentt.push(
+                    courseContent_opt2(course)
+                )
+            })
+            contentt.push(subcontentt)
+        })
+        console.log(contentt);
+        return contentt;
+    }
 
     // currentCourses.map(x => x.topics).flat().reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()).forEach((key, value) => console.log(key, value))
     // <p>Exchange spring: {exchangeSpring}</p><button onClick={() => toggleSpring()}>{exchangeSpring ? "On" : "Off"}</button>
@@ -434,7 +530,7 @@ const CoursePicker = props => {
                                 </div>
                             )}
                             {currentCourses.length > 0 && (
-                                <div className="col-6">
+                                <div className="col-6" style={{'font-color':'black'}}>
                                 {Chart(addTopicsToSummaryGraph())}
                             </div>
                             )
@@ -475,34 +571,25 @@ const CoursePicker = props => {
                 <div className="row" style={{'padding-top':'30px'}}>
                     <div className="col-lg-10 offset-lg-1">
                         <div className="row">
+                            {testingStuff()}
+                        </div>
+                    </div>
+                </div>
+
+                {false && (<div className="row" style={{'padding-top':'30px'}}>
+                    <div className="col-lg-10 offset-lg-1">
+                        <div className="row">
                         {Object.values(courses)
                             .filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0))
                             .filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase()) || val.subname.toLowerCase().includes(currentSearchText.toLowerCase()))
                             .sort((a,b) => (a.name > b.name) ? 1 : -1)
                             .map(course => (
-                            <div className="courseBox col-sm-3">
-                                <SubjectListing
-                                data={course}
-                                courses={currentCourseNames}
-                                />
-                                {currentCourses.some(x => x === course) && (
-                                <div className="btnBox">
-                                    <button className="btn-opt" onClick={() => removeSelCourse(course)} value="Fjern">Fjern</button>
-                                </div>
-                                )}
-                                {currentCourses.some(x => x === course) !== true && (
-                                    <div className="btnBox">
-                                        <button className="btn-opt" onClick={() => addSelCourse(course, 0)} value="3">+3</button>
-                                        <button className="btn-opt" onClick={() => addSelCourse(course, 1)} value="4">+4</button>
-                                        <button className="btn-opt" onClick={() => addSelCourse(course, 2)} value="5">+5</button>
-                                    </div>
-                                )}
-                            </div>
+                                courseContent(course)
                         ))}
                         </div>
                     </div>
                 </div>
-                    
+                )}   
             </div>
         </div>
   );
