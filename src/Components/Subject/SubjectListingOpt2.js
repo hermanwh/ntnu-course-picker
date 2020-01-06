@@ -26,7 +26,7 @@ const SubjectListingOpt2 = props => {
                     <ul>
                         {
                             props.data.prerequisites.map(prereq => (
-                                <li className={props.courses.includes(prereq.toUpperCase()) ? 'activeCourse' : ''}>{prereq.toUpperCase()}</li>
+                                <li key={props.data.name + prereq} className={props.courses.includes(prereq.toUpperCase()) ? 'activeCourse' : ''}>{prereq.toUpperCase()}</li>
                             ))
                         }
                     </ul>

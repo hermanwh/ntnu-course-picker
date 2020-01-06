@@ -91,4 +91,46 @@
             "": 165,
           },])}
                             </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <div className="row" style={{'padding-top':'30px'}}>
+                    <div className="col-lg-12 offset-lg-0">
+                        <div className="row">
+                            <div className="col-12" style={{'textAlign':'center'}}>
+                                <h3>Velg fag</h3>
+                            </div>
+                            <div className="col-xl-2 col-lg-3 col-md-12 col-12 sticky">
+                                <h4>Kategorier</h4>
+                                <Select styles={colourStyles} onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti placeholder="Velg..."/>
+                                <h4>Søk</h4>
+                                <div className="freetextField css-yk16xz-control">
+                                    <input id="freeTextInputId" name="freeTextInput" className="freetextInput" placeholder="Fritekst..." onChange={() => inputChanged()}></input>
+                                </div>
+                            </div>
+                            <div className="col-lg-6 col-md-8 offset-xl-1 offset-lg-0 offset-md-2">
+                                <div className="row">
+                                    {testingStuff()}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
     */

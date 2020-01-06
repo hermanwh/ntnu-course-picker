@@ -87,8 +87,6 @@ const CoursePicker = props => {
         if (previousSpecialization !== null) {
             prevMandCourses = mandatoryCourses(previousSpecialization);
         }
-        console.log("Mand: ", mandCourses);
-        console.log("Prev mand: ", prevMandCourses);
         prevMandCourses.forEach(function(crs) {
             removeSelCourse(courses[crs.name]);
             currentCourses.splice(currentCourses.indexOf(courses[crs.name]), 1);
@@ -112,6 +110,20 @@ const CoursePicker = props => {
             let courses = currentCourses.slice();
             courses.splice(index, 1);
             setCurrentCoursesAndNames(courses);
+        }
+    }
+
+    function isSemesterFull(year, term) {
+        let index = year*2 + term;
+        if (index == 5) {
+            return true;
+        } else {
+            const maxlen = index == 4 ? 2 : 4;
+            if (selectedCourses[index] !== undefined) {
+                return selectedCourses[index].length == maxlen
+            } else {
+                return false;
+            }
         }
     }
 
@@ -340,7 +352,7 @@ const CoursePicker = props => {
 
     function courseContent_opt2(course) {
         return (
-            <div className="courseBox-opt2 col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
+            <div className="courseBox-opt2 col-12">
                 <SubjectListingOpt2
                 data={course}
                 courses={currentCourseNames}
@@ -349,7 +361,7 @@ const CoursePicker = props => {
                     <div className="courseTopics-opt2">
                         {course.topics.map(topic => (
                             <div className="topicsDiv-opt2">
-                                <span data-tip data-for={course.name + "-" + topic} className="dot" style={{'background-color':topicColors[topic]}}></span>
+                                <span data-tip data-for={course.name + "-" + topic} className="dot" style={{'backgroundColor':topicColors[topic]}}></span>
                                 <ReactTooltip id={course.name + "-" + topic} aria-haspopup='true' role='example' effect="solid">
                                     <p>{topicNames[topic]}</p>
                                 </ReactTooltip>
@@ -363,9 +375,9 @@ const CoursePicker = props => {
                     )}
                     {currentCourses.some(x => x === course) !== true && (
                         <div className="btnBox-opt2">
-                            <button className="btn-opt-opt2" onClick={() => addSelCourse(course, 0)} value="3">+3</button>
-                            <button className="btn-opt-opt2" onClick={() => addSelCourse(course, 1)} value="4">+4</button>
-                            <button className="btn-opt-opt2" onClick={() => addSelCourse(course, 2)} value="5">+5</button>
+                            <button className={isSemesterFull(0, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, 0)} value="3">+3</button>
+                            <button className={isSemesterFull(1, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, 1)} value="4">+4</button>
+                            <button className={isSemesterFull(2, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, 2)} value="5">+5</button>
                         </div>
                     )}
                 </div>
@@ -397,7 +409,6 @@ const CoursePicker = props => {
             })
             contentt.push(subcontentt)
         })
-        console.log(contentt);
         return contentt;
     }
 
@@ -416,17 +427,17 @@ const CoursePicker = props => {
                         <h3>Velg spesialisering</h3>
                         <Select placeholder="Velg..." onChange={(selectedOptions) => specializationChanged(selectedOptions)} options={specializationOptions} className="selectSpecialization" />
                     </div>
-                    <div className="col-12" style={{'margin-top':'20px'}}>
+                    <div className="col-12" style={{'marginTop':'20px'}}>
                         <h3>Velg semester med utveksling</h3>
                         <div className="headerDiv">
                             <p>Høst: </p>
-                            <label className="switch" style={{'margin-left':'5px', 'margin-top':'12px'}}>
+                            <label className="switch" style={{'marginLeft':'5px', 'marginTop':'12px'}}>
                                 <input type="checkbox" />
                                 <span className="slider round" onClick={() => toggleAutumn()}/>
                             </label>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                             <p>Vår:</p>
-                            <label className="switch" style={{'margin-left':'5px', 'margin-top':'12px'}}>
+                            <label className="switch" style={{'marginLeft':'5px', 'marginTop':'12px'}}>
                                 <input type="checkbox" />
                                 <span className="slider round" onClick={() => toggleSpring()}/>
                             </label>
@@ -435,7 +446,7 @@ const CoursePicker = props => {
                 </div>
                 <div className="row">
                     <div className="col-lg-10 offset-lg-1">
-                        <div className="row" style={{'margin-top': '20px'}}>
+                        <div className="row" style={{'marginTop': '20px'}}>
                             <div className="col-lg-4">
                                 <h3>3. klasse</h3>
                                 <div className="row">
@@ -445,7 +456,7 @@ const CoursePicker = props => {
                                             selectedCoursesContent(0)
                                         }
                                     </div>
-                                    <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
+                                    <div className="col-12 semesterBox" style={{'marginTop':'20px'}}>
                                         <h4>vår</h4>
                                         {
                                             selectedCoursesContent(1)
@@ -470,7 +481,7 @@ const CoursePicker = props => {
                                             </div>
                                         )}
                                     </div>
-                                    <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
+                                    <div className="col-12 semesterBox" style={{'marginTop':'20px'}}>
                                         <h4>vår</h4>
                                         {!exchangeSpring && (
                                             selectedCoursesContent(3)
@@ -497,7 +508,7 @@ const CoursePicker = props => {
                                         }
                                         <p><br></br></p>
                                     </div>
-                                    <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
+                                    <div className="col-12 semesterBox" style={{'marginTop':'20px'}}>
                                         <h4>vår</h4>
                                         <p>Masteroppgave (30stp)</p>
                                         <p><br></br></p>
@@ -513,12 +524,12 @@ const CoursePicker = props => {
                 <div className="row">
                     <div className="container">
                         <div className="row">
-                            <div className="col-12" style={{'text-align':'center'}}>
+                            <div className="col-12" style={{'textAlign':'center'}}>
                                 <h3>Oppsummering</h3>
                                 <br></br>
                             </div>
                             {currentCourses.length == 0 && (
-                                <div className="col-12" style={{textAlign: 'center'}}>
+                                <div className="col-12" style={{'textAlign':'center'}}>
                                 <p>Ingen fag valgt</p>
                                 </div>
                             )}
@@ -545,7 +556,7 @@ const CoursePicker = props => {
                 <div className="row">
                     <div className="col-12">
                         <h3>Anbefalte fag</h3>
-                        <h4 style={{'margin-bottom':'20px'}}>NB: veldig subjektivt/eksperimentelt</h4>
+                        <h4 style={{'marginBottom':'20px'}}>NB: veldig subjektivt/eksperimentelt</h4>
                         <Select placeholder="Velg..." onChange={(selectedOptions) => recommendationTopicChanged(selectedOptions)} options={topicsOptions} className="selectSpecialization" />
                         {recommendationTopic !== null && (
                             <CourseSummary 
@@ -558,20 +569,37 @@ const CoursePicker = props => {
                 </div>
             </div>
             <div className="container-fluid coursesContent">
-                <div className="col-12 courseHeader">
-                    <h3>Velg kategorier</h3>
-                    <Select styles={colourStyles} onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti placeholder="Velg..."/>
-                    <br></br>
-                    <h3>Søk i fag</h3>
-                    <div className="freetextField css-yk16xz-control">
-                        <input id="freeTextInputId" name="freeTextInput" className="freetextInput" placeholder="Fritekst..." onChange={() => inputChanged()}></input>
+                {false && (
+                    <div className="col-12 courseHeader">
+                        <h3>Velg kategorier</h3>
+                        <Select styles={colourStyles} onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti placeholder="Velg..."/>
+                        <br></br>
+                        <h3>Søk i fag</h3>
+                        <div className="freetextField css-yk16xz-control">
+                            <input id="freeTextInputId" name="freeTextInput" className="freetextInput" placeholder="Fritekst..." onChange={() => inputChanged()}></input>
+                        </div>
                     </div>
-                </div>
+                )}
 
-                <div className="row" style={{'padding-top':'30px'}}>
-                    <div className="col-lg-10 offset-lg-1">
-                        <div className="row">
-                            {testingStuff()}
+                <div className="row" style={{'paddingTop':'30px'}}>
+                    <div className="col-lg-12 offset-lg-0">
+                        <div className="row flex-lg-row-reverse">
+                            <div className="col-12" style={{'textAlign':'center'}}>
+                                <h3>Velg fag</h3>
+                            </div>
+                            <div className="col-xl-2 col-lg-3 offset-xl-right-1 col-md-12 sticky center-on-mobile" style={{'paddingTop':'58px'}}>
+                                <h4>Filtrer på kategorier</h4>
+                                <Select styles={colourStyles} onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti placeholder="Velg..."/>
+                                <h4>Søk</h4>
+                                <div className="freetextField css-yk16xz-control">
+                                    <input id="freeTextInputId" name="freeTextInput" className="freetextInput" placeholder="Fritekst..." onChange={() => inputChanged()}></input>
+                                </div>
+                            </div>
+                            <div className="col-lg-6 col-md-8 offset-md-2 col-sm-12">
+                                <div className="row">
+                                    {testingStuff()}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
