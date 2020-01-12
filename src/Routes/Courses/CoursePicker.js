@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "./CoursePicker.css";
 
 import { ButtonToolbar, Button} from "react-bootstrap";
@@ -15,6 +15,7 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 import ReactTooltip from 'react-tooltip';
+import { useAlert } from 'react-alert';
 
 import {
     Chart
@@ -53,28 +54,62 @@ import {
     recommendedCourses,
 } from '../../shared/Constants/CourseRecommendations.js'
 
-var groupBy = function(xs, key) {
-    return xs.reduce(function(rv, x) {
-      (rv[x[key].substring(0, 3)] = rv[x[key].substring(0, 3)] || []).push(x);
-      return rv;
-    }, {});
-  };
+import { firebaseConfig } from "../../shared/Firebase/index.js";
+
+import Join from "../../Components/Auth/Join";
+import Login from "../../Components/Auth/Login";
+
+import firebase from "firebase/app";
+import "firebase/storage";
+
+import {
+    groupBy
+} from "../../shared/Help/index.js";
+
+firebase.initializeApp(firebaseConfig);
+const storage = firebase.storage();
+
+export const AuthContext = React.createContext(null);
 
 const CoursePicker = props => {
     const [currentSpecialization, setCurrentSpecialization] = useState(null)
     const [currentTopics, setCurrentTopics] = useState([]);
-    const [currentCourses, setCurrentCourses] = useState([]);
-    const [currentCourseNames, setCurrentCourseNames] = useState([])
     const [exchangeAutumn, setExchangeAutumn] = useState(false);
     const [exchangeSpring, setExchangeSpring] = useState(false);
     const [selectedCourses, setSelectedCourses] = useState({});
+    const [currentCourses, setCurrentCourses] = useState([]);
+    const [currentCourseNames, setCurrentCourseNames] = useState([]);
     const [topicCount, setTopicCount] = useState({});
     const [currentSearchText, setCurrentSearchText] = useState("");
     const [recommendationTopic, setRecommendationTopic] = useState(null);
+    const [selectedCoursesArray, setSelectedCoursesArray] = useState([]);
+    const [currentPlanName, setCurrentPlanName] = useState("Ny plan");
+    const [currentActivePlanIndex, setCurrentActivePlanIndex] = useState(0);
+    const [loggingIn, setLoggingIn] = useState(false);
+    const [joining, setJoining] = useState(false);
+    const [isLoggedIn, setLoggedIn] = useState(false);
 
-    function setCurrentCoursesAndNames(courses) {
-        setCurrentCourses(courses);
-        setCurrentCourseNames(courses.map(x => x.name.toUpperCase()));
+    const alert = useAlert();
+
+
+    function setSelectedCoursesWithSideEffects(selCourses) {
+        setSelectedCourses(selCourses);
+        setCurrentCourses(getCurrentCourses(selCourses));
+        setCurrentCourseNames(getCurrentCourseNames(selCourses));
+    }
+
+    function getCurrentCourseNames(selCourses) {
+        return getCurrentCourses(selCourses).map(crs => crs.name.toUpperCase());
+    }
+
+    function getCurrentCourses(selCourses) {
+        let asddd = [];
+        Object.keys(selCourses).forEach(function(key) {
+            Object.keys(selCourses[key]).forEach(function(subkey) {
+                asddd.push(selCourses[key][subkey])
+            })
+        })
+        return asddd;
     }
 
     if (currentTopics.length < 1) {
@@ -89,28 +124,10 @@ const CoursePicker = props => {
         }
         prevMandCourses.forEach(function(crs) {
             removeSelCourse(courses[crs.name]);
-            currentCourses.splice(currentCourses.indexOf(courses[crs.name]), 1);
         })
         mandCourses.forEach(function(crs) {
             addSelCourse(courses[crs.name], crs.year);
-            currentCourses.push(courses[crs.name]);
         })
-    }
-
-    function addCourse(course) {
-        const index = currentCourses.indexOf(course);
-        let courses = currentCourses.slice();
-        courses.push(course);
-        setCurrentCoursesAndNames(courses);
-    }
-
-    function removeCourse(course) {
-        const index = currentCourses.indexOf(course);
-        if (index > -1) {
-            let courses = currentCourses.slice();
-            courses.splice(index, 1);
-            setCurrentCoursesAndNames(courses);
-        }
     }
 
     function isSemesterFull(year, term) {
@@ -145,36 +162,39 @@ const CoursePicker = props => {
     }
 
     function submit(course, index, maxlen, courses) {
-        console.log(course);
         confirmAlert({
-        title: 'Manglende forkunnskap',
-        message: 'Du mangler følgende forkunnskap: ' + courses.map(x => x.toUpperCase()).join(', '),
-        buttons: [
-            {
-            label: 'Legg til likevel',
-            onClick: () => addSelectedCourse(course, index, maxlen)
-            },
-            {
-            label: 'Gå tilbake',
-            onClick: null
-            }
-        ]
+            title: 'Manglende forkunnskap',
+            message: 'Du mangler følgende forkunnskap: ' + courses.map(x => x.toUpperCase()).join(', '),
+            buttons: [
+                {
+                label: 'Legg til likevel',
+                onClick: () => addSelectedCourse(course, index, maxlen)
+                },
+                {
+                label: 'Gå tilbake',
+                onClick: null
+                }
+            ]
         });
     };
 
     function removeSelCourse(course) {
-        removeCourse(course);
         removeSelectedCourse(course);
     }
 
     function removeSelectedCourse(course) {
+        console.log("Remove selected course", course);
+        console.log(selectedCourses);
         let selCourses = selectedCourses;
         Object.keys(selCourses).forEach(function(key) {
-            if (selCourses[key].includes(course)) {
-                selCourses[key].splice( selCourses[key].indexOf(course), 1 );
+            const indexx = selCourses[key].findIndex(crs => crs.name + crs.term === course.name + course.term);
+            if (indexx > -1) {
+                selCourses[key].splice( indexx, 1 );
             }
         })
-        setSelectedCourses(selCourses);
+        setSelectedCoursesWithSideEffects(selCourses);
+        console.log(selCourses);
+        console.log(selectedCourses);
     }
 
     function addSelectedCourse(course, index, maxlen) {
@@ -186,11 +206,9 @@ const CoursePicker = props => {
 
         if (selCourses[index].length < maxlen && !Object.values(selCourses).includes(course)) {
             selCourses[index].push(course)
-            setSelectedCourses(selCourses);
-            addCourse(course);
+            setSelectedCoursesWithSideEffects(selCourses);
         } else {
             console.log("too long");
-            console.log(currentCourses);
             console.log(selectedCourses);
         }
     }
@@ -323,10 +341,6 @@ const CoursePicker = props => {
     }
     */
 
-    console.log("Current: ",currentCourses);
-    console.log("CurrentNames: ", currentCourseNames);
-    console.log("Selected: ",selectedCourses);
-
     function courseContent(course) {
         return (
             <div className="courseBox col-sm-3">
@@ -334,12 +348,12 @@ const CoursePicker = props => {
                 data={course}
                 courses={currentCourseNames}
                 />
-                {currentCourses.some(x => x === course) && (
+                {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) && (
                 <div className="btnBox">
                     <button className="btn-opt" onClick={() => removeSelCourse(course)} value="Fjern">Fjern</button>
                 </div>
                 )}
-                {currentCourses.some(x => x === course) !== true && (
+                {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) !== true && (
                     <div className="btnBox">
                         <button className="btn-opt" onClick={() => addSelCourse(course, 0)} value="3">+3</button>
                         <button className="btn-opt" onClick={() => addSelCourse(course, 1)} value="4">+4</button>
@@ -351,6 +365,11 @@ const CoursePicker = props => {
     }
 
     function courseContent_opt2(course) {
+        if (course.name === "TMA4130") {
+            console.log("courseContent opt 2");
+            console.log("current courses", currentCourses);
+            console.log("current course names", currentCourseNames);
+        }
         return (
             <div className="courseBox-opt2 col-12">
                 <SubjectListingOpt2
@@ -368,12 +387,12 @@ const CoursePicker = props => {
                             </div>
                         ))}
                     </div>
-                    {currentCourses.some(x => x === course) && (
+                    {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) && (
                         <div className="btnBox-opt2">
                             <button className="btn-opt-opt2 bigbtn" onClick={() => removeSelCourse(course)} value="Fjern">Fjern</button>
                         </div>
                     )}
-                    {currentCourses.some(x => x === course) !== true && (
+                    {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) !== true && (
                         <div className="btnBox-opt2">
                             <button className={isSemesterFull(0, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, 0)} value="3">+3</button>
                             <button className={isSemesterFull(1, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, 1)} value="4">+4</button>
@@ -385,15 +404,17 @@ const CoursePicker = props => {
         )
     }
 
-    function testingStuff() {
-        let asd = groupBy(Object.values(courses)
+    function courseContentSortedByInstitute() {
+        let sortedCourses = groupBy(
+                Object.values(courses)
                 .filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0))
                 .filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase()) || val.subname.toLowerCase().includes(currentSearchText.toLowerCase()))
                 .sort((a,b) => (a.name > b.name) ? 1 : -1)
-            , "name");
+            , "name"
+            );
         
         let contentt = [];
-        Object.keys(asd).forEach(function(key) {
+        Object.keys(sortedCourses).forEach(function(key) {
             let subcontentt = [];
             subcontentt.push(
                 <div className="col-12">
@@ -401,7 +422,7 @@ const CoursePicker = props => {
                     <h5 style={{'textAlign':'center'}}>{courseTagDesc[key.substring(0,3).toUpperCase()]}</h5>
                 </div>
             )
-            let value = asd[key];
+            let value = sortedCourses[key];
             value.forEach(function(course) {
                 subcontentt.push(
                     courseContent_opt2(course)
@@ -412,6 +433,113 @@ const CoursePicker = props => {
         return contentt;
     }
 
+
+    function firebaseContent() {
+        return (
+        <AuthContext.Provider value={{ isLoggedIn, setLoggedIn, storage, selectedCoursesArray, setSelectedCoursesArray, downloadButtonPressed, setJoining, setLoggingIn }}>
+            <div>
+                <div>
+                    {joining && (
+                        <Join />
+                    )}
+                    {loggingIn && (
+                        <Login />
+                    )}
+                </div>
+            </div>
+        </AuthContext.Provider>
+        )
+    }
+
+    function dbButtonMeny() {
+        return (
+            <div>
+                <button onClick={() => uploadButtonPressed()}>Save</button>
+            </div>
+        )
+    }
+
+    function uploadButtonPressed() {
+        let selectedCopy = selectedCoursesArray.slice();
+        selectedCopy.splice(currentActivePlanIndex, 1, [selectedCourses, currentCourses, currentPlanName]);
+        let coursesCopy = selectedCopy.slice();
+        if (coursesCopy[0][1].length == 0) {
+            coursesCopy.splice(0, 1);
+        }
+        uploadToDb(coursesCopy, `${firebase.auth().currentUser.uid}/selectedCourses.json`, storage);
+    }
+
+    async function downloadButtonPressed() {
+        downloadFromDb(`${firebase.auth().currentUser.uid}/selectedCourses.json`, storage, setSelectedCoursesArray);
+    }
+
+    function downloadFromDb(ref, storage, setMethod) {
+        const downloadRefConfig = storage.ref(ref);
+        downloadRefConfig.getDownloadURL().then(url => {
+            fetch(url)
+            .then(response => response.json())
+            .then(jsonData => {
+                jsonData.splice(0, 0, [{}, [], "Ny plan"]);
+                setMethod(jsonData);
+            })
+            .catch(error => {
+                console.log("error");
+            });
+        })
+        .catch(error => {
+            console.log("error while loading from db");
+            setMethod([[{}, [], "Ny plan"]]);
+        });
+    }
+
+    function uploadToDb(jsonContent, ref, storage) {
+        const configblob = new Blob([JSON.stringify(jsonContent)], {
+          type: "application/json"
+        });
+    
+        const uploadTaskConfig = storage
+            .ref(ref)
+            .put(configblob);
+    
+        // observer for when the state changes, e.g. progress
+        uploadTaskConfig.on(
+            "state_changed",
+            snapshot => {
+            // Do nothing as of yet
+            },
+            error => {
+                console.log(error);
+            }
+        );
+
+        alert.success("Data lagret");
+    }
+
+    function planNameChanged() {
+        let asd = document.getElementById("planNameInputId").value;
+        setCurrentPlanName(asd);
+    }
+
+    function changePlan(index) {
+        let selectedCopy = selectedCoursesArray.slice();
+        selectedCopy.splice(currentActivePlanIndex, 1, [selectedCourses, currentCourses, currentPlanName]);
+        setSelectedCoursesArray(selectedCopy);
+        setSelectedCoursesWithSideEffects(selectedCopy[index][0]);
+        setCurrentPlanName(selectedCopy[index][2]);
+        setCurrentActivePlanIndex(index);
+    }
+
+    /*
+    
+    const [currentPlanName, setCurrentPlanName] = useState([]);
+    const [currentActivePlanIndex, setCurrentActivePlanIndex] = useState(null);
+    */
+
+    console.log("currentCourses: ", currentCourses);
+    console.log("currentCourseNames: ", currentCourseNames);
+    console.log("selectedCourses: ", selectedCourses);
+    console.log("selectedCoursesArray:", selectedCoursesArray);
+
     // currentCourses.map(x => x.topics).flat().reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()).forEach((key, value) => console.log(key, value))
     // <p>Exchange spring: {exchangeSpring}</p><button onClick={() => toggleSpring()}>{exchangeSpring ? "On" : "Off"}</button>
     return (
@@ -419,6 +547,22 @@ const CoursePicker = props => {
             <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
             <div id="capture">
             <div className="container-fluid headerContent">
+                {!isLoggedIn && (
+                    <div style={{'position':'absolute', 'top':'20px', 'left':'80px', 'textAlign':'left', 'zIndex':'1000'}}>
+                        <span className="pointerr" onClick={() => (setJoining(!joining), setLoggingIn(false))}><h4 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 0px 0px'}}>Registrer</h4></span>
+                        <span className="pointerr" onClick={() => (setLoggingIn(!loggingIn), setJoining(false))}><h4 style={{'padding':'0px 0px 0px 0px', 'margin':'10px 0px 0px 0px'}}>Logg inn</h4></span>
+                    </div>
+                )}
+                {isLoggedIn && (
+                    <div style={{'color':'white'}}>
+                        Hei, {firebase.auth().currentUser.email.split('@')[0]}!
+                    </div>
+                )}
+                <div className="row">
+                    <div className="col-lg-10 offset-lg-1">
+                        {firebaseContent()}
+                    </div>
+                </div>
                 <div className="row">
                     <div className="col-12 exportDiv">
                         <button onClick={() => exportPdf()} value="Save">Lagre oversikt</button>
@@ -519,6 +663,29 @@ const CoursePicker = props => {
                         </div>
                     </div>
                 </div>
+                {isLoggedIn && (
+                    <div className="row" style={{'marginTop':'40px'}}>
+                        <div className="col-12">
+                            <input id="planNameInputId" className="selectSpecialization" value={currentPlanName} onChange={() => planNameChanged()}></input>
+                        </div>
+                        <div className="col-12" style={{'paddingTop':'10px'}}>
+                            {dbButtonMeny()}
+                        </div>
+                        <div className="col-12" style={{'paddingTop':'10px'}}>
+                            {selectedCoursesArray.map(function(val, i) {
+                                if (i === currentActivePlanIndex) {
+                                    return (<p>Aktiv plan: {val[2]}</p>)
+                                } else {
+                                    return (
+                                        <button style={{'display':'block', 'margin':'0 auto', 'marginTop':'5px'}} onClick={() => changePlan(i)}>Bygg til {val[2]}</button>
+                                        )
+                                    }
+                                }
+                            )}
+                        </div>
+                    </div>
+                )}
+
             </div>
             <div className="container-fluid summaryContent">
                 <div className="row">
@@ -541,7 +708,7 @@ const CoursePicker = props => {
                                 </div>
                             )}
                             {currentCourses.length > 0 && (
-                                <div className="col-6" style={{'font-color':'black'}}>
+                                <div className="col-6" style={{'fontColor':'black'}}>
                                 {Chart(addTopicsToSummaryGraph())}
                             </div>
                             )
@@ -597,7 +764,7 @@ const CoursePicker = props => {
                             </div>
                             <div className="col-lg-6 col-md-8 offset-md-2 col-sm-12">
                                 <div className="row">
-                                    {testingStuff()}
+                                    {courseContentSortedByInstitute()}
                                 </div>
                             </div>
                         </div>
