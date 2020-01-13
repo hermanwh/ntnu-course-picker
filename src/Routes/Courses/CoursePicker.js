@@ -33,6 +33,7 @@ import {
 
 import {
     courses,
+    sortedCourseList,
     courseTagDesc,
 } from '../../shared/Constants/Courses.js'
 
@@ -89,8 +90,11 @@ const CoursePicker = props => {
     const [joining, setJoining] = useState(false);
     const [isLoggedIn, setLoggedIn] = useState(false);
 
-    const alert = useAlert();
+    const [overviewActive, setOverviewActive] = useState(true);
+    const [recommendationActive, setRecommendationActive] = useState(false);
+    const [coursesActive, setCoursesActive] = useState(false);
 
+    const alert = useAlert();
 
     function setSelectedCoursesWithSideEffects(selCourses) {
         setSelectedCourses(selCourses);
@@ -133,6 +137,10 @@ const CoursePicker = props => {
     function isSemesterFull(year, term) {
         let index = year*2 + term;
         if (index == 5) {
+            return true;
+        } else if (index === 2 && exchangeAutumn === true) {
+            return true;
+        } else if (index === 3 && exchangeSpring === true) {
             return true;
         } else {
             const maxlen = index == 4 ? 2 : 4;
@@ -406,10 +414,9 @@ const CoursePicker = props => {
 
     function courseContentSortedByInstitute() {
         let sortedCourses = groupBy(
-                Object.values(courses)
+                sortedCourseList
                 .filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0))
                 .filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase()) || val.subname.toLowerCase().includes(currentSearchText.toLowerCase()))
-                .sort((a,b) => (a.name > b.name) ? 1 : -1)
             , "name"
             );
         
@@ -454,7 +461,10 @@ const CoursePicker = props => {
     function dbButtonMeny() {
         return (
             <div>
-                <button onClick={() => uploadButtonPressed()}>Save</button>
+                <div onClick={() => uploadButtonPressed()} className="button button-3">
+                    <div className="circle"></div>
+                    <a>Lagre</a>
+                </div>
             </div>
         )
     }
@@ -466,7 +476,13 @@ const CoursePicker = props => {
         if (coursesCopy[0][1].length == 0) {
             coursesCopy.splice(0, 1);
         }
-        uploadToDb(coursesCopy, `${firebase.auth().currentUser.uid}/selectedCourses.json`, storage);
+
+        if (coursesCopy.map(x => x[2]).findIndex(y => y === "Ny plan") > -1) {
+            alert.error("Vennligst gi planen din et annet navn enn 'Ny plan'");
+        } else {
+            uploadToDb(coursesCopy, `${firebase.auth().currentUser.uid}/selectedCourses.json`, storage);
+        }
+
     }
 
     async function downloadButtonPressed() {
@@ -529,6 +545,45 @@ const CoursePicker = props => {
         setCurrentActivePlanIndex(index);
     }
 
+    function planContent() {
+        let contentt = [];
+        let header = [];
+        
+        selectedCoursesArray.map(function(val, i) {
+            if (i === currentActivePlanIndex) {
+                header.push(<p style={{'display':'block'}}>{val[2]}</p>)
+            } else {
+                contentt.push(
+                    <div className="button-3">
+                        <div className="circle"></div>
+                        <button onClick={() => changePlan(i)}>{val[2]}</button>
+                    </div>
+                    )
+                }
+            }
+        )
+
+        return(
+            <div>
+                <h6>Aktiv plan:</h6>
+                {header}
+                {contentt.length > 0 && (
+                    <h6 style={{'paddingTop':'8px'}}>Bytt til:</h6>
+                )}
+                <div className="flex-container" style={{'paddingTop':'5px'}}>
+                    {contentt}
+                </div>
+                <div className="button-3" style={{'marginTop':'10px'}}>
+                        <div className="circle"></div>
+                        <button onClick={() => addNewPlan()}>Legg til tom plan</button>
+                </div>
+            </div>
+        )
+    }
+
+    function addNewPlan() {
+
+    }
     /*
     
     const [currentPlanName, setCurrentPlanName] = useState([]);
@@ -545,14 +600,15 @@ const CoursePicker = props => {
     return (
         <div>
             <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
-            <div id="capture">
-            <div className="container-fluid headerContent">
+            <div className="subMenu">
                 {!isLoggedIn && (
-                    <div style={{'position':'absolute', 'top':'20px', 'left':'80px', 'textAlign':'left', 'zIndex':'1000'}}>
-                        <span className="pointerr" onClick={() => (setJoining(!joining), setLoggingIn(false))}><h4 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 0px 0px'}}>Registrer</h4></span>
-                        <span className="pointerr" onClick={() => (setLoggingIn(!loggingIn), setJoining(false))}><h4 style={{'padding':'0px 0px 0px 0px', 'margin':'10px 0px 0px 0px'}}>Logg inn</h4></span>
+                    <div>
+                        <span className="pointerr" onClick={() => (setJoining(!joining), setLoggingIn(false))}><h5 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 10px 10px', 'fontSize':'18px'}}>Registrer</h5></span>
+                        <span className="pointerr" onClick={() => (setLoggingIn(!loggingIn), setJoining(false))}><h5 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 10px 10px', 'fontSize':'18px'}}>Logg inn</h5></span>
                     </div>
                 )}
+            </div>
+            <div className="container-fluid headerContent">
                 {isLoggedIn && (
                     <div style={{'color':'white'}}>
                         Hei, {firebase.auth().currentUser.email.split('@')[0]}!
@@ -563,10 +619,14 @@ const CoursePicker = props => {
                         {firebaseContent()}
                     </div>
                 </div>
-                <div className="row">
-                    <div className="col-12 exportDiv">
-                        <button onClick={() => exportPdf()} value="Save">Lagre oversikt</button>
+                {isLoggedIn && overviewActive && (
+                    <div className="row" style={{'marginTop':'0px', 'marginBottom':'20px'}}>
+                        <div className="col-12" style={{'paddingTop':'10px'}}>
+                            {planContent()}
+                        </div>
                     </div>
+                )}
+                <div className="row" style={{'paddingTop':'40px'}}>
                     <div className="col-12">
                         <h3>Velg spesialisering</h3>
                         <Select placeholder="Velg..." onChange={(selectedOptions) => specializationChanged(selectedOptions)} options={specializationOptions} className="selectSpecialization" />
@@ -587,7 +647,17 @@ const CoursePicker = props => {
                             </label>
                         </div>
                     </div>
+                    <div className="col-12" style={{'paddingTop':'10px'}}>
+                        <div className="button button-3">
+                            <div className="circle"></div>
+                            <button onClick={() => exportPdf()}>Eksporter oversikt</button>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            
+            <div id="capture">
+            <div className="container-fluid coursesOverviewContent">
                 <div className="row">
                     <div className="col-lg-10 offset-lg-1">
                         <div className="row" style={{'marginTop': '20px'}}>
@@ -663,29 +733,6 @@ const CoursePicker = props => {
                         </div>
                     </div>
                 </div>
-                {isLoggedIn && (
-                    <div className="row" style={{'marginTop':'40px'}}>
-                        <div className="col-12">
-                            <input id="planNameInputId" className="selectSpecialization" value={currentPlanName} onChange={() => planNameChanged()}></input>
-                        </div>
-                        <div className="col-12" style={{'paddingTop':'10px'}}>
-                            {dbButtonMeny()}
-                        </div>
-                        <div className="col-12" style={{'paddingTop':'10px'}}>
-                            {selectedCoursesArray.map(function(val, i) {
-                                if (i === currentActivePlanIndex) {
-                                    return (<p>Aktiv plan: {val[2]}</p>)
-                                } else {
-                                    return (
-                                        <button style={{'display':'block', 'margin':'0 auto', 'marginTop':'5px'}} onClick={() => changePlan(i)}>Bygg til {val[2]}</button>
-                                        )
-                                    }
-                                }
-                            )}
-                        </div>
-                    </div>
-                )}
-
             </div>
             <div className="container-fluid summaryContent">
                 <div className="row">
@@ -717,6 +764,19 @@ const CoursePicker = props => {
                         </div>
                     </div>
                 </div>
+                {isLoggedIn && (
+                    <div className="row" style={{'marginTop':'40px'}}>
+                        <div className="col-12">
+                            <h6>Navngi plan:</h6>
+                            <div className="css-yk16xz-control" style={{'width':'200px', 'margin':'0 auto', 'marginTop':'10px', 'marginBottom':'10px'}}>
+                                <input id="planNameInputId" className="planNameInput" value={currentPlanName === "Ny plan" ? "Skriv inn..." : currentPlanName} onChange={() => planNameChanged()}></input>
+                            </div>
+                        </div>
+                        <div className="col-12" style={{'paddingTop':'10px'}}>
+                            {dbButtonMeny()}
+                        </div>
+                    </div>
+                )}
             </div>
             </div>
             <div className="container-fluid recommendationContent">
@@ -771,7 +831,8 @@ const CoursePicker = props => {
                     </div>
                 </div>
 
-                {false && (<div className="row" style={{'padding-top':'30px'}}>
+                {false && (
+                <div className="row" style={{'padding-top':'30px'}}>
                     <div className="col-lg-10 offset-lg-1">
                         <div className="row">
                         {Object.values(courses)

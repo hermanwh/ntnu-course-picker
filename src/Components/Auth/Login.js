@@ -29,7 +29,7 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div style={{'paddingBottom':'40px'}}>
       <form onSubmit={e => handleForm(e)}>
         <div className="css-yk16xz-control" style={{'width':'300px', 'margin':'0 auto'}}>
             <input
@@ -51,7 +51,10 @@ const Login = () => {
             className="freetextInput"
             />
         </div>
-        <button type="submit">Logg inn</button>
+        <div className="button-3" style={{'width':'300px'}}>
+            <div className="circle"></div>
+            <button type="submit">Logg inn</button>
+        </div>
         <br></br>
         <span style={{'color':'white'}}>{error}</span>
       </form>

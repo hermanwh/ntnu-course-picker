@@ -9,7 +9,7 @@ const Navbar = props => {
   return (
     <div className="NavbarWrapper">
             <div className={"NavElement " + (selectedPage === "/" && "Selected")}>
-                <Link to="/">Hjem</Link>
+                <Link to="/"><h4 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 0px 0px'}}>Hjem</h4></Link>
             </div>
 
             <div
@@ -17,7 +17,7 @@ const Navbar = props => {
                 "NavElement " + (selectedPage === "/coursePicker" && "Selected")
                 }
             >
-                <Link to="/coursePicker">App</Link>
+                <Link to="/coursePicker"><h4 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 0px 0px'}}>App</h4></Link>
             </div>
     </div>
   );

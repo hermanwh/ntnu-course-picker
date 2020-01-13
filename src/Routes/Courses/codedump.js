@@ -133,4 +133,22 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div>
+                    <span className="pointerr" onClick={() => (setOverviewActive(true), setRecommendationActive(false), setCoursesActive(false))}><h5 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 10px 10px', 'fontSize':'18px'}}>Oversikt</h5></span>
+                    <span className="pointerr" onClick={() => (setOverviewActive(false), setRecommendationActive(true), setCoursesActive(false))}><h5 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 10px 10px', 'fontSize':'18px'}}>Oppsett</h5></span>
+                    <span className="pointerr" onClick={() => (setOverviewActive(false), setRecommendationActive(false), setCoursesActive(true))}><h5 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 10px 10px', 'fontSize':'18px'}}>Fag</h5></span> 
+                </div>
     */

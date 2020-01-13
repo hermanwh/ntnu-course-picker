@@ -1,24 +1,26 @@
 .NavbarWrapper {
-    background: #ac93e5;
+    background: #171717;
     color: white;
     position: fixed;
-  }
+    padding-top: 15px;
+    padding-left: 15px;
+}
+
+.NavbarWrapper h4:hover {
+  color: white !important;
+  text-decoration: none !important;
+}
   
 .Selected {
 background: #2963f6;
 }
 
 .NavElement {
-  padding: 10px 10px;
-  text-align: center;
+  padding: 5px 0px;
+  text-align: left;
 }
 
 a {
-  color: white !important;
-  text-decoration: none !important;
-}
-
-a:hover {
   color: white !important;
   text-decoration: none !important;
 }

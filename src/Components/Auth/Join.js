@@ -27,7 +27,7 @@ const Join = () => {
   };
 
   return (
-    <div>
+    <div style={{'paddingBottom':'40px'}}>
       <form onSubmit={e => handleForm(e)}>
         <div className="css-yk16xz-control" style={{'width':'300px', 'margin':'0 auto'}}>
             <input
@@ -49,7 +49,11 @@ const Join = () => {
             className="freetextInput"
             />
         </div>
-        <button type="submit">Registrer</button>
+        <div className="button-3" style={{'width':'300px'}}>
+            <div className="circle"></div>
+            <button type="submit">Registrer</button>
+        </div>
+        <br></br>
         <span style={{'color':'white'}}>{error}</span>
       </form>
     </div>

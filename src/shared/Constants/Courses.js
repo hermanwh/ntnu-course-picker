@@ -574,3 +574,5 @@ export const courses = {
         prerequisites: [],
     },
 }
+
+export const sortedCourseList = Object.values(courses).sort((a,b) => (a.name > b.name) ? 1 : -1);
