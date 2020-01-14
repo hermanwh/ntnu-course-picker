@@ -179,10 +179,18 @@ p {
 
 .recommendationContent {
     background-color: #171717;
-    color: #c2b3e5;
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding-top: 0px;
+    padding-bottom: 0px;
     text-align: center;
+    min-height: 700px;
+}
+
+.buttonsContent {
+  background-color: #171717;
+  color: #c2b3e5;
+  padding-top: 80px;
+  padding-bottom: 60px;
+  text-align: center;
 }
 
 .summaryText {
@@ -198,7 +206,7 @@ p {
 
 .coursesContent {
     background-color: #171717;
-    padding-top: 40px;
+    padding-top: 0px;
     padding-bottom: 40px;
     min-height: 1000px;
 }
@@ -573,12 +581,14 @@ margin-right: 0;
   left: 70px;
 }
 
+
 .button-3:hover .circle {
   width: 200%;
   height: 500%;
   opacity: 1;
   top: -70px;
   left: -70px;
+  background: #ac93e5 !important;
 }
 
 .button-3:hover a {
@@ -594,4 +604,33 @@ margin-right: 0;
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+}
+
+.buttonMenuLeft {
+  border-radius: 10px 0px 0px 10px !important;
+  border-right: none;
+}
+
+.buttonMenuLeft:hover {
+  border-right: none !important;
+  border-color: white !important;
+}
+
+.buttonMenuRight {
+  border-radius: 0px 10px 10px 0px !important;
+  border-left: none;
+}
+
+.buttonMenuRight:hover {
+  border-left: none;
+  border-color: white !important;
+}
+
+.button-3 .activeButton {
+  width: 200%;
+  height: 500%;
+  opacity: 1;
+  top: -70px;
+  left: -70px;
+  background: rgb(97, 81, 134);
 }

@@ -10,7 +10,7 @@ const CourseSummary = props => {
     console.log(props)
     return (
         <div className="col-lg-10 offset-lg-1 headerContent">
-            <div className="row" style={{'margin-top': '20px'}}>
+            <div className="row" style={{'marginTop': '20px'}}>
                 <div className="col-lg-4">
                     <h3>3. klasse</h3>
                     <div className="row">
@@ -20,7 +20,7 @@ const CourseSummary = props => {
                                 props.data.h0.map(x => courseContent(props.courses[x]))
                             }
                         </div>
-                        <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
+                        <div className="col-12 semesterBox" style={{'marginTop':'20px'}}>
                             <h4>vår</h4>
                             {
                                 props.data.v0.map(x => courseContent(props.courses[x]))
@@ -37,7 +37,7 @@ const CourseSummary = props => {
                                 props.data.h1.map(x => courseContent(props.courses[x]))
                             }
                         </div>
-                        <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
+                        <div className="col-12 semesterBox" style={{'marginTop':'20px'}}>
                             <h4>vår</h4>
                             {
                                 props.data.v1.map(x => courseContent(props.courses[x]))
@@ -54,7 +54,7 @@ const CourseSummary = props => {
                                 props.data.h2.map(x => courseContent(props.courses[x]))
                             }
                         </div>
-                        <div className="col-12 semesterBox" style={{'margin-top':'20px'}}>
+                        <div className="col-12 semesterBox" style={{'marginTop':'20px'}}>
                             <h4>vår</h4>
                             {
                                 props.data.v2.map(x => courseContent(props.courses[x]))

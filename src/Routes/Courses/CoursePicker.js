@@ -94,6 +94,8 @@ const CoursePicker = props => {
     const [recommendationActive, setRecommendationActive] = useState(false);
     const [coursesActive, setCoursesActive] = useState(false);
 
+    const [courseListActive, setCourseListActive] = useState(true);
+
     const alert = useAlert();
 
     function setSelectedCoursesWithSideEffects(selCourses) {
@@ -157,6 +159,7 @@ const CoursePicker = props => {
         const maxlen = index == 4 ? 2 : 4;
 
         if (index === 5) {
+            alert.error("Ingen fag valgte semester");
             return;
         }
 
@@ -214,10 +217,10 @@ const CoursePicker = props => {
 
         if (selCourses[index].length < maxlen && !Object.values(selCourses).includes(course)) {
             selCourses[index].push(course)
+            alert.success(course.name + " lagt til i fagplan " + currentPlanName);
             setSelectedCoursesWithSideEffects(selCourses);
         } else {
-            console.log("too long");
-            console.log(selectedCourses);
+            alert.error("Ikke plass til fag i valgte semester");
         }
     }
 
@@ -317,6 +320,7 @@ const CoursePicker = props => {
 
     function exportPdf() {
         console.log("saving");
+        scrollToTop();
         html2canvas(document.querySelector("#capture")).then(canvas => {
             var d=canvas.toDataURL("image/png");
             var w=window.open('about:blank','image from canvas');
@@ -584,6 +588,10 @@ const CoursePicker = props => {
     function addNewPlan() {
 
     }
+
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
     /*
     
     const [currentPlanName, setCurrentPlanName] = useState([]);
@@ -603,8 +611,8 @@ const CoursePicker = props => {
             <div className="subMenu">
                 {!isLoggedIn && (
                     <div>
-                        <span className="pointerr" onClick={() => (setJoining(!joining), setLoggingIn(false))}><h5 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 10px 10px', 'fontSize':'18px'}}>Registrer</h5></span>
-                        <span className="pointerr" onClick={() => (setLoggingIn(!loggingIn), setJoining(false))}><h5 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 10px 10px', 'fontSize':'18px'}}>Logg inn</h5></span>
+                        <span className="pointerr" onClick={() => (setJoining(!joining), setLoggingIn(false), scrollToTop())}><h5 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 10px 10px', 'fontSize':'18px'}}>Registrer</h5></span>
+                        <span className="pointerr" onClick={() => (setLoggingIn(!loggingIn), setJoining(false), scrollToTop())}><h5 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 10px 10px', 'fontSize':'18px'}}>Logg inn</h5></span>
                     </div>
                 )}
             </div>
@@ -769,7 +777,7 @@ const CoursePicker = props => {
                         <div className="col-12">
                             <h6>Navngi plan:</h6>
                             <div className="css-yk16xz-control" style={{'width':'200px', 'margin':'0 auto', 'marginTop':'10px', 'marginBottom':'10px'}}>
-                                <input id="planNameInputId" className="planNameInput" value={currentPlanName === "Ny plan" ? "Skriv inn..." : currentPlanName} onChange={() => planNameChanged()}></input>
+                                <input id="planNameInputId" className="planNameInput" value={currentPlanName === "Ny plan" ? "" : currentPlanName} placeholder="Skriv inn..." onChange={() => planNameChanged()}></input>
                             </div>
                         </div>
                         <div className="col-12" style={{'paddingTop':'10px'}}>
@@ -779,10 +787,25 @@ const CoursePicker = props => {
                 )}
             </div>
             </div>
+            <div className="container-fluid buttonsContent">
+                <div className="row">
+                    <div className="col-12">
+                        <div className="button-3 buttonMenuLeft">
+                            <div className={courseListActive ? "circle activeButton" : "circle"}></div>
+                            <button onClick={() => setCourseListActive(true)}>Fagliste</button>
+                        </div>
+                        <div className="button-3 buttonMenuRight">
+                            <div className={!courseListActive ? "circle activeButton" : "circle"}></div>
+                            <button onClick={() => setCourseListActive(false)}>Planforslag</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {!courseListActive && (
             <div className="container-fluid recommendationContent">
                 <div className="row">
                     <div className="col-12">
-                        <h3>Anbefalte fag</h3>
+                        <h3>Fagforslag</h3>
                         <h4 style={{'marginBottom':'20px'}}>NB: veldig subjektivt/eksperimentelt</h4>
                         <Select placeholder="Velg..." onChange={(selectedOptions) => recommendationTopicChanged(selectedOptions)} options={topicsOptions} className="selectSpecialization" />
                         {recommendationTopic !== null && (
@@ -795,6 +818,8 @@ const CoursePicker = props => {
                     </div>
                 </div>
             </div>
+            )}
+            {courseListActive && (
             <div className="container-fluid coursesContent">
                 {false && (
                     <div className="col-12 courseHeader">
@@ -808,7 +833,7 @@ const CoursePicker = props => {
                     </div>
                 )}
 
-                <div className="row" style={{'paddingTop':'30px'}}>
+                <div className="row">
                     <div className="col-lg-12 offset-lg-0">
                         <div className="row flex-lg-row-reverse">
                             <div className="col-12" style={{'textAlign':'center'}}>
@@ -847,6 +872,7 @@ const CoursePicker = props => {
                 </div>
                 )}   
             </div>
+            )}
         </div>
   );
 };
