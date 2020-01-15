@@ -21,7 +21,38 @@ export const topicNames = {
     7: "Innovasjon",
     8: "Vedlikehold",
     9: "K-emne",
-    10: "Matematikk"
+    10: "Matematikk",
+}
+
+export const topicNames_new = {
+    0: "Data/IT",
+    1: "Maskinlæring/AI",
+    2: "Database",
+    3: "Matematikk",
+    4: "Numerikk",
+    5: "Statistikk",
+    6: "Produktutvikling",
+    7: "Produksjon",
+    8: "Innovasjon",
+    9: "Vedlikehold",
+    10: "Ledelse",
+    11: "Robotikk & mekatronikk",
+    12: "Kybernetikk",
+    13: "Konstruksjonsmekanikk",
+    14: "Materialer",
+    15: "Seismikk",
+    16: "Olje & gass",
+    17: "Prosessteknikk",
+    18: "Geoteknikk",
+    19: "Bygg, veg & anlegg",
+    20: "Strømning",
+    21: "Fluid- & termodynamikk",
+    22: "Hydro",
+    23: "Marin kunstruksjonsmekanikk",
+    24: "Marin kybernetikk",
+    25: "Entreprenørskap",
+    26: "Økonomi",
+    27: "K-emne",
 }
 
 // Used to identify the different topics by color
@@ -36,7 +67,7 @@ export const topicColors = {
     7: "#01D8BE",
     8: "#A301D8",
     9: "#3E1818",
-    10: "#8B6AC3"
+    10: "#8B6AC3",
 }
 
 // Used for options in the topics multiselect from the react-select package

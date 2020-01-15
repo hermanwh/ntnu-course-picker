@@ -14,7 +14,7 @@ import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
 
 const options = {
-  timeout: 5000,
+  timeout: 3500,
   position: positions.BOTTOM_CENTER
 };
 

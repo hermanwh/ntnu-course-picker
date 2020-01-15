@@ -98,6 +98,21 @@ const CoursePicker = props => {
 
     const alert = useAlert();
 
+    function flat(input, depth = 1, stack = []) {
+        for (let item of input)
+        {
+            if (item instanceof Array && depth > 0)
+            {
+                flat(item, depth - 1, stack);
+            }
+            else {
+                stack.push(item);
+            }
+        }
+
+        return stack;
+    }
+
     function setSelectedCoursesWithSideEffects(selCourses) {
         setSelectedCourses(selCourses);
         setCurrentCourses(getCurrentCourses(selCourses));
@@ -259,8 +274,7 @@ const CoursePicker = props => {
 
     function addTopicsToSummary() {
         let content = [];
-        currentCourses.map(x => x.topics)
-                                        .flat()
+        flat(currentCourses.map(x => x.topics))
                                         .reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map())
                                         .forEach((value, key) => (
                                             content.push(<p>{topicNames[key]}: {value}</p>)
@@ -270,8 +284,7 @@ const CoursePicker = props => {
 
     function addTopicsToSummaryGraph() {
         let content = [];
-        currentCourses.map(x => x.topics)
-                                        .flat()
+        flat(currentCourses.map(x => x.topics))
                                         .reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map())
                                         .forEach((value, key) => (
                                             content.push({'name': topicNames[key], count: value})
@@ -401,7 +414,7 @@ const CoursePicker = props => {
                     </div>
                     {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) && (
                         <div className="btnBox-opt2">
-                            <button className="btn-opt-opt2 bigbtn" onClick={() => removeSelCourse(course)} value="Fjern">Fjern</button>
+                            <button className="bigbtn" onClick={() => removeSelCourse(course)} value="Fjern">Fjern</button>
                         </div>
                     )}
                     {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) !== true && (
@@ -549,6 +562,16 @@ const CoursePicker = props => {
         setCurrentActivePlanIndex(index);
     }
 
+    function addNewPlan() {
+        let selectedCopy = selectedCoursesArray.slice();
+        selectedCopy.splice(currentActivePlanIndex, 1, [selectedCourses, currentCourses, currentPlanName]);
+        selectedCopy.splice(0, 0, [{}, [], "Ny plan"]);
+        setSelectedCoursesArray(selectedCopy);
+        setSelectedCoursesWithSideEffects(selectedCopy[0][0]);
+        setCurrentPlanName(selectedCopy[0][2]);
+        setCurrentActivePlanIndex(0);
+    }
+
     function planContent() {
         let contentt = [];
         let header = [];
@@ -583,10 +606,6 @@ const CoursePicker = props => {
                 </div>
             </div>
         )
-    }
-
-    function addNewPlan() {
-
     }
 
     function scrollToTop() {

@@ -58,12 +58,16 @@
 }
 
 .bigbtn {
-    width: 107px;
+    width: 105px;
+}
+
+.btn-opt-opt2 {
+  width: 35px;
 }
 
 @media (min-width: 1687px) {
     .bigbtn {
-        width: 106px;
+        width: 105px;
     }
 }
 
