@@ -12,6 +12,755 @@ export const courseTagDesc = {
     TDT: "Institutt for datateknologi og informatikk",
 }
 
+const tma_courses = {
+    tma4130: {
+        name: "TMA4130",
+        subname: "Matematikk 4N",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4145: {
+        name: "TMA4145",
+        subname: "Lineære Metoder",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4160: {
+        name: "TMA4160",
+        subname: "Kryptografi",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4195: {
+        name: "TMA4195",
+        subname: "Matematisk modellering",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4205: {
+        name: "TMA4205",
+        subname: "Numerisk lineær algebra",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4215: {
+        name: "TMA4215",
+        subname: "Numerisk matematikk",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4220: {
+        name: "TMA4220",
+        subname: "Numerisk løsning av partielle differensialligninger med elementmetoden",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4225: {
+        name: "TMA4225",
+        subname: "Analysens grunnlag",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4265: {
+        name: "TMA4254",
+        subname: "Stokastisk modellering",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4285: {
+        name: "TMA4285",
+        subname: "Tidsrekker",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4295: {
+        name: "TMA4295",
+        subname: "Statistisk infrens",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4305: {
+        name: "TMA4305",
+        subname: "Partielle differensialligninger",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4315: {
+        name: "TMA4315",
+        subname: "Generaliserte lineære modeller",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4150: {
+        name: "TMA4150",
+        subname: "Algebra",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4165: {
+        name: "TMA4165",
+        subname: "Differensialligninger og dynamiske systemer",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4170: {
+        name: "TMA4170",
+        subname: "Fourieranalyse",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4175: {
+        name: "TMA4175",
+        subname: "Kompleks analyse",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4180: {
+        name: "TMA4180",
+        subname: "Optimering 1",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4183: {
+        name: "TMA4183",
+        subname: "Optimering 2",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4190: {
+        name: "TMA4190",
+        subname: "Introduksjon til topologi",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4192: {
+        name: "TMA4192",
+        subname: "Differensialtopologi",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4212: {
+        name: "TMA4212",
+        subname: "Numerisk løsning av differensialligninger med differansemetoder",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4230: {
+        name: "TMA4230",
+        subname: "Funksjonsanalyse",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4250: {
+        name: "TMA4250",
+        subname: "Romlig statistikk",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4255: {
+        name: "TMA4255",
+        subname: "Anvendt statistikk",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4267: {
+        name: "TMA4267",
+        subname: "Lineære statistiske modeller",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4268: {
+        name: "TMA4268",
+        subname: "Statistisk læring",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4275: {
+        name: "TMA4275",
+        subname: "Levetidsanalyse",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4300: {
+        name: "TMA4300",
+        subname: "Beregningskrevende statistiske metoder",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tma4320: {
+        name: "TMA4320",
+        subname: "Introduksjon til vitenskapelige beregninger",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+}
+
+const tep_courses = {
+    tep4120h: {
+        name: "TEP4120",
+        subname: "Termodynamikk 1",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4135: {
+        name: "TEP4135",
+        subname: "Fluidmekanikk 2",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4156: {
+        name: "TEP4156",
+        subname: "Viskøse strømninger og grensesjikt",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4165: {
+        name: "TEP4165",
+        subname: "Numerisk varme- og strømningsteknikk",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4175: {
+        name: "TEP4175",
+        subname: "Design av en vindturbin",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4185: {
+        name: "TEP4185",
+        subname: "Naturgassteknologi",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4212: {
+        name: "TEP4212",
+        subname: "Gassrensing og utslippskontroll",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4223: {
+        name: "TEP4223",
+        subname: "Livssyklusanalyse",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4225: {
+        name: "TEP4225",
+        subname: "Energi og miljø",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4235: {
+        name: "TEP4235",
+        subname: "Energibruk i bygninger",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4240: {
+        name: "TEP4240",
+        subname: "Systemsimulering",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4270: {
+        name: "TEP4270",
+        subname: "Bioenergi: Teknikk og system",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4285: {
+        name: "TEP4285",
+        subname: "Materialstrømanalyse",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4300: {
+        name: "TEP4300",
+        subname: "Klimavern",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4310: {
+        name: "TEP4310",
+        subname: "Avfallsteknologi og ressursgjenvinning",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4315: {
+        name: "TEP4315",
+        subname: "Inneklima",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4112: {
+        name: "TEP4112",
+        subname: "Turbulente strømninger",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4120v: {
+        name: "TEP4120",
+        subname: "Termodynamikk 1",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4125: {
+        name: "TEP4125",
+        subname: "Termodynamikk 2",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4130: {
+        name: "TEP4130",
+        subname: "Varme- og massetransport",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4160: {
+        name: "TEP4160",
+        subname: "Aerodynamikk",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4170: {
+        name: "TEP4170",
+        subname: "Varme- og forbrenningsteknikk",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4195: {
+        name: "TEP4195",
+        subname: "Turbomaskiner",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4200: {
+        name: "TEP4200",
+        subname: "Konstruksjon, drift og vedlikehold av hydrauliske strømningsmaskiner",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4220: {
+        name: "TEP4220",
+        subname: "Forståelse og kvantifisering av miljøpåvirkninger på økosystem",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4222: {
+        name: "TEP4222",
+        subname: "Kryssiøpsanalyse, handel og miljø",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4245: {
+        name: "TEP4245",
+        subname: "Klimateknikk",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4250: {
+        name: "TEP4250",
+        subname: "Fierfase teknikk",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4255: {
+        name: "TEP4255",
+        subname: "Varmepumpende prosesser og systemer",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4260: {
+        name: "TEP4260",
+        subname: "Varmepumper for bygningsklimatisering",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4265: {
+        name: "TEP4265",
+        subname: "Prosessering og termisk behandling av næringsmidler",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4280: {
+        name: "TEP4280",
+        subname: "Introduksjon til numerisk strømningsberegning",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4290: {
+        name: "TEP4290",
+        subname: "Modellering av det bygde miljø",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep4295: {
+        name: "TEP4295",
+        subname: "Miljøanalyse og industriell økologi",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep: {
+        name: "TEP",
+        subname: "",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tep: {
+        name: "TEP",
+        subname: "",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+}
+
+const tpk_courses = {
+    tpk4100: {
+        name: "TPK4100",
+        subname: "Produksjonsledelse",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk4120: {
+        name: "TPK4120",
+        subname: "Industriell sikkerhet og pålitelighet",
+        term: 0,
+        topics: [8],
+        prerequisites: [],
+    },
+    tpk4125: {
+        name: "TPK4125",
+        subname: "Mekatronikk",
+        term: 0,
+        topics: [1, 2, 5],
+        prerequisites: [],
+    },
+    tpk4126: {
+        name: "TPK4126",
+        subname: "Undervannskontrollsystemer",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk4140: {
+        name: "TPK4140",
+        subname: "Driftsikkerhet og vedlikeholdsstyring",
+        term: 0,
+        topics: [1, 2, 8],
+        prerequisites: [],
+    },
+    tpk4141: {
+        name: "TPK4141",
+        subname: "Innovasjon, design og produksjon 1",
+        term: 0,
+        topics: [2, 7, 8],
+        prerequisites: [],
+    },
+    tpk4160: {
+        name: "TPK4160",
+        subname: "Verdikjedestyring",
+        term: 0,
+        topics: [2, 8],
+        prerequisites: [],
+    },
+    tpk4161: {
+        name: "TPK4161",
+        subname: "Verdikjedeanalyse",
+        term: 0,
+        topics: [2, 8],
+        prerequisites: [],
+    },
+    tpk4165: {
+        name: "TPK4165",
+        subname: "ERP og PLM systemer",
+        term: 0,
+        topics: [2, 8],
+        prerequisites: [],
+    },
+    tpk4170: {
+        name: "TPK4170",
+        subname: "Robotteknikk",
+        term: 0,
+        topics: [1, 2,  5],
+        prerequisites: [],
+    },
+    tpk4195: {
+        name: "TPK4195",
+        subname: "Verkstedteknisk måleteknikk",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk4420: {
+        name: "TPK4420",
+        subname: "Fleksibilitet i prosjekter",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk4430: {
+        name: "TPK4430",
+        subname: "Produksjonsledelse og logistikk",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk4440: {
+        name: "TPK4440",
+        subname: "Maskinering og additiv tilvirkning",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk4450: {
+        name: "TPK4450",
+        subname: "Datadrevet Prognose",
+        term: 0,
+        topics: [1, 2, 8],
+        prerequisites: [],
+    },
+    tpk5100: {
+        name: "TPK5100",
+        subname: "Praktisk prosjektledelse",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk5115: {
+        name: "TPK5115",
+        subname: "Risikostyring i prosjekter",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk4165: {
+        name: "TPK4165",
+        subname: "Pålitelighetsstyring og dataanalyse",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk5170: {
+        name: "TPK5170",
+        subname: "Design og pålitelighetsvurdering av digitaliserte sikkerhetssystemer",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk4110: {
+        name: "TPK4110",
+        subname: "Kvalitets- og prestasjonsfokusert ledelse",
+        term: 1,
+        topics: [2, 7, 8],
+        prerequisites: [],
+    },
+    tpk4115: {
+        name: "TPK4115",
+        subname: "Praktisk prosjektledelse",
+        term: 1,
+        topics: [7, 8],
+        prerequisites: [],
+    },
+    tpk4128: {
+        name: "TPK4128",
+        subname: "Industriell mekatronikk",
+        term: 1,
+        topics: [1, 2],
+        prerequisites: [],
+    },
+    tpk4131: {
+        name: "TPK4131",
+        subname: "Design av industrielle logistikksystem",
+        term: 1,
+        topics: [2, 7, 8],
+        prerequisites: [],
+    },
+    tpk4135: {
+        name: "TPK4135",
+        subname: "Produksjonslogistikk",
+        term: 1,
+        topics: [7, 8],
+        prerequisites: [],
+    },
+    tpk4142: {
+        name: "TPK4142",
+        subname: "Innovasjon, design og produksjon 2",
+        term: 1,
+        topics: [2, 7, 8],
+        prerequisites: [],
+    },
+    tpk4162: {
+        name: "TPK4162",
+        subname: "Bærekraftig og teknologisk produksjon og logistikk",
+        term: 1,
+        topics: [2, 7, 8],
+        prerequisites: [],
+    },
+    tpk4164: {
+        name: "TPK4164",
+        subname: "Skipsbygging og kundespesifikk produksjon",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk4171: {
+        name: "TPK4171",
+        subname: "Avansert industriell robotteknikk",
+        term: 1,
+        topics: [1, 2],
+        prerequisites: [],
+    },
+    tpk4180: {
+        name: "TPK4180",
+        subname: "Produksjonsstrategi",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk4185: {
+        name: "TPK4185",
+        subname: "Industriell systemdesign",
+        term: 1,
+        topics: [1, 2],
+        prerequisites: [],
+    },
+    tpk4186: {
+        name: "TPK4186",
+        subname: "Avanserte verktøy for Performance Engineering",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk4190: {
+        name: "TPK4190",
+        subname: "Produksjonsteknologi",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk5120: {
+        name: "TPK5120",
+        subname: "Grunnleggende modellutvikling",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tpk5160: {
+        name: "TPK5160",
+        subname: "Risikoanalyse",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+}
+
+const tmm_courses = {
+
+}
+
+const ttk_courses = {
+
+}
+
+const tkt_courses = {
+
+}
+
+const tba_courses = {
+
+}
+
+const tpg_courses = {
+
+}
+
+const tmr_courses = {
+    
+}
+
+const tiø_courses = {
+
+}
+
+const tdt_courses = {
+
+}
+
+const k_courses = {
+
+}
+
+const eit_courses = {
+
+}
+
 export const courses = {
     tpg4105: {
         name: "TPG4105",
