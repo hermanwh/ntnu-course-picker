@@ -12,6 +12,20 @@ export const courseTagDesc = {
     TDT: "Institutt for datateknologi og informatikk",
 }
 
+export const courseTagObj = {
+    TMM: false,
+    TPK: false,
+    TBA: false,
+    TEP: false,
+    TIØ: false,
+    TKT: false,
+    TMA: false,
+    TMR: false,
+    TPG: false,
+    TTK: false,
+    TDT: false,
+}
+
 const tma_courses = {
     tma4130: {
         name: "TMA4130",
@@ -464,20 +478,6 @@ const tep_courses = {
         topics: [],
         prerequisites: [],
     },
-    tep: {
-        name: "TEP",
-        subname: "",
-        term: 1,
-        topics: [],
-        prerequisites: [],
-    },
-    tep: {
-        name: "TEP",
-        subname: "",
-        term: 1,
-        topics: [],
-        prerequisites: [],
-    },
 }
 
 const tpk_courses = {
@@ -722,35 +722,797 @@ const tpk_courses = {
 }
 
 const tmm_courses = {
-
+    tmm4115: {
+        name: "TMM4115",
+        subname: "Produktmodellering",
+        term: 0,
+        topics: [2, 7, 8],
+        prerequisites: [],
+    },
+    tmm4135: {
+        name: "TMM4135",
+        subname: "Dimensjonering basert på elementmetoden",
+        term: 0,    
+        topics: [2, 5, 6],
+        prerequisites: [],
+    },
+    tmm4150: {
+        name: "TMM4150",
+        subname: "Maskinkonstruksjon og mekatronikk",
+        term: 0,
+        topics: [1, 2],
+        prerequisites: [],
+    },
+    tmm4151: {
+        name: "TMM4151",
+        subname: "Produkt- og materialtesting",
+        term: 0,
+        topics: [2, 7, 8],
+        prerequisites: [],
+    },
+    tmm4160: {
+        name: "TMM4160",
+        subname: "Bruddmekanikk",
+        term: 0,
+        topics: [2, 6],
+        prerequisites: [],
+    },
+    tmm4170: {
+        name: "TMM4170",
+        subname: "Korrosjon",
+        term: 0,
+        topics: [2, 6],
+        prerequisites: [],
+    },
+    tmm4182: {
+        name: "TMM4182",
+        subname: "Forming og støping av metaller",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tmm4195: {
+        name: "TMM4195",
+        subname: "Dimensjonering mot utmatting",
+        term: 0,
+        topics: [2, 6],
+        prerequisites: [],
+    },
+    tmm4220: {
+        name: "TMM4220",
+        subname: "Innovasjon ved Design Thinking",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tmm4225: {
+        name: "TMM4225",
+        subname: "Ingeniørrettet samhandling i distribuerte team",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tmm4250: {
+        name: "TMM4250",
+        subname: "Avansert produktsimulering",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tmm4270: {
+        name: "TMM4270",
+        subname: "Automatisering i ingeniørarbeid, introduksjon",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tmm4280: {
+        name: "TMM4280",
+        subname: "Avansert produktutvikling",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tmm4285: {
+        name: "TMM4285",
+        subname: "Livsløpsutelse for aluminiumsprodukter",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tmm4400h: {
+        name: "TMM4400",
+        subname: "Produktutvikling, prosjekt",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tmm4100: {
+        name: "TMM4100",
+        subname: "Materialteknikk",
+        term: 1,
+        topics: [2],
+        prerequisites: [],
+    },
+    tmm4112: {
+        name: "TMM4112",
+        subname: "Maskindeler",
+        term: 1,
+        topics: [2],
+        prerequisites: [],
+    },
+    tmm4121: {
+        name: "TMM4121",
+        subname: "Produktutvikling",
+        term: 1,
+        topics: [2, 8],
+        prerequisites: [],
+    },
+    tmm4140: {
+        name: "TMM4140",
+        subname: "Materialers mekaniske oppførsel",
+        term: 1,
+        topics: [2],
+        prerequisites: [],
+    },
+    tmm4155: {
+        name: "TMM4155",
+        subname: "Anvendelse av elementmetoden i maskinkonstruksjon",
+        term: 1,
+        topics: [2, 8],
+        prerequisites: [],
+    },
+    tmm4175: {
+        name: "TMM4175",
+        subname: "Plastkompositter",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tmm4205: {
+        name: "TMM4205",
+        subname: "Tribologi og overflateteknikk",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tmm4245: {
+        name: "TMM4245",
+        subname: "Fuzzy Front End",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tmm4275: {
+        name: "TMM4275",
+        subname: "Automatisering i ingeniørarbeid, prosjekt",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tmm4400v: {
+        name: "TMM4400",
+        subname: "Produktutviling, prosjekt",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
 }
 
 const ttk_courses = {
-
+    ttk4100: {
+        name: "TTK4100",
+        subname: "Kybernetikk, introduksjon",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    ttk4115: {
+        name: "TTK4115",
+        subname: "Lineær systemteori",
+        term: 0,
+        topics: [1, 2, 5],
+        prerequisites: ["ttk4105", "tma4130"],
+    },
+    ttk4147: {
+        name: "TTK4147",
+        subname: "Sanntidssystemer",
+        term: 0,
+        topics: [1],
+        prerequisites: ["ttk4145"],
+    },  
+    ttk4150: {
+        name: "TTK4150",
+        subname: "Ulineære systemer",
+        term: 0,
+        topics: [1, 2, 5],
+        prerequisites: ["ttk4105", "ttk4115"],
+    },
+    ttk4155: {
+        name: "TTK4155",
+        subname: "Industrielle og innebygde datasystemers konstruksjon",
+        term: 0,
+        topics: [1, 2],
+        prerequisites: [],
+    },
+    ttk4190: {
+        name: "TTK4190",
+        subname: "Fartøystyring",
+        term: 0,
+        topics: [1, 6],
+        prerequisites: ["ttk4105", "ttk4115"],
+    },
+    ttk4215: {
+        name: "TTK4215",
+        subname: "Adaptiv regulering",
+        term: 0,
+        topics: [1],
+        prerequisites: ["ttk4105", "ttk4115"],
+    },
+    ttk4220: {
+        name: "TTK4220",
+        subname: "Dynamikk i sosiale systemer",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    ttk4225: {
+        name: "TTK4225",
+        subname: "Systemteori, grunnkurs",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    ttk4230: {
+        name: "TTK4230",
+        subname: "Automatiseringsteknikk",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    ttk4240: {
+        name: "TTK4240",
+        subname: "Industriell elektroteknikk",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    ttk4250: {
+        name: "TTK4250",
+        subname: "Sensorfusjon",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    ttk4555: {
+        name: "TTK4555",
+        subname: "Teknisk kybernetikk, fordypningsemne",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    ttk4101: {
+        name: "TTK4101",
+        subname: "Instrumentering og måleteknikk",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    ttk4105: {
+        name: "TTK4105",
+        subname: "Reguleringsteknikk",
+        term: 1,
+        topics: [1, 2, 5],
+        prerequisites: ["tma4130"],
+    },
+    ttk4130: {
+        name: "TTK4130",
+        subname: "Modellering og simulering",
+        term: 1,
+        topics: [1, 2, 3, 5],
+        prerequisites: ["ttk4105"],
+    },
+    ttk4135: {
+        name: "TTK4135",
+        subname: "Optimalisering og regulering",
+        term: 1,
+        topics: [1],
+        prerequisites: ["tma4130", "ttk4105", "ttk4115"],
+    },
+    ttk4145: {
+        name: "TTK4145",
+        subname: "Sanntidsprogrammering",
+        term: 1,
+        topics: [0, 1],
+        prerequisites: [],
+    },
+    ttk4175: {
+        name: "TTK4175",
+        subname: "Instrumenteringssystemer",
+        term: 1,
+        topics: [1],
+        prerequisites: [],
+    },
+    ttk4195: {
+        name: "TTK4195",
+        subname: "Modellering og regulering av roboter",
+        term: 1,
+        topics: [1, 2, 5],
+        prerequisites: ["ttk4105", "ttk4150"],
+    },
+    ttk4210: {
+        name: "TTK4210",
+        subname: "Avansert regulering av industrielle prosesser",
+        term: 1,
+        topics: [1, 2],
+        prerequisites: ["ttk4105", "ttk4115"],
+    },
+    ttk4235: {
+        name: "TTK4235",
+        subname: "Tilpassede datasystemer",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    ttk4255: {
+        name: "TTK4255",
+        subname: "Robotsyn",
+        term: 1,
+        topics: [1],
+        prerequisites: ["tma4130", "ttk4105", "tdt4195"],
+    },
+    ttk4260: {
+        name: "TTK4260",
+        subname: "oInnføring i multivariat datamodellering",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
 }
 
 const tkt_courses = {
-
+    tkt4108: {
+        name: "TKT4108",
+        subname: "Dynamikk, videregående kurs",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4118: {
+        name: "TKT4118",
+        subname: "Mekanikk 1",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4122: {
+        name: "TKT4122",
+        subname: "Mekanikk 2",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4124: {
+        name: "TKT4124",
+        subname: "Mekanikk 3",
+        term: 0,
+        topics: [2, 5, 6],
+        prerequisites: [],
+    },
+    tkt4128: {
+        name: "TKT4128",
+        subname: "Støtmekanikk",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4146: {
+        name: "TKT4146",
+        subname: "Nanomekanikk",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4150: {
+        name: "TKT4150",
+        subname: "Biomekanikk",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4170: {
+        name: "TKT4170",
+        subname: "Stålkonstruksjoner 1",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4192: {
+        name: "TKT4192",
+        subname: "Elementmetoden i styrkeanalyse",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4196: {
+        name: "TKT4196",
+        subname: "Prosjektering - Sikkerhetsforhold",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4197: {
+        name: "TKT4197",
+        subname: "Ikkelineære elementanalyser",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4198: {
+        name: "TKT4198",
+        subname: "Prosjektering av konstruksjoner",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4212: {
+        name: "TKT4212",
+        subname: "Trekonstruksjoner 2",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4220: {
+        name: "TKT4220",
+        subname: "Betongkonstruksjoner 2",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4222: {
+        name: "TKT4222",
+        subname: "Betongkonstruksjoner 3",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4230: {
+        name: "TKT4230",
+        subname: "Stålkonstruksjoner 2",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4235: {
+        name: "TKT4235",
+        subname: "Betongteknologi",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4240: {
+        name: "TKT4240",
+        subname: "BM1 Bygningsmaterialer",
+        term: 0,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4102: {
+        name: "TKT4102",
+        subname: "Dynamikk",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4116: {
+        name: "TKT4116",
+        subname: "Mekanikk 1",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4123: {
+        name: "TKT4123",
+        subname: "Mekanikk 2",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4126: {
+        name: "TKT4126",
+        subname: "Mekanikk",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4135: {
+        name: "TKT4135",
+        subname: "Materialmekanikk",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4140: {
+        name: "TKT4140",
+        subname: "Numeriske beregninger",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4145: {
+        name: "TKT4145",
+        subname: "Elementmetoden i ingeniørvitenskap",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4175: {
+        name: "TKT4175",
+        subname: "Betongkonstruksjoner 1",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4180: {
+        name: "TKT4180",
+        subname: "Konstruksjonsmekanikk, beregningsmetoder",
+        term: 1,
+        topics: [2, 5, 6],
+        prerequisites: [],
+    },
+    tkt4201: {
+        name: "TKT4201",
+        subname: "Konstruksjonsdynamikk",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4211: {
+        name: "TKT4211",
+        subname: "Trekonstruksjoner 1",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
+    tkt4215: {
+        name: "TKT4215",
+        subname: "Betongteknologi",
+        term: 1,
+        topics: [],
+        prerequisites: [],
+    },
 }
 
 const tba_courses = {
-
+    tba4236: {
+        name: "TBA4236",
+        subname: "Teoretisk geomatikk",
+        term: 0,
+        topics: [0, 6],
+        prerequisites: [],
+    },
+    tba4250: {
+        name: "TBA4250",
+        subname: "Geografisk informasjonsbehandling 2",
+        term: 1,
+        topics: [0, 6],
+        prerequisites: [],
+    },
+    tba4240: {
+        name: "TBA4240",
+        subname: "Geografisk informasjonsbehandling 1",
+        term: 0,
+        topics: [0, 6],
+        prerequisites: [],
+    },
+    tba4231: {
+        name: "TBA4231",
+        subname: "Anvendt geomatikk",
+        term: 0,
+        topics: [0, 6],
+        prerequisites: [],
+    },
 }
 
 const tpg_courses = {
-
+    tpg4105: {
+        name: "TPG4105",
+        subname: "Petroleumsteknologi, grunnkurs",
+        term: 0,
+        topics: [3],
+        prerequisites: [],
+    },
 }
 
 const tmr_courses = {
-    
+    tmr4215: {
+        name: "TMR4215",
+        subname: "Sjøbelastninger",
+        term: 0,
+        topics: [5, 6],
+        prerequisites: [],
+    },
+    tmr4167: {
+        name: "TMR4167",
+        subname: "Marin teknikk, konstruksjoner",
+        term: 0,
+        topics: [5, 6],
+        prerequisites: [],
+    },
 }
 
 const tiø_courses = {
-
+    tiø4252: {
+        name: "TIØ4252",
+        subname: "Teknologiledelse",
+        term: 0,
+        topics: [7],
+        prerequisites: [],
+    },
+    tiø4252v: {
+        name: "TIØ4252",
+        subname: "Teknologiledelse",
+        term: 1,
+        topics: [7],
+        prerequisites: [],
+    },
 }
 
 const tdt_courses = {
-
+    tdt4136: {
+        name: "TDT4136",
+        subname: "Introduksjon til kunstig intelligens",
+        term: 0,
+        topics: [0, 4],
+        prerequisites: [],
+    },
+    tdt4137: {
+        name: "TDT4137",
+        subname: "Kognitive arkitekturer",
+        term: 0,
+        topics: [0, 4],
+        prerequisites: [],
+    },
+    tdt4160: {
+        name: "TDT4160",
+        subname: "Datamaskiner og digitalteknikk",
+        term: 0,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4165: {
+        name: "TDT4165",
+        subname: "Programmeringsspråk",
+        term: 0,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4173: {
+        name: "TDT4173",
+        subname: "Maskinlæring",
+        term: 0,
+        topics: [0, 4],
+        prerequisites: [],
+    },
+    tdt4175: {
+        name: "TDT4175",
+        subname: "Informasjonssystemer",
+        term: 0,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4195: {
+        name: "TDT4195",
+        subname: "Grunnleggende visuell databehandling",
+        term: 0,
+        topics: [0, 3, 6],
+        prerequisites: [],
+    },
+    tdt4200: {
+        name: "TDT4200",
+        subname: "Parallelle beregninger",
+        term: 0,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4225: {
+        name: "TDT4225",
+        subname: "Store distribuerte datamengder",
+        term: 0,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4250: {
+        name: "TDT4250",
+        subname: "Avansert programvaredesign",
+        term: 0,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4125: {
+        name: "TDT4125",
+        subname: "Algoritmekonstruksjon",
+        term: 1,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4150: {
+        name: "TDT4150",
+        subname: "Avanserte databasesystemer",
+        term: 1,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4171: {
+        name: "TDT4171",
+        subname: "Metoder i kunstig intelligens",
+        term: 1,
+        topics: [0, 4],
+        prerequisites: [],
+    },
+    tdt4180: {
+        name: "TDT4180",
+        subname: "Menneske maskin-interaksjon",
+        term: 1,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4186: {
+        name: "TDT4186",
+        subname: "Operativsystemer",
+        term: 1,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4215: {
+        name: "TDT4215",
+        subname: "Anbefalingssystemer",
+        term: 1,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4237: {
+        name: "TDT4237",
+        subname: "Programvaresikkerhet",
+        term: 1,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4240: {
+        name: "TDT4240",
+        subname: "Programvarearkitektur",
+        term: 1,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4242: {
+        name: "TDT4242",
+        subname: "Avansert programvareutvikling",
+        term: 1,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4265: {
+        name: "TDT4265",
+        subname: "Datasyn og dyp læring",
+        term: 1,
+        topics: [0, 4],
+        prerequisites: [],
+    },
+    tdt4300: {
+        name: "TDT4300",
+        subname: "Datavarehus og datagruvedrift",
+        term: 1,
+        topics: [0],
+        prerequisites: [],
+    },
+    tdt4305: {
+        name: "TDT4305",
+        subname: "Big Data-arkitektur",
+        term: 1,
+        topics: [0],
+        prerequisites: [],
+    },
 }
 
 const k_courses = {
@@ -759,6 +1521,10 @@ const k_courses = {
 
 const eit_courses = {
 
+}
+
+export function sortByName(courses) {
+    return Object.values(courses).sort((a,b) => (a.name > b.name) ? 1 : -1);
 }
 
 export const courses = {
@@ -1322,6 +2088,34 @@ export const courses = {
         topics: [2, 8],
         prerequisites: [],
     },
+}
+
+export const courses_alt2 = {
+    ...tma_courses,
+    ...tep_courses,
+    ...tpk_courses,
+    ...tmm_courses,
+    ...ttk_courses,
+    ...tkt_courses,
+    ...tba_courses,
+    ...tpg_courses,
+    ...tmr_courses,
+    ...tiø_courses,
+    ...tdt_courses,
+}
+
+export const courses_alt3 = {
+    TBA: Object.values(tba_courses),
+    TDT: Object.values(tdt_courses),
+    TEP: Object.values(tep_courses),
+    TIØ: Object.values(tiø_courses),
+    TKT: Object.values(tkt_courses),
+    TMA: Object.values(tma_courses),
+    TMM: Object.values(tmm_courses),
+    TMR: Object.values(tmr_courses),
+    TPG: Object.values(tpg_courses),
+    TPK: Object.values(tpk_courses),
+    TTK: Object.values(ttk_courses),
 }
 
 export const sortedCourseList = Object.values(courses).sort((a,b) => (a.name > b.name) ? 1 : -1);

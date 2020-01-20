@@ -41,6 +41,11 @@
     }
 }
 
+.shortRow {
+  max-height: 250px;
+  overflow-y: hidden;
+}
+
 .fullCourseBtn {
     background-color: #ccc !important;
 }

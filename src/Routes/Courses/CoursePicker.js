@@ -35,6 +35,8 @@ import {
     courses,
     sortedCourseList,
     courseTagDesc,
+    courseTagObj,
+    courses_alt3,
 } from '../../shared/Constants/Courses.js'
 
 import {
@@ -94,9 +96,17 @@ const CoursePicker = props => {
     const [recommendationActive, setRecommendationActive] = useState(false);
     const [coursesActive, setCoursesActive] = useState(false);
 
+    const [activeCoursesList, setActiveCoursesList] = useState(courseTagObj);
+
     const [courseListActive, setCourseListActive] = useState(true);
 
     const alert = useAlert();
+
+    function updateActiveCoursesList(tag) {
+        let activeCopy = {...activeCoursesList};
+        activeCopy[tag] = !activeCopy[tag];
+        setActiveCoursesList(activeCopy);
+    }
 
     function flat(input, depth = 1, stack = []) {
         for (let item of input)
@@ -390,11 +400,6 @@ const CoursePicker = props => {
     }
 
     function courseContent_opt2(course) {
-        if (course.name === "TMA4130") {
-            console.log("courseContent opt 2");
-            console.log("current courses", currentCourses);
-            console.log("current course names", currentCourseNames);
-        }
         return (
             <div className="courseBox-opt2 col-12">
                 <SubjectListingOpt2
@@ -430,30 +435,50 @@ const CoursePicker = props => {
     }
 
     function courseContentSortedByInstitute() {
-        let sortedCourses = groupBy(
+        /*let sortedCourses = groupBy(
                 sortedCourseList
                 .filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0))
                 .filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase()) || val.subname.toLowerCase().includes(currentSearchText.toLowerCase()))
             , "name"
             );
-        
+        console.log("sortedCourses", sortedCourses);
+        console.log("alt 2", courses_alt3);
+        */
+        let sortedCourses = courses_alt3;
         let contentt = [];
         Object.keys(sortedCourses).forEach(function(key) {
-            let subcontentt = [];
-            subcontentt.push(
-                <div className="col-12">
+            console.log("current topics", currentTopics);
+            let value = sortedCourses[key].filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0) || (x.topics.length == 0 && currentTopics.length == 11))
+                                          .filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase()) || val.subname.toLowerCase().includes(currentSearchText.toLowerCase()));
+            if (value.length > 0) {
+
+                let subcontentt = [];
+                subcontentt.push(
+                    <div className="col-12">
                     <h4 style={{'textAlign':'center'}}>{key}</h4>
                     <h5 style={{'textAlign':'center'}}>{courseTagDesc[key.substring(0,3).toUpperCase()]}</h5>
                 </div>
-            )
-            let value = sortedCourses[key];
-            value.forEach(function(course) {
-                subcontentt.push(
-                    courseContent_opt2(course)
                 )
-            })
-            contentt.push(subcontentt)
+                value.forEach(function(course) {
+                    subcontentt.push(
+                        courseContent_opt2(course)
+                    )
+                })
+                contentt.push(
+                    <div style={{'paddingTop':'15px'}}>
+                        <div className={activeCoursesList[key.substring(0,3).toUpperCase()] ? "row" : "row shortRow"}>
+                            {subcontentt}
+                        </div>
+                        {value.length > 5 && (
+                            <div style={{'textAlign':'center'}}>
+                                <span className="pointerr" onClick={() => updateActiveCoursesList(key.substring(0,3).toUpperCase())}><h6 style={{'display':'inline-block'}}>{activeCoursesList[key.substring(0,3).toUpperCase()] ? 'Vis mindre' : 'Vis mer'}</h6></span>
+                            </div>  
+                        )}
+                    </div>
+                )
+            }
         })
+        //return contentt;
         return contentt;
     }
 
@@ -591,7 +616,7 @@ const CoursePicker = props => {
         )
 
         return(
-            <div>
+            <div className="col-md-8 offset-md-2">
                 <h6>Aktiv plan:</h6>
                 {header}
                 {contentt.length > 0 && (
@@ -621,6 +646,7 @@ const CoursePicker = props => {
     console.log("currentCourseNames: ", currentCourseNames);
     console.log("selectedCourses: ", selectedCourses);
     console.log("selectedCoursesArray:", selectedCoursesArray);
+    console.log("ActiveCoursesList", activeCoursesList);
 
     // currentCourses.map(x => x.topics).flat().reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()).forEach((key, value) => console.log(key, value))
     // <p>Exchange spring: {exchangeSpring}</p><button onClick={() => toggleSpring()}>{exchangeSpring ? "On" : "Off"}</button>
@@ -867,9 +893,7 @@ const CoursePicker = props => {
                                 </div>
                             </div>
                             <div className="col-lg-6 col-md-8 offset-md-2 col-sm-12">
-                                <div className="row">
-                                    {courseContentSortedByInstitute()}
-                                </div>
+                                {courseContentSortedByInstitute()}
                             </div>
                         </div>
                     </div>
