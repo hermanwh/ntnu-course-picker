@@ -181,6 +181,8 @@ const CoursePicker = props => {
     }
 
     function addSelCourse(course, year) {
+        console.log("In selCourse");
+        console.log(course);
         let index = year*2 + course.term;
         const maxlen = index == 4 ? 2 : 4;
 
@@ -220,8 +222,6 @@ const CoursePicker = props => {
     }
 
     function removeSelectedCourse(course) {
-        console.log("Remove selected course", course);
-        console.log(selectedCourses);
         let selCourses = selectedCourses;
         Object.keys(selCourses).forEach(function(key) {
             const indexx = selCourses[key].findIndex(crs => crs.name + crs.term === course.name + course.term);
@@ -230,8 +230,6 @@ const CoursePicker = props => {
             }
         })
         setSelectedCoursesWithSideEffects(selCourses);
-        console.log(selCourses);
-        console.log(selectedCourses);
     }
 
     function addSelectedCourse(course, index, maxlen) {
@@ -453,18 +451,17 @@ const CoursePicker = props => {
             if (value.length > 0) {
 
                 let subcontentt = [];
-                subcontentt.push(
-                    <div className="col-12">
-                    <h5 style={{'textAlign':'center'}}>{courseTagDesc[key.substring(0,3).toUpperCase()]}</h5>
-                </div>
-                )
-                sortByName(value).forEach(function(course) {
+                value.forEach(function(course) {
                     subcontentt.push(
                         courseContent_opt2(course)
                     )
                 })
+                
                 contentt.push(
-                    <div style={{'paddingTop':'15px'}}>
+                    <div style={{'paddingBottom':'40px'}}>
+                        <div className="col-12">
+                            <h5 style={{'textAlign':'center'}}>{courseTagDesc[key.substring(0,3).toUpperCase()]}</h5>
+                        </div>
                         <div className={activeCoursesList[key.substring(0,3).toUpperCase()] ? "row" : "row shortRow"}>
                             {subcontentt}
                         </div>

@@ -7,10 +7,6 @@ const mandatoryCoursesMaskin = [
         name: "tiø4252",
         year: 0,
     },
-    {
-        name: "tmr4160",
-        year: 1,
-    },
 ]
 
 const mandatoryCoursesGeomatikk = [
