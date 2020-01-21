@@ -28,6 +28,7 @@ p.subjectListingParent {
 p.courseBox-opt2 {
     text-align: left;
     display: inline-block;
+    height: 35px;
 }
 
 .courseSubname-opt2 {

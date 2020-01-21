@@ -42,7 +42,7 @@
 }
 
 .shortRow {
-  max-height: 250px;
+  max-height: 234px;
   overflow-y: hidden;
 }
 
@@ -159,7 +159,6 @@ p {
     cursor: pointer;
     color: #ac93e5;
     padding-left: 5px;
-
 }
 
 .cancelButton {
@@ -643,3 +642,5 @@ margin-right: 0;
   left: -70px;
   background: rgb(97, 81, 134);
 }
+
+

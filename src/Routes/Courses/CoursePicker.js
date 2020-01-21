@@ -21,7 +21,7 @@ import {
     Chart
 } from '../../shared/Plot/Plot2.js'
 
-import { IoIosCloseCircle } from "react-icons/io";
+import { IoIosCloseCircle, IoIosAddCircle } from "react-icons/io";
 
 import { 
     terms,
@@ -37,6 +37,7 @@ import {
     courseTagDesc,
     courseTagObj,
     courses_alt3,
+    sortByName,
 } from '../../shared/Constants/Courses.js'
 
 import {
@@ -447,7 +448,6 @@ const CoursePicker = props => {
         let sortedCourses = courses_alt3;
         let contentt = [];
         Object.keys(sortedCourses).forEach(function(key) {
-            console.log("current topics", currentTopics);
             let value = sortedCourses[key].filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0) || (x.topics.length == 0 && currentTopics.length == 11))
                                           .filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase()) || val.subname.toLowerCase().includes(currentSearchText.toLowerCase()));
             if (value.length > 0) {
@@ -455,11 +455,10 @@ const CoursePicker = props => {
                 let subcontentt = [];
                 subcontentt.push(
                     <div className="col-12">
-                    <h4 style={{'textAlign':'center'}}>{key}</h4>
                     <h5 style={{'textAlign':'center'}}>{courseTagDesc[key.substring(0,3).toUpperCase()]}</h5>
                 </div>
                 )
-                value.forEach(function(course) {
+                sortByName(value).forEach(function(course) {
                     subcontentt.push(
                         courseContent_opt2(course)
                     )
@@ -636,6 +635,37 @@ const CoursePicker = props => {
     function scrollToTop() {
         window.scrollTo(0, 0);
     }
+
+    function mandatoryCoursesContent() {
+        let contentt = []
+        if (currentSpecialization !== null) {
+            mandatoryCourses(currentSpecialization).forEach(mandCourse => {
+                let course = courses[mandCourse.name]
+                if (!currentCourseNames.some(name => name == course.name)) {
+                    contentt.push(
+                        <div className="inlineDiv">
+                            <a className="courseOverviewLink" href={"https://www.ntnu.no/studier/emner/" + course.name} rel="noopener noreferrer" target="_tab">
+                                {course.name} {course.subname} ({course.term == 0 ? 'høst' : 'vår'} {mandCourse.year == 0 ? '3.' : mandCourse.year == 1 ? '4.' : '5.'})
+                            </a>
+                            <span data-tip data-for="courseAdd" className="courseOverviewRemove" onClick={() => addSelCourse(course, mandCourse.year)}><IoIosAddCircle size={18} /></span>
+                            <ReactTooltip place="right" id="courseAdd" aria-haspopup='true' role='example' effect="solid">
+                                <p>Legg til</p>
+                            </ReactTooltip>
+                        </div>
+                    );
+                }
+            });
+            if (contentt.length > 0) {
+                contentt.unshift(
+                    <h6 style={{'marginTop':'20px'}}>
+                        Obligatoriske fag som mangler:
+                    </h6>
+                )
+            }
+        }
+        return contentt;
+    }
+
     /*
     
     const [currentPlanName, setCurrentPlanName] = useState([]);
@@ -683,6 +713,7 @@ const CoursePicker = props => {
                     <div className="col-12">
                         <h3>Velg spesialisering</h3>
                         <Select placeholder="Velg..." onChange={(selectedOptions) => specializationChanged(selectedOptions)} options={specializationOptions} className="selectSpecialization" />
+                        {mandatoryCoursesContent()}
                     </div>
                     <div className="col-12" style={{'marginTop':'20px'}}>
                         <h3>Velg semester med utveksling</h3>
@@ -718,7 +749,7 @@ const CoursePicker = props => {
                                 <h3>3. klasse</h3>
                                 <div className="row">
                                     <div className="col-12 semesterBox">
-                                        <h4>høst</h4>
+                                        <h4>Høst</h4>
                                         {
                                             selectedCoursesContent(0)
                                         }
@@ -850,8 +881,7 @@ const CoursePicker = props => {
             <div className="container-fluid recommendationContent">
                 <div className="row">
                     <div className="col-12">
-                        <h3>Fagforslag</h3>
-                        <h4 style={{'marginBottom':'20px'}}>NB: veldig subjektivt/eksperimentelt</h4>
+                        <h3>Velg kategori</h3>
                         <Select placeholder="Velg..." onChange={(selectedOptions) => recommendationTopicChanged(selectedOptions)} options={topicsOptions} className="selectSpecialization" />
                         {recommendationTopic !== null && (
                             <CourseSummary 
@@ -860,6 +890,7 @@ const CoursePicker = props => {
                         />
                         )
                         }
+                        <h4 style={{'marginBottom':'20px'}}>NB: veldig subjektivt/eksperimentelt</h4>
                     </div>
                 </div>
             </div>
@@ -881,9 +912,6 @@ const CoursePicker = props => {
                 <div className="row">
                     <div className="col-lg-12 offset-lg-0">
                         <div className="row flex-lg-row-reverse">
-                            <div className="col-12" style={{'textAlign':'center'}}>
-                                <h3>Velg fag</h3>
-                            </div>
                             <div className="col-xl-2 col-lg-3 offset-xl-right-1 col-md-12 sticky center-on-mobile" style={{'paddingTop':'58px'}}>
                                 <h4>Filtrer på kategorier</h4>
                                 <Select styles={colourStyles} onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti placeholder="Velg..."/>

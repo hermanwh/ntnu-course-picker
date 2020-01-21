@@ -151,4 +151,139 @@
                     <span className="pointerr" onClick={() => (setOverviewActive(false), setRecommendationActive(true), setCoursesActive(false))}><h5 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 10px 10px', 'fontSize':'18px'}}>Oppsett</h5></span>
                     <span className="pointerr" onClick={() => (setOverviewActive(false), setRecommendationActive(false), setCoursesActive(true))}><h5 style={{'padding':'0px 0px 0px 0px', 'margin':'0px 0px 10px 10px', 'fontSize':'18px'}}>Fag</h5></span> 
                 </div>
+
+
+
+
+
+                
+.courseOverviewAdd {
+  display: inline-block;
+  color: #ac93e5;
+}
+
+.courseOverviewAddContain:hover .stacking-menu-contain {
+  visibility: visible;
+  opacity: 1;
+  transition: visibility 1s;
+}
+
+.stacking-menu-contain {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 1s;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function addMenyContent(semester, year) {
+        let contentt = [];
+        let subcontentt = [];
+        Object.keys(courses_alt3).forEach(key => {
+            let subsubcontentt = []
+            Object.values(courses_alt3[key]).forEach(val => {
+                if (val.term == semester) {
+                    subsubcontentt.push(
+                    <li>
+                    {val.name}
+                        <ul>
+                            <li onClick={() => addSelCourse(val, 0)}>{val.name + "0"}</li>
+                            <li onClick={() => addSelCourse(val, 0)}>{val.name + "0"}</li>
+                            <li onClick={() => addSelCourse(val, 1)}>{val.name + "0"}</li>
+                            <li onClick={() => addSelCourse(val, 1)}>{val.name + "0"}</li>
+                            <li onClick={() => addSelCourse(val, 2)}>{val.name + "0"}</li>
+                            <li onClick={() => addSelCourse(val, 3)}>{val.name + "0"}</li>
+                        </ul>
+                    </li>
+                    )
+                }
+            })
+            subcontentt.push(
+            <li>
+                {key}
+                <ul className="stacking-sub-menu">
+                    {subsubcontentt}
+                </ul>
+            </li>)
+        })
+        contentt.push(
+            <div className="stacking-menu-contain">
+                <ul className="stacking-menu">
+                    {subcontentt}
+                </ul>
+            </div>
+        )
+        return contentt;
+    }
+
+
+    function setEasyPicker(asd) {
+
+    }
+    
+    .stacking-menu {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+  width: 40px;
+  text-align: left;
+}
+
+.stacking-menu li {
+  color: white;
+  display: block;
+  position: relative;
+  text-decoration: none;
+}
+
+.stacking-menu li li {
+  cursor: pointer;
+}
+
+.stacking-menu li:hover {
+  background: #ac93e5;
+}
+
+.stacking-menu {
+  background: #ccc;
+}
+
+.stacking-menu ul {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    display: none;
+  }
+  
+  .stacking-menu li:hover ul ul {
+    display: none;
+  }
+  
+  .stacking-menu li:hover ul {
+    display: block;
+  }
+  .stacking-menu li li:hover ul {
+    margin-top: 0px;
+    display: block;
+  }
+  nu-li {
+    padding: 10px;
+  }
+  
+
+  http://jsfiddle.net/n5u2wwjg/233886/
+
     */
