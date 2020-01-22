@@ -1,26 +1,26 @@
 {
   "files": {
-    "main.css": "/ntnu-course-picker/static/css/main.777a260b.chunk.css",
-    "main.js": "/ntnu-course-picker/static/js/main.0e9456a7.chunk.js",
-    "main.js.map": "/ntnu-course-picker/static/js/main.0e9456a7.chunk.js.map",
+    "main.css": "/ntnu-course-picker/static/css/main.80b8ee9f.chunk.css",
+    "main.js": "/ntnu-course-picker/static/js/main.d3e4c379.chunk.js",
+    "main.js.map": "/ntnu-course-picker/static/js/main.d3e4c379.chunk.js.map",
     "runtime-main.js": "/ntnu-course-picker/static/js/runtime-main.728df32f.js",
     "runtime-main.js.map": "/ntnu-course-picker/static/js/runtime-main.728df32f.js.map",
-    "static/css/2.1629a26b.chunk.css": "/ntnu-course-picker/static/css/2.1629a26b.chunk.css",
-    "static/js/2.9859f242.chunk.js": "/ntnu-course-picker/static/js/2.9859f242.chunk.js",
-    "static/js/2.9859f242.chunk.js.map": "/ntnu-course-picker/static/js/2.9859f242.chunk.js.map",
+    "static/css/2.f2df1c93.chunk.css": "/ntnu-course-picker/static/css/2.f2df1c93.chunk.css",
+    "static/js/2.3cd616d4.chunk.js": "/ntnu-course-picker/static/js/2.3cd616d4.chunk.js",
+    "static/js/2.3cd616d4.chunk.js.map": "/ntnu-course-picker/static/js/2.3cd616d4.chunk.js.map",
     "index.html": "/ntnu-course-picker/index.html",
-    "precache-manifest.ca5a350e756bbb4de641d4677bf357ad.js": "/ntnu-course-picker/precache-manifest.ca5a350e756bbb4de641d4677bf357ad.js",
+    "precache-manifest.aafb103362e9aac9bcc8904beefac131.js": "/ntnu-course-picker/precache-manifest.aafb103362e9aac9bcc8904beefac131.js",
     "service-worker.js": "/ntnu-course-picker/service-worker.js",
-    "static/css/2.1629a26b.chunk.css.map": "/ntnu-course-picker/static/css/2.1629a26b.chunk.css.map",
-    "static/css/main.777a260b.chunk.css.map": "/ntnu-course-picker/static/css/main.777a260b.chunk.css.map",
-    "static/js/2.9859f242.chunk.js.LICENSE": "/ntnu-course-picker/static/js/2.9859f242.chunk.js.LICENSE",
+    "static/css/2.f2df1c93.chunk.css.map": "/ntnu-course-picker/static/css/2.f2df1c93.chunk.css.map",
+    "static/css/main.80b8ee9f.chunk.css.map": "/ntnu-course-picker/static/css/main.80b8ee9f.chunk.css.map",
+    "static/js/2.3cd616d4.chunk.js.LICENSE": "/ntnu-course-picker/static/js/2.3cd616d4.chunk.js.LICENSE",
     "static/media/logo.svg": "/ntnu-course-picker/static/media/logo.ee7cd8ed.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.728df32f.js",
-    "static/css/2.1629a26b.chunk.css",
-    "static/js/2.9859f242.chunk.js",
-    "static/css/main.777a260b.chunk.css",
-    "static/js/main.0e9456a7.chunk.js"
+    "static/css/2.f2df1c93.chunk.css",
+    "static/js/2.3cd616d4.chunk.js",
+    "static/css/main.80b8ee9f.chunk.css",
+    "static/js/main.d3e4c379.chunk.js"
   ]
 }
