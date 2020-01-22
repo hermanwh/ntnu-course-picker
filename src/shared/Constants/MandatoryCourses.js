@@ -32,7 +32,7 @@ const mandatoryCoursesGeomatikk = [
     },
     {
         name: "tba4236",
-        year: 1,
+        year: 0,
     },
 ]
 

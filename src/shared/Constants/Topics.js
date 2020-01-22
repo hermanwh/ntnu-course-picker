@@ -50,11 +50,9 @@ export const topicNames = {
     20: "Bygg, veg & anlegg",
     21: "Konstruksjonsmekanikk",
     22: "Materialer",
-    23: "Ledelse",
-    24: "Entreprenørskap",
-    25: "Økonomi",
-    26: "K-emne",
-    27: "EIT-emne",
+    23: "Ledelse/Økonomi/Entreprenørskap",
+    24: "K-emne",
+    25: "EIT-emne",
 }
 
 // Used to identify the different topics by color
@@ -98,8 +96,6 @@ export const topicColors = {
     23: "#595454",
     24: "#595454",
     25: "#595454",
-    26: "#595454",
-    27: "#595454",
 }
 
 // Used for options in the topics multiselect from the react-select package
@@ -130,8 +126,6 @@ export const topicsOptions = [
     {value: 23, label: topicNames[23], color: topicColors[23]},
     {value: 24, label: topicNames[24], color: topicColors[24]},
     {value: 25, label: topicNames[25], color: topicColors[25]},
-    {value: 26, label: topicNames[26], color: topicColors[26]},
-    {value: 27, label: topicNames[27], color: topicColors[27]},
 ]
 
 export const topicsOptions_new = [

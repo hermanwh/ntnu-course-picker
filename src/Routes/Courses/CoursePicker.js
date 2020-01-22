@@ -93,6 +93,8 @@ const CoursePicker = props => {
     const [joining, setJoining] = useState(false);
     const [isLoggedIn, setLoggedIn] = useState(false);
 
+    const [currentSearchingCourses, setCurrentSearchingCourses] = useState([]);
+
     const [overviewActive, setOverviewActive] = useState(true);
     const [recommendationActive, setRecommendationActive] = useState(false);
     const [coursesActive, setCoursesActive] = useState(false);
@@ -769,10 +771,10 @@ const CoursePicker = props => {
                                         )}
                                         {exchangeAutumn && (
                                             <div>
-                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
-                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
-                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
-                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
                                             </div>
                                         )}
                                     </div>
@@ -783,10 +785,10 @@ const CoursePicker = props => {
                                         )}
                                         {exchangeSpring && (
                                             <div>
-                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
-                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
-                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
-                                                <input className="exchangeInput" type="text" defaultValue="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
                                             </div>
                                         )}
                                     </div>
