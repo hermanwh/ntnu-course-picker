@@ -511,7 +511,7 @@ const CoursePicker = props => {
 
     function uploadButtonPressed() {
         let selectedCopy = selectedCoursesArray.slice();
-        selectedCopy.splice(currentActivePlanIndex, 1, [selectedCourses, currentCourses, currentPlanName]);
+        selectedCopy.splice(currentActivePlanIndex, 1, [selectedCourses, currentCourses, currentPlanName, currentSpecialization]);
         let coursesCopy = selectedCopy.slice();
         if (coursesCopy[0][1].length == 0) {
             coursesCopy.splice(0, 1);
@@ -578,16 +578,17 @@ const CoursePicker = props => {
 
     function changePlan(index) {
         let selectedCopy = selectedCoursesArray.slice();
-        selectedCopy.splice(currentActivePlanIndex, 1, [selectedCourses, currentCourses, currentPlanName]);
+        selectedCopy.splice(currentActivePlanIndex, 1, [selectedCourses, currentCourses, currentPlanName, currentSpecialization]);
         setSelectedCoursesArray(selectedCopy);
         setSelectedCoursesWithSideEffects(selectedCopy[index][0]);
         setCurrentPlanName(selectedCopy[index][2]);
+        setCurrentSpecialization(selectedCopy[index][3])
         setCurrentActivePlanIndex(index);
     }
 
     function addNewPlan() {
         let selectedCopy = selectedCoursesArray.slice();
-        selectedCopy.splice(currentActivePlanIndex, 1, [selectedCourses, currentCourses, currentPlanName]);
+        selectedCopy.splice(currentActivePlanIndex, 1, [selectedCourses, currentCourses, currentPlanName, null]);
         selectedCopy.splice(0, 0, [{}, [], "Ny plan"]);
         setSelectedCoursesArray(selectedCopy);
         setSelectedCoursesWithSideEffects(selectedCopy[0][0]);
@@ -711,7 +712,7 @@ const CoursePicker = props => {
                 <div className="row" style={{'paddingTop':'40px'}}>
                     <div className="col-12">
                         <h3>Velg spesialisering</h3>
-                        <Select placeholder="Velg..." onChange={(selectedOptions) => specializationChanged(selectedOptions)} options={specializationOptions} className="selectSpecialization" />
+                        <Select placeholder="Velg..." value={specializationOptions[currentSpecialization]} onChange={(selectedOptions) => specializationChanged(selectedOptions)} options={specializationOptions} className="selectSpecialization" />
                         {mandatoryCoursesContent()}
                     </div>
                     <div className="col-12" style={{'marginTop':'20px'}}>

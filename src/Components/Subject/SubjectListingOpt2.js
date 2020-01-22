@@ -7,6 +7,10 @@ import {
 } from "./../../shared/Constants/Constants.js";
 
 import {
+    courses as allCourses,
+} from './../../shared/Constants/Courses.js'
+
+import {
     topicColors,
     topicNames,
 } from './../../shared/Constants/Topics.js';
