@@ -1,5 +1,49 @@
 /*
 
+
+EXPORT PDF
+
+    function exportPdf() {
+        console.log("saving");
+        html2canvas(document.querySelector("#capture"), {
+            scrollX: 0,
+            scrollY: 0
+          }).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF();
+            const imgProps= pdf.getImageProperties(imgData);
+            const pdfWidth = pdf.internal.pageSize.getWidth();
+            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+            console.log("width:", pdfWidth)
+            console.log("height:", pdfHeight)
+            var width = pdf.internal.pageSize.getWidth();
+            var height = pdf.internal.pageSize.getHeight();
+            console.log("width:", width)
+            console.log("height:", height)
+            pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+            pdf.save('download.pdf'); 
+            console.log("saved?");
+        });
+    }
+    */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
 <ButtonToolbar>
     {
         specializations.map(specialization => (
@@ -871,5 +915,25 @@ export const courses_old = {
     },
 }
 
+
+
+
+
+
+{false && (
+                <div className="row" style={{'padding-top':'30px'}}>
+                    <div className="col-lg-10 offset-lg-1">
+                        <div className="row">
+                        {Object.values(courses)
+                            .filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0))
+                            .filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase()) || val.subname.toLowerCase().includes(currentSearchText.toLowerCase()))
+                            .sort((a,b) => (a.name > b.name) ? 1 : -1)
+                            .map(course => (
+                                courseContent(course)
+                        ))}
+                        </div>
+                    </div>
+                </div>
+                )}   
 
 */

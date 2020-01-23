@@ -36,7 +36,7 @@ import {
     sortedCourseList,
     courseTagDesc,
     courseTagObj,
-    courses_alt3,
+    coursesByInstituteCode,
     sortByName,
 } from '../../shared/Constants/Courses.js'
 
@@ -95,7 +95,6 @@ const CoursePicker = props => {
 
     const [currentSearchingCourses, setCurrentSearchingCourses] = useState([]);
 
-    const [overviewActive, setOverviewActive] = useState(true);
     const [recommendationActive, setRecommendationActive] = useState(false);
     const [coursesActive, setCoursesActive] = useState(false);
 
@@ -126,6 +125,10 @@ const CoursePicker = props => {
         return stack;
     }
 
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+
     function setSelectedCoursesWithSideEffects(selCourses) {
         setSelectedCourses(selCourses);
         setCurrentCourses(getCurrentCourses(selCourses));
@@ -148,21 +151,6 @@ const CoursePicker = props => {
 
     if (currentTopics.length < 1) {
         setCurrentTopics(topics);
-    }
-
-    function setMandatoryCourses(selectedSpecialization ,previousSpecialization) {
-        let mandCourses = mandatoryCourses(selectedSpecialization.value);
-        let prevMandCourses = [];
-        if (previousSpecialization !== null) {
-            prevMandCourses = mandatoryCourses(previousSpecialization);
-        }
-        prevMandCourses.forEach(function(crs) {
-            removeSelCourse(courses[crs.name]);
-        })
-        mandCourses.forEach(function(crs) {
-            const course = courses[crs.name];
-            addSelCourse(course, crs.term, crs.year);
-        })
     }
 
     function isSemesterFull(year, term) {
@@ -227,7 +215,7 @@ const CoursePicker = props => {
     function removeSelectedCourse(course) {
         let selCourses = selectedCourses;
         Object.keys(selCourses).forEach(function(key) {
-            const indexx = selCourses[key].findIndex(crs => crs.name + crs.term === course.name + course.term);
+            const indexx = selCourses[key].findIndex(crs => crs.name === course.name);
             if (indexx > -1) {
                 selCourses[key].splice( indexx, 1 );
             }
@@ -261,20 +249,15 @@ const CoursePicker = props => {
         setExchangeAutumn(!bool);
     }
 
+    // SELECTED COURSES OVERVIEW
+
     function selectedCoursesContent(index) {
         let content = [];
         if (selectedCourses[index] !== undefined) {
             selectedCourses[index].slice(0, 4).forEach(course => (
                 content.push(
-                    <div className="inlineDiv">
-                        <a className="courseOverviewLink" href={"https://www.ntnu.no/studier/emner/" + course.name} rel="noopener noreferrer" target="_tab">
-                            {course.name} {course.subname}
-                        </a>
-                        <span data-tip data-for="courseRemove" className="courseOverviewRemove" onClick={() => removeSelCourse(course)}><IoIosCloseCircle size={18} /></span>
-                        <ReactTooltip place="right" id="courseRemove" aria-haspopup='true' role='example' effect="solid">
-                            <p>Fjern</p>
-                        </ReactTooltip>
-                    </div>)
+                    selectedCoursesElement(course)
+                )
             ));
         }
         const maxlen = index == 4 ? 2 : 4;
@@ -283,6 +266,24 @@ const CoursePicker = props => {
         }
         return content;
     }
+
+    function selectedCoursesElement(course, ) {
+        return (
+            <div className="inlineDiv">
+                <a className="courseOverviewLink" href={"https://www.ntnu.no/studier/emner/" + course.name} rel="noopener noreferrer" target="_tab">
+                    {course.name} {course.subname}
+                </a>
+                <span data-tip data-for="courseRemove" className="courseOverviewRemove" onClick={() => removeSelCourse(course)}><IoIosCloseCircle size={18} /></span>
+                <ReactTooltip place="right" id="courseRemove" aria-haspopup='true' role='example' effect="solid">
+                    <p>Fjern</p>
+                </ReactTooltip>
+            </div>
+        )
+    }
+
+    // END SELECTED COURSES OVERVIEW
+
+    // START SUMMARY
 
     function addTopicsToSummary() {
         let content = [];
@@ -304,6 +305,8 @@ const CoursePicker = props => {
         return content;
     }
 
+    // END SUMMARY
+
     function topicsChanged(selectedTopics) {
         if (selectedTopics !== null) {
             setCurrentTopics(selectedTopics.map(x => x.value));
@@ -321,8 +324,7 @@ const CoursePicker = props => {
     }
 
     function inputChanged() {
-        let asd = document.getElementById("freeTextInputId").value;
-        setCurrentSearchText(asd);
+        setCurrentSearchText(document.getElementById("freeTextInputId").value);
     }
 
     function recommendationTopicChanged(topic) {
@@ -353,91 +355,9 @@ const CoursePicker = props => {
         });
     }
 
-    /*
-    function exportPdf() {
-        console.log("saving");
-        html2canvas(document.querySelector("#capture"), {
-            scrollX: 0,
-            scrollY: 0
-          }).then(canvas => {
-            const imgData = canvas.toDataURL('image/png');
-            const pdf = new jsPDF();
-            const imgProps= pdf.getImageProperties(imgData);
-            const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-            console.log("width:", pdfWidth)
-            console.log("height:", pdfHeight)
-            var width = pdf.internal.pageSize.getWidth();
-            var height = pdf.internal.pageSize.getHeight();
-            console.log("width:", width)
-            console.log("height:", height)
-            pdf.addImage(imgData, 'PNG', 0, 0, width, height);
-            pdf.save('download.pdf'); 
-            console.log("saved?");
-        });
-    }
-    */
-
-    function courseContent(course) {
-        return (
-            <div className="courseBox col-sm-3">
-                <SubjectListing
-                data={course}
-                courses={currentCourseNames}
-                />
-                {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) && (
-                <div className="btnBox">
-                    <button className="btn-opt" onClick={() => removeSelCourse(course)} value="Fjern">Fjern</button>
-                </div>
-                )}
-                {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) !== true && (
-                    <div className="btnBox">
-                        <button className="btn-opt" onClick={() => addSelCourse(course, 0)} value="3">+3</button>
-                        <button className="btn-opt" onClick={() => addSelCourse(course, 1)} value="4">+4</button>
-                        <button className="btn-opt" onClick={() => addSelCourse(course, 2)} value="5">+5</button>
-                    </div>
-                )}
-            </div>
-        )
-    }
-
-    function courseContent_opt2(course) {
-        return (
-            <div className="courseBox-opt2 col-12">
-                <SubjectListingOpt2
-                data={course}
-                courses={currentCourseNames}
-                term={course.term}
-                />
-                <div style={{'float':'right'}}>
-                    <div className="courseTopics-opt2">
-                        {course.topics.map(topic => (
-                            <div className="topicsDiv-opt2">
-                                <span data-tip data-for={course.name + "-" + topic} className="dot" style={{'backgroundColor':topicColors[topic]}}></span>
-                                <ReactTooltip id={course.name + "-" + topic} aria-haspopup='true' role='example' effect="solid">
-                                    <p>{topicNames[topic]}</p>
-                                </ReactTooltip>
-                            </div>
-                        ))}
-                    </div>
-                    {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) && (
-                        <div className="btnBox-opt2">
-                            <button className="bigbtn" onClick={() => removeSelCourse(course)} value="Fjern">Fjern</button>
-                        </div>
-                    )}
-                    {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) !== true && (
-                        <div className="btnBox-opt2">
-                            <button className={isSemesterFull(0, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, course.term, 0)} value="3">+3</button>
-                            <button className={isSemesterFull(1, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, course.term, 1)} value="4">+4</button>
-                            <button className={isSemesterFull(2, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, course.term, 2)} value="5">+5</button>
-                        </div>
-                    )}
-                </div>
-            </div>
-        )
-    }
-
-    function courseContent_opt2_with_term(course, term) {
+    // START COURSE LIST
+    
+    function courseContent(course, term) {
         return (
             <div className="courseBox-opt2 col-12">
                 <SubjectListingOpt2
@@ -456,16 +376,16 @@ const CoursePicker = props => {
                             </div>
                         ))}
                     </div>
-                    {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) && (
+                    {currentCourses.some(x => x.name === course.name) && (
                         <div className="btnBox-opt2">
                             <button className="bigbtn" onClick={() => removeSelCourse(course)} value="Fjern">Fjern</button>
                         </div>
                     )}
-                    {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) !== true && (
+                    {!currentCourses.some(x => x.name === course.name) && (
                         <div className="btnBox-opt2">
-                            <button className={isSemesterFull(0, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, term, 0)} value="3">+3</button>
-                            <button className={isSemesterFull(1, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, term, 1)} value="4">+4</button>
-                            <button className={isSemesterFull(2, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, term, 2)} value="5">+5</button>
+                            <button data-tip data-for={"coursePickerTooltip"} className={isSemesterFull(0, term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, term, 0)} value="3">3.</button>
+                            <button data-tip data-for={"coursePickerTooltip"} className={isSemesterFull(1, term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, term, 1)} value="4">4.</button>
+                            <button data-tip data-for={"coursePickerTooltip"} className={isSemesterFull(2, term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, term, 2)} value="5">5.</button>
                         </div>
                     )}
                 </div>
@@ -474,33 +394,23 @@ const CoursePicker = props => {
     }
 
     function courseContentSortedByInstitute() {
-        /*let sortedCourses = groupBy(
-                sortedCourseList
-                .filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0))
-                .filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase()) || val.subname.toLowerCase().includes(currentSearchText.toLowerCase()))
-            , "name"
-            );
-        console.log("sortedCourses", sortedCourses);
-        console.log("alt 2", courses_alt3);
-        */
-        let sortedCourses = courses_alt3;
         let contentt = [];
-        Object.keys(sortedCourses).forEach(function(key) {
-            let value = sortedCourses[key].filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0) || (x.topics.length == 0 && currentTopics.length == 11))
-                                          .filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase()) || val.subname.toLowerCase().includes(currentSearchText.toLowerCase()));
+        Object.keys(coursesByInstituteCode).forEach(function(key) {
+            let value = coursesByInstituteCode[key]
+                        .filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0))
+                        .filter(val => (val.name + val.subname).toLowerCase().includes(currentSearchText.toLowerCase()));
             if (value.length > 0) {
-
                 let subcontentt = [];
                 value.forEach(function(course) {
-                    if (Array.isArray(course.term)) {
+                    if (course.term.length > 1) {
                         course.term.forEach(term => {
                             subcontentt.push(
-                                courseContent_opt2_with_term(course, term)
+                                courseContent(course, term)
                             )
                         })
                     } else {
                         subcontentt.push(
-                            courseContent_opt2(course)
+                            courseContent(course, course.term[0])
                         )
                     }
                 })
@@ -513,7 +423,10 @@ const CoursePicker = props => {
                         <div className={activeCoursesList[key.substring(0,3).toUpperCase()] ? "row" : "row shortRow"}>
                             {subcontentt}
                         </div>
-                        {value.length > 5 && (
+                        <ReactTooltip id={"coursePickerTooltip"} aria-haspopup='true' role='example' effect="solid">
+                            <p>Legg til i plan</p>
+                        </ReactTooltip>
+                        {value.length > 4 && (
                             <div style={{'textAlign':'center'}}>
                                 <span className="pointerr" onClick={() => updateActiveCoursesList(key.substring(0,3).toUpperCase())}><h6 style={{'display':'inline-block'}}>{activeCoursesList[key.substring(0,3).toUpperCase()] ? 'Vis mindre' : 'Vis mer'}</h6></span>
                             </div>  
@@ -522,10 +435,13 @@ const CoursePicker = props => {
                 )
             }
         })
-        //return contentt;
         return contentt;
     }
 
+    // END COURSE LIST
+
+    // START FIREBASE DB
+    // upload to and download from firebase database
 
     function firebaseContent() {
         return (
@@ -564,7 +480,7 @@ const CoursePicker = props => {
         }
 
         if (coursesCopy.map(x => x[2]).findIndex(y => y === "Ny plan") > -1) {
-            alert.error("Vennligst gi planen din et annet navn enn 'Ny plan'");
+            alert.error("Vennligst gi alle planer et annet navn enn 'Ny plan'");
         } else {
             uploadToDb(coursesCopy, `${firebase.auth().currentUser.uid}/selectedCourses.json`, storage);
         }
@@ -581,7 +497,6 @@ const CoursePicker = props => {
             fetch(url)
             .then(response => response.json())
             .then(jsonData => {
-                jsonData.splice(0, 0, [{}, [], "Ny plan"]);
                 setMethod(jsonData);
             })
             .catch(error => {
@@ -590,7 +505,7 @@ const CoursePicker = props => {
         })
         .catch(error => {
             console.log("error while loading from db");
-            setMethod([[{}, [], "Ny plan"]]);
+            setMethod([[{}, [], "Ny plan", null]]);
         });
     }
 
@@ -617,9 +532,13 @@ const CoursePicker = props => {
         alert.success("Data lagret");
     }
 
+    // END FIREBASE DB
+
+    // START PLANS
+    // add new, change plan, etc.
+
     function planNameChanged() {
-        let asd = document.getElementById("planNameInputId").value;
-        setCurrentPlanName(asd);
+        setCurrentPlanName(document.getElementById("planNameInputId").value);
     }
 
     function changePlan(index) {
@@ -634,8 +553,8 @@ const CoursePicker = props => {
 
     function addNewPlan() {
         let selectedCopy = selectedCoursesArray.slice();
-        selectedCopy.splice(currentActivePlanIndex, 1, [selectedCourses, currentCourses, currentPlanName, null]);
-        selectedCopy.splice(0, 0, [{}, [], "Ny plan"]);
+        selectedCopy.splice(currentActivePlanIndex, 1, [selectedCourses, currentCourses, currentPlanName, currentSpecialization]);
+        selectedCopy.splice(0, 0, [{}, [], "Ny plan", null]);
         setSelectedCoursesArray(selectedCopy);
         setSelectedCoursesWithSideEffects(selectedCopy[0][0]);
         setCurrentPlanName(selectedCopy[0][2]);
@@ -678,8 +597,24 @@ const CoursePicker = props => {
         )
     }
 
-    function scrollToTop() {
-        window.scrollTo(0, 0);
+    // END PLANS 
+
+    // START MANDATORY COURSE CONTENT:
+    // mandatory courses for the selected specialization are listed below the specialization selection
+
+    function setMandatoryCourses(selectedSpecialization ,previousSpecialization) {
+        let mandCourses = mandatoryCourses(selectedSpecialization.value);
+        let prevMandCourses = [];
+        if (previousSpecialization !== null) {
+            prevMandCourses = mandatoryCourses(previousSpecialization);
+        }
+        prevMandCourses.forEach(function(crs) {
+            removeSelCourse(courses[crs.name]);
+        })
+        mandCourses.forEach(function(crs) {
+            const course = courses[crs.name];
+            addSelCourse(course, crs.term, crs.year);
+        })
     }
 
     function mandatoryCoursesContent() {
@@ -689,15 +624,7 @@ const CoursePicker = props => {
                 let course = courses[mandCourse.name]
                 if (!currentCourseNames.some(name => name == course.name)) {
                     contentt.push(
-                        <div className="inlineDiv">
-                            <a className="courseOverviewLink" href={"https://www.ntnu.no/studier/emner/" + course.name} rel="noopener noreferrer" target="_tab">
-                                {course.name} {course.subname} ({course.term == 0 ? 'høst' : 'vår'} {mandCourse.year == 0 ? '3.' : mandCourse.year == 1 ? '4.' : '5.'})
-                            </a>
-                            <span data-tip data-for="courseAdd" className="courseOverviewRemove" onClick={() => addSelCourse(course, mandCourse.term, mandCourse.year)}><IoIosAddCircle size={18} /></span>
-                            <ReactTooltip place="right" id="courseAdd" aria-haspopup='true' role='example' effect="solid">
-                                <p>Legg til</p>
-                            </ReactTooltip>
-                        </div>
+                        mandatoryCourseElement(course, mandCourse.term, mandCourse.year)
                     );
                 }
             });
@@ -711,6 +638,24 @@ const CoursePicker = props => {
         }
         return contentt;
     }
+
+    function mandatoryCourseElement(course, term, year) {
+        return (
+            <div className="inlineDiv">
+                <a className="courseOverviewLink" href={"https://www.ntnu.no/studier/emner/" + course.name} rel="noopener noreferrer" target="_tab">
+                    {course.name} {course.subname} ({course.term == 0 ? 'høst' : 'vår'} {year == 0 ? '3.' : year == 1 ? '4.' : '5.'})
+                </a>
+                <span data-tip data-for="courseAdd" className="courseOverviewRemove" onClick={() => addSelCourse(course, term, year)}><IoIosAddCircle size={18} /></span>
+                <ReactTooltip place="right" id="courseAdd" aria-haspopup='true' role='example' effect="solid">
+                    <p>Legg til</p>
+                </ReactTooltip>
+            </div>
+        )
+    }
+    // END MANDATORY COURSE CONTENT
+
+
+
 
     /*
     
@@ -748,7 +693,7 @@ const CoursePicker = props => {
                         {firebaseContent()}
                     </div>
                 </div>
-                {isLoggedIn && overviewActive && (
+                {isLoggedIn && (
                     <div className="row" style={{'marginTop':'0px', 'marginBottom':'20px'}}>
                         <div className="col-12" style={{'paddingTop':'10px'}}>
                             {planContent()}
@@ -813,31 +758,37 @@ const CoursePicker = props => {
                                 <div className="row">
                                     <div className="col-12 semesterBox">
                                         <h4>høst</h4>
-                                        {!exchangeAutumn && (
-                                            selectedCoursesContent(2)
-                                        )}
-                                        {exchangeAutumn && (
-                                            <div>
-                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
-                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
-                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
-                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
-                                            </div>
-                                        )}
+                                        {!exchangeAutumn ?
+                                            (
+                                                selectedCoursesContent(2)
+                                            )
+                                            :
+                                            (
+                                                <div>
+                                                    <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                    <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                    <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                    <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                </div>
+                                            )
+                                        }
                                     </div>
                                     <div className="col-12 semesterBox" style={{'marginTop':'20px'}}>
                                         <h4>vår</h4>
-                                        {!exchangeSpring && (
-                                            selectedCoursesContent(3)
-                                        )}
-                                        {exchangeSpring && (
-                                            <div>
-                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
-                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
-                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
-                                                <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
-                                            </div>
-                                        )}
+                                        {!exchangeSpring ?
+                                            (
+                                                selectedCoursesContent(3)
+                                            )
+                                            :
+                                            (
+                                                <div>
+                                                    <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                    <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                    <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                    <input className="exchangeInput" type="text" placeholder="Skriv inn fag..." />
+                                                </div>
+                                            )
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -872,18 +823,21 @@ const CoursePicker = props => {
                                 <h3>Oppsummering</h3>
                                 <br></br>
                             </div>
-                            {currentCourses.length == 0 && (
-                                <div className="col-12" style={{'textAlign':'center'}}>
-                                <p>Ingen fag valgt</p>
-                                </div>
-                            )}
-                            {currentCourses.length > 0 && (
-                                <div className="col-3 summaryText">
-                                {
-                                    addTopicsToSummary()
-                                }
-                                </div>
-                            )}
+                            {currentCourses.length == 0 ?
+                                (
+                                    <div className="col-12" style={{'textAlign':'center'}}>
+                                    <p>Ingen fag valgt</p>
+                                    </div>
+                                )
+                                :
+                                (
+                                    <div className="col-3 summaryText">
+                                    {
+                                        addTopicsToSummary()
+                                    }
+                                    </div>
+                                )
+                            }
                             {currentCourses.length > 0 && (
                                 <div className="col-6" style={{'fontColor':'black'}}>
                                 {Chart(addTopicsToSummaryGraph())}
@@ -923,73 +877,60 @@ const CoursePicker = props => {
                     </div>
                 </div>
             </div>
-            {!courseListActive && (
-            <div className="container-fluid recommendationContent">
-                <div className="row">
-                    <div className="col-12">
-                        <h3>Velg kategori</h3>
-                        <Select placeholder="Velg..." onChange={(selectedOptions) => recommendationTopicChanged(selectedOptions)} options={topicsOptions} className="selectSpecialization" />
-                        {recommendationTopic !== null && (
-                            <CourseSummary 
-                            data = {recommendedCourses(recommendationTopic)}
-                            courses = {courses}
-                        />
-                        )
-                        }
-                        <h4 style={{'marginBottom':'20px'}}>NB: veldig subjektivt/eksperimentelt</h4>
-                    </div>
-                </div>
-            </div>
-            )}
-            {courseListActive && (
-            <div className="container-fluid coursesContent">
-                {false && (
-                    <div className="col-12 courseHeader">
-                        <h3>Velg kategorier</h3>
-                        <Select styles={colourStyles} onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti placeholder="Velg..."/>
-                        <br></br>
-                        <h3>Søk i fag</h3>
-                        <div className="freetextField css-yk16xz-control">
-                            <input id="freeTextInputId" name="freeTextInput" className="freetextInput" placeholder="Fritekst..." onChange={() => inputChanged()}></input>
+            {!courseListActive ?
+                (
+                <div className="container-fluid recommendationContent">
+                    <div className="row">
+                        <div className="col-12">
+                            <h3>Velg kategori</h3>
+                            <Select placeholder="Velg..." onChange={(selectedOptions) => recommendationTopicChanged(selectedOptions)} options={topicsOptions} className="selectSpecialization" />
+                            {recommendationTopic !== null && (
+                                <CourseSummary 
+                                data = {recommendedCourses(recommendationTopic)}
+                                courses = {courses}
+                            />
+                            )
+                            }
+                            <h4 style={{'marginBottom':'20px'}}>NB: veldig subjektivt/eksperimentelt</h4>
                         </div>
                     </div>
-                )}
+                </div>
+                )
+                :
+                (
+                <div className="container-fluid coursesContent">
+                    {false && (
+                        <div className="col-12 courseHeader">
+                            <h3>Velg kategorier</h3>
+                            <Select styles={colourStyles} onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti placeholder="Velg..."/>
+                            <br></br>
+                            <h3>Søk i fag</h3>
+                            <div className="freetextField css-yk16xz-control">
+                                <input id="freeTextInputId" name="freeTextInput" className="freetextInput" placeholder="Fritekst..." onChange={() => inputChanged()}></input>
+                            </div>
+                        </div>
+                    )}
 
-                <div className="row">
-                    <div className="col-lg-12 offset-lg-0">
-                        <div className="row flex-lg-row-reverse">
-                            <div className="col-xl-2 col-lg-3 offset-xl-right-1 col-md-12 sticky center-on-mobile" style={{'paddingTop':'58px'}}>
-                                <h4>Filtrer på kategorier</h4>
-                                <Select styles={colourStyles} onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti placeholder="Velg..."/>
-                                <h4>Søk</h4>
-                                <div className="freetextField css-yk16xz-control">
-                                    <input id="freeTextInputId" name="freeTextInput" className="freetextInput" placeholder="Fritekst..." onChange={() => inputChanged()}></input>
+                    <div className="row">
+                        <div className="col-lg-12 offset-lg-0">
+                            <div className="row flex-lg-row-reverse">
+                                <div className="col-xl-2 col-lg-3 offset-xl-right-1 col-md-12 sticky center-on-mobile" style={{'paddingTop':'0px'}}>
+                                    <h4>Filtrer på kategorier</h4>
+                                    <Select styles={colourStyles} onChange={(selectedOptions) => topicsChanged(selectedOptions)} options={topicsOptions} className="selectedTopics" isMulti placeholder="Velg..."/>
+                                    <h4>Søk</h4>
+                                    <div className="freetextField css-yk16xz-control">
+                                        <input id="freeTextInputId" name="freeTextInput" className="freetextInput" placeholder="Fritekst..." onChange={() => inputChanged()}></input>
+                                    </div>
+                                </div>
+                                <div className="col-lg-6 col-md-8 offset-md-2 col-sm-12">
+                                    {courseContentSortedByInstitute()}
                                 </div>
                             </div>
-                            <div className="col-lg-6 col-md-8 offset-md-2 col-sm-12">
-                                {courseContentSortedByInstitute()}
-                            </div>
                         </div>
                     </div>
                 </div>
-
-                {false && (
-                <div className="row" style={{'padding-top':'30px'}}>
-                    <div className="col-lg-10 offset-lg-1">
-                        <div className="row">
-                        {Object.values(courses)
-                            .filter(x => x.topics.some(y => currentTopics.indexOf(y) >= 0))
-                            .filter(val => val.name.toLowerCase().includes(currentSearchText.toLowerCase()) || val.subname.toLowerCase().includes(currentSearchText.toLowerCase()))
-                            .sort((a,b) => (a.name > b.name) ? 1 : -1)
-                            .map(course => (
-                                courseContent(course)
-                        ))}
-                        </div>
-                    </div>
-                </div>
-                )}   
-            </div>
-            )}
+                )
+            }
         </div>
   );
 };
