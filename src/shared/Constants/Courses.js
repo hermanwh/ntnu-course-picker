@@ -1028,14 +1028,7 @@ const tiø_courses = {
     tiø4252: {
         name: "TIØ4252",
         subname: "Teknologiledelse",
-        term: 0,
-        topics: [8, 23],
-        prerequisites: [],
-    },
-    tiø4252v: {
-        name: "TIØ4252",
-        subname: "Teknologiledelse",
-        term: 1,
+        term: [0, 1],
         topics: [8, 23],
         prerequisites: [],
     },

@@ -160,7 +160,8 @@ const CoursePicker = props => {
             removeSelCourse(courses[crs.name]);
         })
         mandCourses.forEach(function(crs) {
-            addSelCourse(courses[crs.name], crs.year);
+            const course = courses[crs.name];
+            addSelCourse(course, crs.term, crs.year);
         })
     }
 
@@ -182,10 +183,10 @@ const CoursePicker = props => {
         }
     }
 
-    function addSelCourse(course, year) {
+    function addSelCourse(course, term, year) {
         console.log("In selCourse");
         console.log(course);
-        let index = year*2 + course.term;
+        let index = year*2 + term;
         const maxlen = index == 4 ? 2 : 4;
 
         if (index === 5) {
@@ -406,6 +407,7 @@ const CoursePicker = props => {
                 <SubjectListingOpt2
                 data={course}
                 courses={currentCourseNames}
+                term={course.term}
                 />
                 <div style={{'float':'right'}}>
                     <div className="courseTopics-opt2">
@@ -425,9 +427,45 @@ const CoursePicker = props => {
                     )}
                     {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) !== true && (
                         <div className="btnBox-opt2">
-                            <button className={isSemesterFull(0, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, 0)} value="3">+3</button>
-                            <button className={isSemesterFull(1, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, 1)} value="4">+4</button>
-                            <button className={isSemesterFull(2, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, 2)} value="5">+5</button>
+                            <button className={isSemesterFull(0, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, course.term, 0)} value="3">+3</button>
+                            <button className={isSemesterFull(1, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, course.term, 1)} value="4">+4</button>
+                            <button className={isSemesterFull(2, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, course.term, 2)} value="5">+5</button>
+                        </div>
+                    )}
+                </div>
+            </div>
+        )
+    }
+
+    function courseContent_opt2_with_term(course, term) {
+        return (
+            <div className="courseBox-opt2 col-12">
+                <SubjectListingOpt2
+                data={course}
+                courses={currentCourseNames}
+                term={term}
+                />
+                <div style={{'float':'right'}}>
+                    <div className="courseTopics-opt2">
+                        {course.topics.map(topic => (
+                            <div className="topicsDiv-opt2">
+                                <span data-tip data-for={course.name + "-" + topic} className="dot" style={{'backgroundColor':topicColors[topic]}}></span>
+                                <ReactTooltip id={course.name + "-" + topic} aria-haspopup='true' role='example' effect="solid">
+                                    <p>{topicNames[topic]}</p>
+                                </ReactTooltip>
+                            </div>
+                        ))}
+                    </div>
+                    {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) && (
+                        <div className="btnBox-opt2">
+                            <button className="bigbtn" onClick={() => removeSelCourse(course)} value="Fjern">Fjern</button>
+                        </div>
+                    )}
+                    {currentCourses.some(x => (x.name + x.term) === (course.name + course.term)) !== true && (
+                        <div className="btnBox-opt2">
+                            <button className={isSemesterFull(0, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, term, 0)} value="3">+3</button>
+                            <button className={isSemesterFull(1, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, term, 1)} value="4">+4</button>
+                            <button className={isSemesterFull(2, course.term) ? "btn-opt-opt2 fullCourseBtn" : "btn-opt-opt2"} onClick={() => addSelCourse(course, term, 2)} value="5">+5</button>
                         </div>
                     )}
                 </div>
@@ -454,9 +492,17 @@ const CoursePicker = props => {
 
                 let subcontentt = [];
                 value.forEach(function(course) {
-                    subcontentt.push(
-                        courseContent_opt2(course)
-                    )
+                    if (Array.isArray(course.term)) {
+                        course.term.forEach(term => {
+                            subcontentt.push(
+                                courseContent_opt2_with_term(course, term)
+                            )
+                        })
+                    } else {
+                        subcontentt.push(
+                            courseContent_opt2(course)
+                        )
+                    }
                 })
                 
                 contentt.push(
@@ -647,7 +693,7 @@ const CoursePicker = props => {
                             <a className="courseOverviewLink" href={"https://www.ntnu.no/studier/emner/" + course.name} rel="noopener noreferrer" target="_tab">
                                 {course.name} {course.subname} ({course.term == 0 ? 'høst' : 'vår'} {mandCourse.year == 0 ? '3.' : mandCourse.year == 1 ? '4.' : '5.'})
                             </a>
-                            <span data-tip data-for="courseAdd" className="courseOverviewRemove" onClick={() => addSelCourse(course, mandCourse.year)}><IoIosAddCircle size={18} /></span>
+                            <span data-tip data-for="courseAdd" className="courseOverviewRemove" onClick={() => addSelCourse(course, mandCourse.term, mandCourse.year)}><IoIosAddCircle size={18} /></span>
                             <ReactTooltip place="right" id="courseAdd" aria-haspopup='true' role='example' effect="solid">
                                 <p>Legg til</p>
                             </ReactTooltip>

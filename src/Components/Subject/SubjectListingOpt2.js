@@ -21,7 +21,7 @@ const SubjectListingOpt2 = props => {
             <div data-tip data-for={props.data.name}>
                 <a href={"https://www.ntnu.no/studier/emner/" + props.data.name} rel="noopener noreferrer" target="_tab"><p className="courseName-opt2">{props.data.name}</p></a>
                 <p className="courseSubname-opt2">{props.data.subname}</p>
-                <p className="courseTerm-opt2">{terms[props.data.term]}</p>
+                <p className="courseTerm-opt2">{terms[props.term]}</p>
             </div>
             <ReactTooltip place="left" className='extraClass' delayHide={100} id={props.data.name} aria-haspopup='true' role='example' effect="solid">
                 <p>{props.data.subname}</p>
