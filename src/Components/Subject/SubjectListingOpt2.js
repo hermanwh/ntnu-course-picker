@@ -17,14 +17,16 @@ import {
 
 const SubjectListingOpt2 = props => {
     return (
-        <div className="subjectListingParent" style={{'float':'left'}}>
+        <div style={{'overflow':'hidden', 'whiteSpace': 'nowrap', 'textOverflow':'ellipsis', 'paddingTop':'3px'}}>
             <div data-tip data-for={props.data.name}>
-                <a href={"https://www.ntnu.no/studier/emner/" + props.data.name} rel="noopener noreferrer" target="_tab"><p className="courseName-opt2">{props.data.name}</p>
-                <p className="courseSubname-opt2">{props.data.subname}</p>
-                <p className="courseTerm-opt2">{terms[props.term]}</p></a>
+                <a href={"https://www.ntnu.no/studier/emner/" + props.data.name} rel="noopener noreferrer" target="_tab" >
+                    <p style={{'overflow':'hidden', 'whiteSpace': 'nowrap', 'textOverflow':'ellipsis'}} className="courseName-opt2">
+                        {props.data.name} {props.data.subname}, {terms[props.term]}
+                    </p>
+                </a>
             </div>
             <ReactTooltip place="left" className='extraClass' delayHide={100} id={props.data.name} aria-haspopup='true' role='example' effect="solid">
-                <p>{props.data.subname}</p>
+                <p>{props.data.subname} ({terms[props.term]})</p>
                 <p>Anbefalt forkunnskap:</p>
                 {props.data.prerequisites.length > 0 && (
                     <ul>

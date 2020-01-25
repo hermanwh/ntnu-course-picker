@@ -1,3 +1,11 @@
+.react-alerts .alert .message {
+  text-transform: initial !important;
+}
+
+div {
+  text-transform: initial !important;
+}
+
 .btn-toolbar {
     display: block !important;
 }
@@ -173,6 +181,15 @@ p {
     overflow: hidden;
     white-space: nowrap;
     text-overflow:ellipsis;
+}
+
+.exportContent {
+  /*border-top: 1px solid #c2b3e5;
+  border-bottom: 1px solid #c2b3e5;*/
+  background-color: #171717;
+  color: #c2b3e5;
+  text-align: center;
+  padding-bottom: 40px;
 }
 
 .summaryContent {

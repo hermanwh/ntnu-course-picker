@@ -360,12 +360,12 @@ const CoursePicker = props => {
     function courseContent(course, term) {
         return (
             <div className="courseBox-opt2 col-12">
-                <SubjectListingOpt2
-                data={course}
-                courses={currentCourseNames}
-                term={term}
-                />
                 <div style={{'float':'right'}}>
+                    {false && (
+                        <p className="inlineBlock" style={{'paddingRight':'3px'}}>
+                            {terms[term]}
+                        </p>
+                    )}
                     <div className="courseTopics-opt2">
                         {course.topics.map(topic => (
                             <div className="topicsDiv-opt2">
@@ -389,6 +389,11 @@ const CoursePicker = props => {
                         </div>
                     )}
                 </div>
+                <SubjectListingOpt2
+                data={course}
+                courses={currentCourseNames}
+                term={term}
+                />
             </div>
         )
     }
@@ -424,7 +429,9 @@ const CoursePicker = props => {
                             {subcontentt}
                         </div>
                         <ReactTooltip id={"coursePickerTooltip"} aria-haspopup='true' role='example' effect="solid">
-                            <p>Legg til i plan</p>
+                            <div>
+                                <p>Legg til i plan</p>
+                            </div>
                         </ReactTooltip>
                         {value.length > 4 && (
                             <div style={{'textAlign':'center'}}>
@@ -710,22 +717,15 @@ const CoursePicker = props => {
                         <h3>Velg semester med utveksling</h3>
                         <div className="headerDiv">
                             <p>Høst: </p>
-                            <label className="switch" style={{'marginLeft':'5px', 'marginTop':'12px'}}>
+                            <label className="switch" style={{'marginLeft':'5px', 'marginTop':'12px', 'marginRight':'10px'}}>
                                 <input type="checkbox" />
                                 <span className="slider round" onClick={() => toggleAutumn()}/>
                             </label>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <p>Vår:</p>
+                            <p style={{'marginLeft':'10px'}}>Vår:</p>
                             <label className="switch" style={{'marginLeft':'5px', 'marginTop':'12px'}}>
                                 <input type="checkbox" />
                                 <span className="slider round" onClick={() => toggleSpring()}/>
                             </label>
-                        </div>
-                    </div>
-                    <div className="col-12" style={{'paddingTop':'10px'}}>
-                        <div className="button button-3">
-                            <div className="circle"></div>
-                            <button onClick={() => exportPdf()}>Eksporter oversikt</button>
                         </div>
                     </div>
                 </div>
@@ -862,6 +862,14 @@ const CoursePicker = props => {
                     </div>
                 )}
             </div>
+            </div>
+            <div className="container-fluid exportContent">
+                <div className="col-12" style={{'paddingTop':'10px'}}>
+                    <div className="button button-3">
+                        <div className="circle"></div>
+                        <button onClick={() => exportPdf()}>Eksporter oversikt</button>
+                    </div>
+                </div>
             </div>
             <div className="container-fluid buttonsContent">
                 <div className="row">

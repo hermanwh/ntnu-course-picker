@@ -12,10 +12,14 @@ import React from 'react';
 
 import { positions, Provider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import { initializeApp } from 'firebase-admin';
 
 const options = {
   timeout: 3500,
-  position: positions.BOTTOM_CENTER
+  position: positions.BOTTOM_CENTER,
+  containerStyle: {
+    zIndex: 100,
+  }
 };
 
 function App() {

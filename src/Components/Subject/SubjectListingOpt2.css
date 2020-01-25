@@ -1,5 +1,5 @@
 .courseBox-opt2 {
-    background-color: #656565;
+    background-color: #666666;
     background-clip: content-box;
     position: relative;
     border-radius: 3px;
@@ -7,21 +7,30 @@
     height: 34px;
 }
 
+.subjectListingParent {
+    display: inline-block !important;
+    overflow: hidden !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+}
+
 p.subjectListingParent {
     margin: 0 0 0 0 !important;
     padding: 2px 0px 2px 0px !important;
-    display: inline-block;
 }
 
 .btnBox-opt2 {
     display: inline-block; 
 }
 
+.inlineBlock {
+    display: inline-block;
+}
+
 .courseName-opt2 {
     font-size: 14px;
     color: white;
     font-family: Aldrich;
-    display: inline-block;
     margin-right: 5px !important;
     margin-left: 5px !important;
 }
