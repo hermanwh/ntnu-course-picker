@@ -44,7 +44,7 @@ function App() {
             <Route exact path="/coursePicker" render={props => <CoursePicker {...props} />} />
           </Switch>
           </div>
-
+          <hr className="style-two"></hr>
           <div className="footer">
             <Footer />
           </div>

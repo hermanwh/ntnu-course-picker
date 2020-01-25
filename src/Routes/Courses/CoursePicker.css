@@ -189,7 +189,7 @@ p {
   background-color: #171717;
   color: #c2b3e5;
   text-align: center;
-  padding-bottom: 40px;
+  padding-bottom: 50px;
 }
 
 .summaryContent {
@@ -213,8 +213,8 @@ p {
 .buttonsContent {
   background-color: #171717;
   color: #c2b3e5;
-  padding-top: 80px;
-  padding-bottom: 60px;
+  padding-top: 50px;
+  padding-bottom: 50px;
   text-align: center;
 }
 
@@ -544,6 +544,12 @@ margin-right: 0;
     border-radius: 50%;
   }
 
+
+hr.style-two {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(172, 147, 229, 0.75), rgba(0, 0, 0, 0));
+}
                 
 .button-3 {
   position: relative;

@@ -2,12 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Front.css";
 
 const Front = ({ match }) => {
-
     return (
         <div>
             <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
             <div className="container-fluid frontContent">
-                <div class="row">
+                <div className="row">
                     <div className="col-md-4 offset-md-4 col-8 offset-2">
                         <h3>Hei!</h3>
                         <h4>Du trenger ikke lese all denne kjedelige teksten hvis du ikke vil. Trykk på 'App' i menyen til venstre for å komme igang</h4>

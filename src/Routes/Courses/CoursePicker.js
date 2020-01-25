@@ -470,9 +470,9 @@ const CoursePicker = props => {
     function dbButtonMeny() {
         return (
             <div>
-                <div onClick={() => uploadButtonPressed()} className="button button-3">
+                <div className="button button-3">
                     <div className="circle"></div>
-                    <a>Lagre</a>
+                    <button onClick={() => uploadButtonPressed()}>Lagre planer</button>
                 </div>
             </div>
         )
@@ -490,6 +490,7 @@ const CoursePicker = props => {
             alert.error("Vennligst gi alle planer et annet navn enn 'Ny plan'");
         } else {
             uploadToDb(coursesCopy, `${firebase.auth().currentUser.uid}/selectedCourses.json`, storage);
+            setSelectedCoursesArray(coursesCopy);
         }
 
     }
@@ -505,8 +506,14 @@ const CoursePicker = props => {
             .then(response => response.json())
             .then(jsonData => {
                 setMethod(jsonData);
+                setSelectedCoursesArray(jsonData);
+                setSelectedCoursesWithSideEffects(jsonData[0][0]);
+                setCurrentPlanName(jsonData[0][2]);
+                setCurrentSpecialization(jsonData[0][3])
+                setCurrentActivePlanIndex(0);
             })
             .catch(error => {
+                console.log(error);
                 console.log("error");
             });
         })
@@ -565,6 +572,7 @@ const CoursePicker = props => {
         setSelectedCoursesArray(selectedCopy);
         setSelectedCoursesWithSideEffects(selectedCopy[0][0]);
         setCurrentPlanName(selectedCopy[0][2]);
+        setCurrentSpecialization(null);
         setCurrentActivePlanIndex(0);
     }
 
@@ -588,18 +596,17 @@ const CoursePicker = props => {
 
         return(
             <div className="col-md-8 offset-md-2">
-                <h6>Aktiv plan:</h6>
-                {header}
-                {contentt.length > 0 && (
-                    <h6 style={{'paddingTop':'8px'}}>Bytt til:</h6>
-                )}
-                <div className="flex-container" style={{'paddingTop':'5px'}}>
-                    {contentt}
-                </div>
-                <div className="button-3" style={{'marginTop':'10px'}}>
+                <div className="button-3">
                         <div className="circle"></div>
                         <button onClick={() => addNewPlan()}>Legg til tom plan</button>
                 </div>
+                {contentt.length > 0 && (
+                    <h6 style={{'paddingTop':'30px'}}>Bytt til:</h6>
+                )}
+                <div className="flex-container" style={{'paddingTop':'10px', 'paddingBottom':'40px'}}>
+                    {contentt}
+                </div>
+                
             </div>
         )
     }
@@ -676,8 +683,6 @@ const CoursePicker = props => {
     console.log("selectedCoursesArray:", selectedCoursesArray);
     console.log("ActiveCoursesList", activeCoursesList);
 
-    // currentCourses.map(x => x.topics).flat().reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map()).forEach((key, value) => console.log(key, value))
-    // <p>Exchange spring: {exchangeSpring}</p><button onClick={() => toggleSpring()}>{exchangeSpring ? "On" : "Off"}</button>
     return (
         <div>
             <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
@@ -690,22 +695,34 @@ const CoursePicker = props => {
                 )}
             </div>
             <div className="container-fluid headerContent">
-                {isLoggedIn && (
-                    <div style={{'color':'white'}}>
-                        Hei, {firebase.auth().currentUser.email.split('@')[0]}!
+                {(joining || loggingIn) && (
+                    <div className="row">
+                        <div className="col-lg-10 offset-lg-1">
+                            {firebaseContent()}
+                        </div>
                     </div>
                 )}
-                <div className="row">
-                    <div className="col-lg-10 offset-lg-1">
-                        {firebaseContent()}
-                    </div>
-                </div>
                 {isLoggedIn && (
-                    <div className="row" style={{'marginTop':'0px', 'marginBottom':'20px'}}>
+                    <div className="row" style={{'marginTop':'10px'}}>
+                        <div className="col-12"  style={{'color':'white', 'paddingBottom':'10px'}}>
+                            Hei, {firebase.auth().currentUser.email.split('@')[0]}!
+                        </div>
+                        <div className="col-12">
+                            <h6>Navngi aktiv plan:</h6>
+                            <div className="css-yk16xz-control" style={{'width':'200px', 'margin':'0 auto', 'marginTop':'10px', 'marginBottom':'10px'}}>
+                                <input id="planNameInputId" className="planNameInput" value={currentPlanName === "Ny plan" ? "" : currentPlanName} placeholder="Skriv inn..." onChange={() => planNameChanged()}></input>
+                            </div>
+                        </div>
+                        <div className="col-12">
+                            {dbButtonMeny()}
+                        </div>
                         <div className="col-12" style={{'paddingTop':'10px'}}>
                             {planContent()}
                         </div>
                     </div>
+                )}
+                {(isLoggedIn || joining || loggingIn) && (
+                    <hr className="style-two"></hr>
                 )}
                 <div className="row" style={{'paddingTop':'40px'}}>
                     <div className="col-12">
@@ -848,19 +865,6 @@ const CoursePicker = props => {
                         </div>
                     </div>
                 </div>
-                {isLoggedIn && (
-                    <div className="row" style={{'marginTop':'40px'}}>
-                        <div className="col-12">
-                            <h6>Navngi plan:</h6>
-                            <div className="css-yk16xz-control" style={{'width':'200px', 'margin':'0 auto', 'marginTop':'10px', 'marginBottom':'10px'}}>
-                                <input id="planNameInputId" className="planNameInput" value={currentPlanName === "Ny plan" ? "" : currentPlanName} placeholder="Skriv inn..." onChange={() => planNameChanged()}></input>
-                            </div>
-                        </div>
-                        <div className="col-12" style={{'paddingTop':'10px'}}>
-                            {dbButtonMeny()}
-                        </div>
-                    </div>
-                )}
             </div>
             </div>
             <div className="container-fluid exportContent">
@@ -871,6 +875,7 @@ const CoursePicker = props => {
                     </div>
                 </div>
             </div>
+            <hr className="style-two"></hr>
             <div className="container-fluid buttonsContent">
                 <div className="row">
                     <div className="col-12">
