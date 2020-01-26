@@ -27,7 +27,7 @@ const TiltedAxisTick = (props) => {
 
 export const Chart = (data) => (
     <BarChart
-        width={500}
+        width={600}
         height={300}
         data={data}
         margin={{

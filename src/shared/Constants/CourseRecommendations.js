@@ -1,7 +1,7 @@
 const recommendedCoursesMaskin = {
-    h0: ['tma4130', 'tpk4125', 'tmm4135'],
+    h0: ['tpk4125', 'tmm4135'],
     v0: ['ttk4105', 'tmm4155'],
-    h1: ['ttk4150'],
+    h1: [],
     v1: [],
     h2: [], 
     v2: [],
@@ -16,32 +16,35 @@ const recommendedCoursesKybernetikk = {
     v2: [],
 }
 
-const recommendedCoursesData = {
-    h0: ['tdt4165', 'tdt4136'],
-    v0: ['tdt4171', 'tdt4240'],
+const recommendedCoursesML = {
+    h0: ['tdt4136'],
+    v0: ['tdt4171', 'tdt4240', 'tdt4300'],
     h1: ['tdt4173'],
-    v1: ['tdt4237'],
+    v1: ['tdt4265'],
     h2: [], 
     v2: [],
 }
 
-const recommendedCoursesOther = {
-    h0: [],
-    v0: [],
+const recommendedCoursesDatabase = {
+    h0: ['tdt4117', 'tdt4225'],
+    v0: ['tdt4150', 'tdt4305', 'tdt4300'],
     h1: [],
     v1: [],
     h2: [], 
     v2: [],
 }
 
+
+const recommendedCoursesOther = null;
+
 export function recommendedCourses(topic) {
     switch(topic) {
-        case 0:
-            return recommendedCoursesData
         case 1:
-            return recommendedCoursesKybernetikk;
+            return recommendedCoursesML;
         case 2:
-            return recommendedCoursesMaskin;
+            return recommendedCoursesDatabase;
+        case 11:
+            return recommendedCoursesKybernetikk;
         default:
             return recommendedCoursesOther;
     }

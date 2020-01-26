@@ -914,7 +914,7 @@ const CoursePicker = props => {
                             />
                             )
                             }
-                            <h4 style={{'marginBottom':'20px'}}>NB: veldig subjektivt/eksperimentelt</h4>
+                            <h4 style={{'marginBottom':'20px'}}>NB: veldig subjektivt/eksperimentelt/halvferdig</h4>
                         </div>
                     </div>
                 </div>
