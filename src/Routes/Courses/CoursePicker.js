@@ -172,8 +172,6 @@ const CoursePicker = props => {
     }
 
     function addSelCourse(course, term, year) {
-        console.log("In selCourse");
-        console.log(course);
         let index = year*2 + term;
         const maxlen = index == 4 ? 2 : 4;
 
@@ -189,6 +187,18 @@ const CoursePicker = props => {
         } else {
             addSelectedCourse(course, index, maxlen);
         }
+    }
+
+    function addSelCourseUnconditional(course, term, year) {
+        let index = year*2 + term;
+        const maxlen = index == 4 ? 2 : 4;
+
+        if (index === 5) {
+            alert.error("Ingen fag valgte semester");
+            return;
+        }
+
+        addSelectedCourse(course, index, maxlen);
     }
 
     function submit(course, index, maxlen, courses) {
@@ -627,7 +637,7 @@ const CoursePicker = props => {
         })
         mandCourses.forEach(function(crs) {
             const course = courses[crs.name];
-            addSelCourse(course, crs.term, crs.year);
+            addSelCourseUnconditional(course, crs.term, crs.year);
         })
     }
 
@@ -684,7 +694,7 @@ const CoursePicker = props => {
     console.log("ActiveCoursesList", activeCoursesList);
 
     return (
-        <div>
+        <div className="mainContentWrapper">
             <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
             <div className="subMenu">
                 {!isLoggedIn && (

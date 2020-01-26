@@ -40,7 +40,6 @@ function App() {
           <Switch>
             <Route exact path="/" render={props => <Front {...props} />} />
             <Route exact path="/ntnu-course-picker/" render={props => <Front {...props} />} />
-            <Route exact path="/courseSummary" render={props => <Summary {...props} />} />
             <Route exact path="/coursePicker" render={props => <CoursePicker {...props} />} />
           </Switch>
           </div>

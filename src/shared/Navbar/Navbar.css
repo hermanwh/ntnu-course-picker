@@ -19,7 +19,7 @@ background: #2963f6;
   text-align: left;
 }
 
-a {
+.NavbarWrapper a {
   color: white !important;
   text-decoration: none !important;
 }

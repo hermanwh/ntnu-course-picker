@@ -82,3 +82,7 @@ pointer-events: auto !important;
 .activeCourse {
     color: green;
 }
+
+.activeCourse a {
+    color: green !important;
+}

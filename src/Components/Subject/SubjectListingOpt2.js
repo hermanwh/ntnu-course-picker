@@ -32,7 +32,7 @@ const SubjectListingOpt2 = props => {
                     <ul>
                         {
                             props.data.prerequisites.map(prereq => (
-                                <li key={props.data.name + prereq} className={props.courses.includes(prereq.toUpperCase()) ? 'activeCourse' : ''}>{prereq.toUpperCase()}</li>
+                                <li key={props.data.name + prereq} className={props.courses.includes(prereq.toUpperCase()) ? 'activeCourse' : ''}><a href={"https://www.ntnu.no/studier/emner/" + prereq.toUpperCase()} rel="noopener noreferrer" target="_tab">{prereq.toUpperCase()}</a></li>
                             ))
                         }
                     </ul>

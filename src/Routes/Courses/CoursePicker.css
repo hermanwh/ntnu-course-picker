@@ -667,4 +667,12 @@ hr.style-two {
   background: rgb(97, 81, 134);
 }
 
+.subMenu h5:hover {
+    color: white !important;
+    text-decoration: none !important;
+}
 
+.mainContentWrapper a {
+  color: white !important;
+  text-decoration: none !important;
+}
