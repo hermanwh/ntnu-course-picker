@@ -33,16 +33,6 @@ const Front = ({ match }) => {
                         <h4>5.3 Legg til fag i fagplanen</h4>
                         <p>Bruk knappene på hvert enkelt fag til å legge faget inn i fagplanen på det aktuelle årskullet</p>
                         <p>Semester (høst/vår) velges automatisk ut fra fagets semester indikert nede i venstre hjørne</p>
-                        <br></br>
-                        <h3>Appen er under utvikling, og tilbakemeldinger tas imot med takk!</h3>
-                        <p>Ta kontakt med hermanwh på stud-mail, eller send melding på Facebook :)</p>
-                        <br></br>
-                        <p>På sikt er tanken å legge til blant annet:</p>
-                        <p>- Fagforslag basert på interesser, f.eks med ferdig utfylte anbefalte fag etc.</p>
-                        <p>- Bedre og mer oversiktlig design, spesielt for faglisten</p>
-                        <p>- Vurderingssystem mm.</p>
-                        <p>- Karakterstatistikk</p>
-                        <p>- Hva enn som måtte komme av forslag</p>
                     </div>
                 </div>
             </div>
